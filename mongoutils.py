@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 import pymongo
-import hashlib, authy
+import hashlib
 import simplejson, urllib2
 
 connection = MongoClient()
@@ -460,25 +460,6 @@ def getNearbyRestaurants(lat,lng):
 '''
 ________________________________Changing_______________________________________
 '''
-
-'''
-Adds a restaurant to the database using information from the Yelp API
-Also adds the location, name, phone, and rating
-
-Args:
-    yelpid: string id used by Yelp to identify a restaurant
-    
-Returns:
-    none
-'''
-def addRestaurant(yelpid):
-    print yelpid+'this'
-    i = authy.get_business(yelpid)
-    if 'error' in i:
-        return
-    if 'phone' not in i:
-        i['phone'] = ''
-    restsc.insert({'_id':i['id'], 'name':i['name'], 'phone':i['phone'], 'address':[i['location']['address'][0],i['location']['city'],i['location']['state_code'],i['location']['postal_code'],i['location']['coordinate']], 'rating':i['rating']})
 
 '''
 -------------------------------------------------------------------------------

@@ -60,7 +60,10 @@ def home():
     if 'user' not in session:
         return redirect ("/login")
     return render_template("home.html",user=user,json=jason,rests=jason,location=location)
- 
+
+@app.route("/bracket")
+def bracket():
+    return render_template("bracket.html")
 
 if __name__ == '__main__':
     app.secret_key = "hello"
