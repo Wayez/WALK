@@ -7,8 +7,8 @@
 <tr><td>Katherine Gershfeld</td></tr>
 <tr><td>Alex Sosnovsky</td></tr>
 <tr><td>Liam Daly</td></tr>
+</table>
 
-<b>Discription:</b>
 
 <b>To Do List:</b>
 <ul>
