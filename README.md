@@ -1,5 +1,5 @@
 # WALK
-<h3>Softdev 2 Final Project<h3>
+<h3>Softdev 2 Final Project</h3>
 
 <table>
 <tr><th>Members</th></tr>
@@ -14,7 +14,8 @@
 <ul>
 <li>Login system with multiple types of users that have different rights.</li>
 <li>Brackets visual that can represent double elimination and round roulette tournaments.</li>
-<li>Efficient user interface that allows for up to date scoring during live events.<li>
-<li>Mobile or email notifications.</li>
+<li>Efficient user interface that allows for up to date scoring during live events.</li>
+<li>Mobile or email notifications to users.</li>
+<li>Overall visual representation of the event, including a map of the area displaying where every game is being played</li>
 </ul>
 
