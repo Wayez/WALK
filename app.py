@@ -7,7 +7,7 @@ import json
 app = Flask(__name__)
 
 
-@app.route("/", methods = ['GET','POST'])
+'''@app.route("/", methods = ['GET','POST'])
 @app.route("/login", methods = ['GET','POST'])
 def login():
     all_rows = mongoutils.getAllUsers()
@@ -47,7 +47,12 @@ def login():
                 session['user'] = user
                 return redirect("/home")
     return render_template("index.html") #login failed
+'''
 
+@app.route("/")
+def admin():
+    # enter teams and stuff
+    return render_template("admin.html")
         
 @app.route("/logout")
 def logout():
