@@ -1,21 +1,23 @@
 # WALK
-<h3>Softdev 2 Final Project</h3>
+Softdev 2 Final Project
 
-<table>
-<tr><th>Members</th></tr>
-<tr><td>Wayez Chowdhury</td></tr>
-<tr><td>Katherine Gershfeld</td></tr>
-<tr><td>Alex Sosnovsky</td></tr>
-<tr><td>Liam Daly</td></tr>
-</table>
+###About
+Science Bowl tournament management system
 
+####Installing / Running
+Do some stuff
 
-<b>To Do List:</b>
-<ul>
-<li>Login system with multiple types of users that have different rights.</li>
-<li>Brackets visual that can represent double elimination and round roulette tournaments.</li>
-<li>Efficient user interface that allows for up to date scoring during live events.</li>
-<li>Mobile or email notifications to users.</li>
-<li>Overall visual representation of the event, including a map of the area displaying where every game is being played</li>
-</ul>
+####Collaborators
+|      **Member**     |               **Github**                    |
+|---------------------|---------------------------------------------|
+|Wayez Chowdhury      | [`@wayez`](https://github.com/wayez)        |
+|Sandy Fang           | [`@ldalynyc`](https://github.com/ldalynyc)  |
+|Katherine Gershfeld  | [`@kagers`](https://github.com/kagers)      |
+|Alexander Sosnovsky  | [`@atrp--`](https://github.com/atrp--)      |
 
+####To Do List
+- Login system with multiple types of users that have different rights
+- Brackets visual that can represent double elimination and round robin tournaments
+- Efficient user interface that allows for up to date scoring during live events
+- Mobile or email notifications to users
+- Overall visual representation of the event, including a map of the area displaying where every game is being played
