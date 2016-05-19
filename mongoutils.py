@@ -30,13 +30,20 @@ Returns:
     True if both match
     False otherwise
 '''
-def authenticate(username,password):
+def authenticateU(username,password):
     result = list(usersc.find({'name':username}))
     for r in result:
         if(encrypt(password) == r['password']):
             return True
     return False
 
+def authenticateA(username,password):
+    result = list(adminsc.find({'name':username}))
+    for r in result:
+        if(encrypt(password) == r['password']):
+            return True
+    return False
+    
 '''
 Gets the id that corresponds to a username
 
@@ -78,9 +85,9 @@ Returns:
 def getAllUsers():
     return list(usersc.find())
 
-'''
-________________________________Changing_______________________________________
-'''
+def getAllAdmins():
+    return list(adminsc.find())
+
 
 '''
 Registers a user into the database
@@ -105,6 +112,20 @@ def addUser(username,password,email):
         password = encrypt(password)
         r = {'_id':idu, 'name':username, 'password':password, 'email':email}
         usersc.insert(r)
+        return True
+    return False
+
+def addAdmin(username,password,email):
+    if adminsc.find_one({'name':username}) == None:
+        us = getAllAdmins()
+        if len(us)==0:
+            ida = 1
+        else:
+            n = adminsc.find_one(sort=[('_id',-1)])
+            ida = int(n['_id'])+1    
+        password = encrypt(password)
+        r = {'_id':ida, 'name':username, 'password':password, 'email':email}
+        adminsc.insert(r)
         return True
     return False
 

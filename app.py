@@ -7,7 +7,6 @@ import json
 app = Flask(__name__)
 
 
-'''@app.route("/", methods = ['GET','POST'])
 @app.route("/login", methods = ['GET','POST'])
 def login():
     all_rows = mongoutils.getAllUsers()
@@ -18,15 +17,12 @@ def login():
         print 'a'
         error = ""
         print request.form
-        if request.form['location'] != '':
-            session['lati'] = json.loads(request.form['location'])['latitude']
-            session['longi'] = json.loads(request.form['location'])['longitude']
         if request.form.has_key('login'):
             user = str(request.form['user'])
             password = str(request.form['pass'])
             if mongoutils.authenticate(user,password):
                 session['user'] = user
-                return redirect("/home")
+                return redirect("/bracket")
             else:
                 error = "Incorrect Username or Password. Try Again."
                 return render_template("index.html",error=error)            
@@ -64,7 +60,7 @@ def logout():
 def home():
     if 'user' not in session:
         return redirect ("/login")
-    return render_template("home.html",user=user,json=jason,rests=jason,location=location)
+    return render_template("home.html")
 
 @app.route("/bracket")
 def bracket():
