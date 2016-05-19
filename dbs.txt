@@ -1,0 +1,12 @@
+database walk
+
+    collections
+    
+        users  (users)
+            id, name, password, tournament ids
+            
+        admins (administrators)
+            id, name, password
+            
+        tourns (tournaments)
+            id, name, teams, results, admin id 
