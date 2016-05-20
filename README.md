@@ -11,7 +11,7 @@ Do some stuff
 |      **Member**     |               **Github**                    |
 |---------------------|---------------------------------------------|
 |Wayez Chowdhury      | [`@wayez`](https://github.com/wayez)        |
-|Sandy Fang           | [`@ldalynyc`](https://github.com/ldalynyc)  |
+|Liam Daly            | [`@ldalynyc`](https://github.com/ldalynyc)  |
 |Katherine Gershfeld  | [`@kagers`](https://github.com/kagers)      |
 |Alexander Sosnovsky  | [`@atrp--`](https://github.com/atrp--)      |
 
