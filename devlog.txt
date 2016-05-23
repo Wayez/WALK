@@ -1,0 +1,17 @@
+05-16-2016
+    Started implementing bracket view
+
+05-17-2016
+    Successfully implemented bracket view
+
+05-18-2016
+    Started login
+
+05-19-2016
+    More login, templates
+
+05-22-2016
+    Backend of login, some more backend functions and skeletons
+
+05-23-2016
+    
