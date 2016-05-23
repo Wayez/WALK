@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/login", methods = ['GET','POST'])
 def login():
-    all_rows = mongoutils.getAllUsers()
+    all_rows = mongoutils.getAllAdmins()
     for n in range(len(all_rows)):
         all_rows[n] = all_rows[n]['name']
     print all_rows
@@ -20,9 +20,10 @@ def login():
         if request.form.has_key('login'):
             user = str(request.form['user'])
             password = str(request.form['pass'])
-            if mongoutils.authenticate(user,password):
+            print '5'
+            if mongoutils.authenticateA(user,password):
                 session['user'] = user
-                return redirect("/bracket")
+                return redirect("/home")
             else:
                 error = "Incorrect Username or Password. Try Again."
                 return render_template("index.html",error=error)            
@@ -39,17 +40,12 @@ def login():
             else:
                 print '4'
                 message = "Account Created!"
-                mongoutils.addUser(user,password,email)
+                mongoutils.addAdmin(user,password,email)
                 session['user'] = user
                 return redirect("/home")
     return render_template("index.html") #login failed
-'''
 
-@app.route("/")
-def admin():
-    # enter teams and stuff
-    return render_template("admin.html")
-        
+
 @app.route("/logout")
 def logout():
     del session['user']
@@ -60,7 +56,7 @@ def logout():
 def home():
     if 'user' not in session:
         return redirect ("/login")
-    return render_template("home.html")
+    return render_template("newtourn.html")
 
 @app.route("/bracket")
 def bracket():
