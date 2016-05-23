@@ -6,6 +6,8 @@ Science Bowl tournament management system
 
 ####Installing / Running
 Do some stuff
+Flask
+Mongo
 
 ####Collaborators
 |      **Member**     |               **Github**                    |
@@ -21,3 +23,6 @@ Do some stuff
 - Efficient user interface that allows for up to date scoring during live events
 - Mobile or email notifications to users
 - Overall visual representation of the event, including a map of the area displaying where every game is being played
+
+####Credits
+[JQuery Brackets](https://github.com/teijo/jquery-bracket)
