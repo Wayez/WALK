@@ -42,7 +42,7 @@ def login():
                 message = "Account Created!"
                 mongoutils.addAdmin(user,password,email)
                 session['user'] = user
-                return redirect("/home")
+                return redirect("/admin")
     return render_template("index.html") #login failed
 
 
@@ -52,10 +52,14 @@ def logout():
     return redirect("/login")
 
 
-@app.route("/home", methods = ['GET','POST'])
+@app.route("/admin", methods = ['GET','POST'])
 def home():
     if 'user' not in session:
         return redirect ("/login")
+    if request.method == 'POST':
+        print request.form
+        #send info
+        return redirect("/bracket")
     return render_template("newtourn.html")
 
 @app.route("/bracket")
