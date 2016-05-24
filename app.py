@@ -58,12 +58,14 @@ def home():
         return redirect ("/login")
     if request.method == 'POST':
         print request.form
-        #send info
+        #mongoutils.createTourn(stuff)
         return redirect("/bracket")
     return render_template("newtourn.html")
 
 @app.route("/bracket")
 def bracket():
+    if 'user' not in session:
+        return redirect ("/login")
     return render_template("bracket.html")
 
 if __name__ == '__main__':

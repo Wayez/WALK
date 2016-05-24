@@ -14,4 +14,7 @@
     Backend of login, some more backend functions and skeletons
 
 05-23-2016
-    
+    Button to add more teams
+
+05-24-2016
+        

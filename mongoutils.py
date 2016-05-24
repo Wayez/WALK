@@ -71,7 +71,7 @@ def getUserName(uid):
     if result != None:
         return result
     else:
-	return {'error':'User Not Found'}
+        return {'error':'User Not Found'}
 
 '''
 Gets all users that are registered in the database
@@ -157,9 +157,28 @@ def encrypt(word):
 -------------------------------------------------------------------------------
 '''
 
-def getTourn():
-    pass
+def getTourn(ida):
+    result = tournsc.find_one({'aid':ida},{'_id':1})
+    return result['_id']
 
-def createTourn():
-    pass
+def getAllTourns(tid):
+    return list(tournsc.find())
 
+def createTourn(name, teams, results, ida):
+    if tournsc.find_one({'name':name}) == None:
+        ts = getAllTourns()
+        if len(ts)==0:
+            idt = 1
+        else:
+            n = tournsc.find_one(sort=[('_id',-1)])
+            idt = int(n['_id'])+1    
+        password = encrypt(password)
+        r = {'_id':idt, 'name':name, 'teams':teams,
+             'aid':ida, 'results':results}
+        tournsc.insert(r)
+        return True
+    return False
+
+def getTeams(tid):
+    result = tournsc.find_one({'_id':tid}, {'teams':1})
+    return result['teams']
