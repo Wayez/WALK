@@ -1,42 +1,32 @@
 <html>
     <head>
       <script type="text/javascript">
+	var i = 2;
 	function addFields(){
-        // Number of inputs to create
-        var number = document.getElementById("member").value;
-        // Container <div> where dynamic content will be placed
-          var container = document.getElementById("container");
-          // Clear previous contents of the container
-          while (container.hasChildNodes()) {
-          container.removeChild(container.lastChild);
+	    var newdiv = document.createElement("div");
+	    newdiv.innerHTML = "<input type='text' name='name"+i+"' placeholder='Team "+i+"'><br>";
+	    i++;
+	    document.getElementById("teams").appendChild(newdiv);
           }
-          for (i=0;i<number;i++){
-                       // Append a node with a random text
-                       container.appendChild(document.createTextNode("Member " + (i+1)));
-                       // Create an <input> element, set its type and name attributes
-                       var input = document.createElement("input");
-                       input.type = "text";
-                       input.name = "member" + i;
-                container.appendChild(input);
-                // Append a line break 
-                container.appendChild(document.createElement("br"));
-            }
-        }
-	    </script>
+	</script>
     </head>
     <body>
         <form method="POST">
 	    Tournament Name<br>
-	    <input type="text" name="name"><br>
+	    <input type="text" name="name"><br><br>
 
-	    Teams<br>
-	    <div id = "teams">
-	      <input type="text" name="name"><br>
-	      <input type="text" name="name"><br>
-	      <button id="add" value="Add" onclick="addFields()"><br><br>
-	    </div>
+	    Teams 
+	    <button id="add" value="Add" onclick="addFields(); return false;">
+	      Add</button><br>
 	    
-
+	    <div id = "teams">
+	        <div id="entry">
+		  <input type="text" name="name0" placeholder="Team 0"><br>
+		</div>
+		<div id="entry">
+	          <input type="text" name="name1" placeholder="Team 1"><br>
+		</div>
+	    </div>
 	    <input type="submit" value="Submit">
 	</form>
     </body>
