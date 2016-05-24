@@ -180,5 +180,5 @@ def createTourn(name, teams, results, ida):
     return False
 
 def getTeams(tid):
-    result = tournsc.find_one({'_id':tid}, {'teams':1})
+    result = tournsc.find_one({'_id':tid},{'teams':1})
     return result['teams']
