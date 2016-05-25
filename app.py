@@ -59,11 +59,11 @@ def home():
         	while not str(request.form['name' + numTeam]) is None:
         		teams.append(request.form['name' + numTeam])
         		numTeam = numTeam + 1
-        	results = 0
+        	results = []
         	ida = random.randint(0, 10000)
         	while not mongoutils.getTourn(ida) is None:
         		ida = random.randint(0, 10000)
-        	if mongoutils.createTourn(name, teams, results, ida):
+            if mongoutils.createTourn(name, teams, results, ida):
         		return redirect("/bracket")
         	else: #tournament name taken
         		return render_template("newtourn.html")

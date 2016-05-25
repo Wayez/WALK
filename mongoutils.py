@@ -161,7 +161,7 @@ def getTourn(ida):
     result = tournsc.find_one({'aid':ida},{'_id':1})
     return result['_id']
 
-def getAllTourns(tid):
+def getAllTourns():
     return list(tournsc.find())
 
 def createTourn(name, teams, results, ida):
@@ -172,7 +172,6 @@ def createTourn(name, teams, results, ida):
         else:
             n = tournsc.find_one(sort=[('_id',-1)])
             idt = int(n['_id'])+1    
-        password = encrypt(password)
         r = {'_id':idt, 'name':name, 'teams':teams,
              'aid':ida, 'results':results}
         tournsc.insert(r)
@@ -182,3 +181,5 @@ def createTourn(name, teams, results, ida):
 def getTeams(tid):
     result = tournsc.find_one({'_id':tid},{'teams':1})
     return result['teams']
+
+createTourn("hi","h", "i",432)
