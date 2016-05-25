@@ -57,6 +57,10 @@ def getUserId(username):
     result = usersc.find_one({'name':username},{'_id':1})
     return result['_id']
 
+def getAdminId(username):
+    result = adminsc.find_one({'name':username},{'_id':1})
+    return result['_id']
+
 '''
 Gets the username that corresponds to a user id
 
@@ -165,13 +169,14 @@ def getAllTourns():
     return list(tournsc.find())
 
 def createTourn(name, teams, results, ida):
+    print tournsc.find_one({'name':name})
     if tournsc.find_one({'name':name}) == None:
         ts = getAllTourns()
         if len(ts)==0:
             idt = 1
         else:
             n = tournsc.find_one(sort=[('_id',-1)])
-            idt = int(n['_id'])+1    
+            idt = int(n['_id'])+1
         r = {'_id':idt, 'name':name, 'teams':teams,
              'aid':ida, 'results':results}
         tournsc.insert(r)
@@ -182,4 +187,4 @@ def getTeams(tid):
     result = tournsc.find_one({'_id':tid},{'teams':1})
     return result['teams']
 
-createTourn("hi","h", "i",432)
+#createTourn("hi","h", "i",432)

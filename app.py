@@ -52,22 +52,24 @@ def home():
         return redirect ("/login")
     if request.method == 'POST':
         print request.form
-        if request.form.has_key('submit'):
+        if request.form.has_key('create'):
             name = str(request.form['name'])
             teams = []
             numTeam = 0
-            while not str(request.form['name' + numTeam]) is None:
-                teams.append(request.form['name' + numTeam])
-                numTeam = numTeam + 1
             results = []
-            ida = random.randint(0, 10000)
-            while not mongoutils.getTourn(ida) is None:
-                ida = random.randint(0, 10000)
+            ida = mongoutils.getAdminId(session['user'])
+            req = {}
+            # transfer it otherwise theres a bad request error
+            for x in request.form:
+                req[x]=request.form[x]
+            # getting all the teams out
+            while req.has_key('name' + str(numTeam)):
+                teams.append(req['name' + str(numTeam)])
+                numTeam += 1
             if mongoutils.createTourn(name, teams, results, ida):
                 return redirect("/bracket")
             else:
                 return render_template("newtourn.html")
-        #mongoutils.createTourn(stuff)
     return render_template("newtourn.html")
 
 @app.route("/bracket")
