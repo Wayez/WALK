@@ -17,4 +17,4 @@
     Button to add more teams
 
 05-24-2016
-        
+    Backend funtions to update database with new tournaments    
