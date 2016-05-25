@@ -3,6 +3,7 @@ from flask import redirect, url_for
 from datetime import datetime
 import mongoutils
 import json
+import random
 
 app = Flask(__name__)
 
@@ -45,21 +46,28 @@ def login():
                 return redirect("/admin")
     return render_template("index.html") #login failed
 
-
-@app.route("/logout")
-def logout():
-    del session['user']
-    return redirect("/login")
-
-
 @app.route("/admin", methods = ['GET','POST'])
 def home():
     if 'user' not in session:
         return redirect ("/login")
     if request.method == 'POST':
         print request.form
+        if request.form.has_key('submit'):
+        	name = str(request.form['name'])
+        	teams = []
+        	numTeam = 0
+        	while not str(request.form['name' + numTeam]) is None:
+        		teams.append(request.form['name' + numTeam])
+        		numTeam = numTeam + 1
+        	results = 0
+        	ida = random.randint(0, 10000)
+        	while not mongoutils.getTourn(ida) is None:
+        		ida = random.randint(0, 10000)
+        	if mongoutils.createTourn(name, teams, results, ida):
+        		return redirect("/bracket")
+        	else: #tournament name taken
+        		return render_template("newtourn.html")
         #mongoutils.createTourn(stuff)
-        return redirect("/bracket")
     return render_template("newtourn.html")
 
 @app.route("/bracket")
@@ -67,6 +75,12 @@ def bracket():
     if 'user' not in session:
         return redirect ("/login")
     return render_template("bracket.html")
+    
+@app.route("/logout")
+def logout():
+    del session['user']
+    return redirect("/login")
+
 
 if __name__ == '__main__':
     app.secret_key = "hello"
