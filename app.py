@@ -24,7 +24,7 @@ def login():
             print '5'
             if mongoutils.authenticateA(user,password):
                 session['user'] = user
-                return redirect("/home")
+                return redirect("/admin")
             else:
                 error = "Incorrect Username or Password. Try Again."
                 return render_template("index.html",error=error)            
@@ -53,20 +53,20 @@ def home():
     if request.method == 'POST':
         print request.form
         if request.form.has_key('submit'):
-        	name = str(request.form['name'])
-        	teams = []
-        	numTeam = 0
-        	while not str(request.form['name' + numTeam]) is None:
-        		teams.append(request.form['name' + numTeam])
-        		numTeam = numTeam + 1
-        	results = []
-        	ida = random.randint(0, 10000)
-        	while not mongoutils.getTourn(ida) is None:
-        		ida = random.randint(0, 10000)
+            name = str(request.form['name'])
+            teams = []
+            numTeam = 0
+            while not str(request.form['name' + numTeam]) is None:
+                teams.append(request.form['name' + numTeam])
+                numTeam = numTeam + 1
+            results = []
+            ida = random.randint(0, 10000)
+            while not mongoutils.getTourn(ida) is None:
+                ida = random.randint(0, 10000)
             if mongoutils.createTourn(name, teams, results, ida):
-        		return redirect("/bracket")
-        	else: #tournament name taken
-        		return render_template("newtourn.html")
+                return redirect("/bracket")
+            else:
+                return render_template("newtourn.html")
         #mongoutils.createTourn(stuff)
     return render_template("newtourn.html")
 
