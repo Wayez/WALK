@@ -54,17 +54,20 @@ def login():
     return render_template("index.html") #login failed
     
 
-@app.route("/user", methods = ['GET', 'POST'])
+@app.route("/competitor", methods = ['GET', 'POST'])
 def home_user():
 	if 'user' not in session:
         return redirect ("/login")
-	
-	
-	
+    return render_template("comp.html")
+
 @app.route("/admin", methods = ['GET','POST'])
-def home():
+def create_tourn():
     if 'user' not in session:
         return redirect ("/login")
+    user = session['user']
+	admins = getAllAdmins()
+	if user not in admins:
+		return redirect("/competitor")
     if request.method == 'POST':
         print request.form
         if request.form.has_key('create'):
