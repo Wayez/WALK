@@ -92,6 +92,8 @@ def getAllUsers():
 def getAllAdmins():
     return list(adminsc.find())
 
+def getAll():
+	return getAllAdmins() + getAllUsers()
 
 '''
 Registers a user into the database

@@ -10,10 +10,6 @@ app = Flask(__name__)
 
 @app.route("/login", methods = ['GET','POST'])
 def login():
-    all_rows = mongoutils.getAllAdmins()
-    for n in range(len(all_rows)):
-        all_rows[n] = all_rows[n]['name']
-    print all_rows
     if request.method == 'POST':
         print 'a'
         error = ""
@@ -33,9 +29,11 @@ def login():
                 error = "Incorrect Username or Password. Try Again."
                 return render_template("index.html",error=error)            
         if request.form.has_key('register'):
+        	all_rows = mongoutils.getAll()
+    		for n in range(len(all_rows)):
+        		all_rows[n] = all_rows[n]['name']
+    		print all_rows
             print '1'
-            user = str(request.form['reguser'])
-            password = str(request.form['regpass'])
             email = str(request.form['email'])
             print '2'
             if user in all_rows:
@@ -45,8 +43,13 @@ def login():
             else:
                 print '4'
                 message = "Account Created!"
-                mongoutils.addAdmin(user,password,email)
                 session['user'] = user
+                if user_type == "admin":
+                	mongoutils.addAdmin(user,password,email)
+                	return redirect("/admin")
+                else:
+                	mongoutils.addUser(user, password, email)
+                	return redirect("/competitor")
                 return redirect("/admin")
     return render_template("index.html") #login failed
     
