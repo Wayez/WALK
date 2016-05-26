@@ -76,7 +76,8 @@ def create_tourn():
     if 'user' not in session:
         return redirect ("/login")
     user = session['user']
-    admins = mongoutils.findAdmins()
+    print user
+    admins = mongoutils.findAdmin(user)
     print admins
     if admins==None:
     	return redirect("/competitor")
