@@ -17,4 +17,8 @@
     Button to add more teams
 
 05-24-2016
-    Backend funtions to update database with new tournaments    
+    Backend funtions to update database with new tournaments 
+    
+05-25-2016
+	Finished backend functions that create new tournaments
+	Updated backend tracking of user type and rights

@@ -33,41 +33,41 @@ def login():
     		for n in range(len(all_rows)):
         		all_rows[n] = all_rows[n]['name']
     		print all_rows
-            print '1'
-            email = str(request.form['email'])
-            print '2'
-            if user in all_rows:
-                print '3'
-                error = "Username already exists. Please try another"
-                return render_template("index.html",regerror=error)
-            else:
-                print '4'
-                message = "Account Created!"
-                session['user'] = user
-                if user_type == "admin":
-                	mongoutils.addAdmin(user,password,email)
-                	return redirect("/admin")
-                else:
-                	mongoutils.addUser(user, password, email)
-                	return redirect("/competitor")
-                return redirect("/admin")
+    		print '1'
+    		email = str(request.form['email'])
+    		print '2'
+    		if user in all_rows:
+    			print '3'
+    			error = "Username already exists. Please try another"
+    			return render_template("index.html",regerror=error)
+    		else:
+    			print '4'
+    			message = "Account Created!"
+    			session['user'] = user
+    			if user_type == "admin":
+    				mongoutils.addAdmin(user,password,email)
+    				return redirect("/admin")
+    			else:
+    				mongoutils.addUser(user, password, email)
+    				return redirect("/competitor")
+    			return redirect("/admin")
     return render_template("index.html") #login failed
     
 
 @app.route("/competitor", methods = ['GET', 'POST'])
 def home_user():
 	if 'user' not in session:
-        return redirect ("/login")
-    return render_template("comp.html")
+		return redirect ("/login")
+	return render_template("comp.html")
 
 @app.route("/admin", methods = ['GET','POST'])
 def create_tourn():
     if 'user' not in session:
         return redirect ("/login")
     user = session['user']
-	admins = getAllAdmins()
-	if user not in admins:
-		return redirect("/competitor")
+    admins = getAllAdmins()
+    if user not in admins:
+    	return redirect("/competitor")
     if request.method == 'POST':
         print request.form
         if request.form.has_key('create'):
