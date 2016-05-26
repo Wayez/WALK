@@ -135,6 +135,10 @@ def addAdmin(username,password,email):
         return True
     return False
 
+def findAdmin(name):
+    return adminsc.find({'name':name},{'_id':0,'name':1})
+
+
                 
 '''
 -------------------------------------------------------------------------------
