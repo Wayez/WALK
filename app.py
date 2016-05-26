@@ -18,13 +18,17 @@ def login():
         print 'a'
         error = ""
         print request.form
+        user = str(request.form['user'])
+        password = str(request.form['pass'])
+        user_type = str(request.form['rights'])
         if request.form.has_key('login'):
-            user = str(request.form['user'])
-            password = str(request.form['pass'])
             print '5'
-            if mongoutils.authenticateA(user,password):
+            if user_type == "admin" and mongoutils.authenticateA(user,password):
                 session['user'] = user
                 return redirect("/admin")
+            if user_type == "competitor" and mongoutils.authenticateU(user,password):
+                session['user'] = user
+                return redirect("/competitor")
             else:
                 error = "Incorrect Username or Password. Try Again."
                 return render_template("index.html",error=error)            
@@ -45,7 +49,15 @@ def login():
                 session['user'] = user
                 return redirect("/admin")
     return render_template("index.html") #login failed
+    
 
+@app.route("/user", methods = ['GET', 'POST'])
+def home_user():
+	if 'user' not in session:
+        return redirect ("/login")
+	
+	
+	
 @app.route("/admin", methods = ['GET','POST'])
 def home():
     if 'user' not in session:
