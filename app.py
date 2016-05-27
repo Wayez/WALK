@@ -2,7 +2,6 @@ from flask import Flask, render_template, session, request
 from flask import redirect, url_for
 from datetime import datetime
 import mongoutils
-import loginutils
 import json
 import random
 
@@ -80,7 +79,11 @@ def create_tourn():
     print user
     admins = mongoutils.findAdmin(user)
     print admins
-    if admins!=user:
+    redir = True
+    for x in admins:
+        if x['name'] == user:
+            redir = False
+    if redir:
     	return redirect("/competitor")
     if request.method == 'POST':
         print request.form
