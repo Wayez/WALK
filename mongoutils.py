@@ -8,6 +8,7 @@ db = connection['database']
 usersc  = db.users
 adminsc = db.admins
 tournsc = db.tourns
+teamsc  = db.teams 
 
 '''
 -------------------------------------------------------------------------------
@@ -190,8 +191,35 @@ def createTourn(name, teams, results, ida):
         return True
     return False
 
-def getTeams(tid):
+def getTournTeams(tid):
     result = tournsc.find_one({'_id':tid},{'teams':1})
     return result['teams']
 
-#createTourn("hi","h", "i",432)
+
+'''
+-------------------------------------------------------------------------------
+--------------------------------Tournaments------------------------------------
+-------------------------------------------------------------------------------
+'''
+
+def getAllTeams():
+    return list(teamsc.find())
+
+def createTeam(name, coach, idus):
+    print teamsc.find_one({'name':name})
+    if teamsc.find_one({'name':name}) == None:
+        ts = getAllTeams()
+        if len(ts)==0:
+            idt = 1
+        else:
+            n = teamsc.find_one(sort=[('_id',-1)])
+            idt = int(n['_id'])+1
+        r = {'_id':idt, 'name':name, 'coach':coach,
+             'idus':idus}
+        teamsc.insert(r)
+        return True
+    return False
+
+def getTeams(tid):
+    result = tournsc.find_one({'_id':tid},{'teams':1})
+    return result['teams']

@@ -1,4 +1,4 @@
-database walk
+database database
 
     collections
     
@@ -10,3 +10,6 @@ database walk
             
         tourns (tournaments)
             id, name, teams, results, admin id 
+
+	teams  (teams)
+	    id, name, coach, user ids
