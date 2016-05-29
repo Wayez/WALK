@@ -136,9 +136,15 @@ def addAdmin(username,password,email):
         return True
     return False
 
-def findAdmin(name):
+def isAdmin(name):
     #print adminsc.find({'name':name},{'_id':0,'name':1})
-    return adminsc.find({'name':name},{'_id':0,'name':1})
+    admins = adminsc.find({'name':name},{'_id':0,'name':1})
+    redir = True
+    for x in admins:
+        if x['name'] == user:
+            redir = False
+    return redir
+
 
 
                 
@@ -195,10 +201,13 @@ def getTournTeams(tid):
     result = tournsc.find_one({'_id':tid},{'teams':1})
     return result['teams']
 
+def getTournName(tid):
+    result = tournsc.find_one({'_id':tid},{'name':1})
+    return result['name']
 
 '''
 -------------------------------------------------------------------------------
---------------------------------Tournaments------------------------------------
+-----------------------------------Teams---------------------------------------
 -------------------------------------------------------------------------------
 '''
 
@@ -220,6 +229,5 @@ def createTeam(name, coach, idus):
         return True
     return False
 
-def getTeams(tid):
-    result = tournsc.find_one({'_id':tid},{'teams':1})
-    return result['teams']
+
+

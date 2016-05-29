@@ -67,9 +67,9 @@ def login():
 
 @app.route("/competitor", methods = ['GET', 'POST'])
 def home_user():
-	if 'user' not in session:
-		return redirect ("/login")
-	return render_template("comp.html")
+    if 'user' not in session:
+        return redirect ("/login")
+    return render_template("comp.html")
 
 @app.route("/admin", methods = ['GET','POST'])
 def create_tourn():
@@ -77,13 +77,7 @@ def create_tourn():
         return redirect ("/login")
     user = session['user']
     print user
-    admins = mongoutils.findAdmin(user)
-    print admins
-    redir = True
-    for x in admins:
-        if x['name'] == user:
-            redir = False
-    if redir:
+    if mongoutils.isAdmin(user):
     	return redirect("/competitor")
     if request.method == 'POST':
         print request.form
@@ -111,6 +105,12 @@ def create_tourn():
 def bracket():
     if 'user' not in session:
         return redirect ("/login")
+    if mongoutils.isAdmin(session['user']):
+        aid = mongoutils.getAdminId(session['user'])
+        tid = getTourn(aid)
+        jason = {"teams":mongoutils.getTeams(tid)}
+        nom = getTournName(tid)
+        return render_template("bracket.html",name=nom,teams=jason)
     return render_template("bracket.html")
     
 @app.route("/logout")
