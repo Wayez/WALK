@@ -10,9 +10,12 @@
     <h1>{{name}}</h1>
     <div id = "doubleElimination" class="demo">what</div>
     <script type="text/javascript">
-var teams = {{teams|tojson|safe}};
-console.log(teams);
+var teamdict = {{teams|tojson|safe}};
+console.log(teamdict);
 var i = 0;
+teams = teamdict['teams']
+console.log(i);
+console.log(teams.length)
 var temz = [];
 while (i<teams.length-1) {
     var temp = [];
