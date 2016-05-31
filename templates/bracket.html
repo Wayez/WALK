@@ -9,9 +9,21 @@
   <body>
     <h1>{{name}}</h1>
     <div id = "doubleElimination" class="demo">what</div>
-    <script type="text/javascript" src="static/brack.js">
+    <script type="text/javascript">
 var teams = {{teams|tojson|safe}};
 console.log(teams);
+var i = 0;
+var temz = [];
+while (i<teams.length-1) {
+    var temp = [];
+    temp.push(teams[i])
+    temp.push(teams[i+1])
+    i+=2;
+    console.log(temp)
+    temz.push(temp)
+    console.log(teams[i])
+}
+console.log(temz)
 var doubleEliminationData = {
     "teams" : [
       ["Team 1",  "Team 2"],
