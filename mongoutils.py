@@ -44,6 +44,13 @@ def authenticateA(username,password):
         if(encrypt(password) == r['password']):
             return True
     return False
+
+def authenticateC(username,password):
+    result = list(coachesc.find({'name':username}))
+    for r in result:
+        if(encrypt(password) == r['password']):
+            return True
+    return False
     
 '''
 Gets the id that corresponds to a username
@@ -60,6 +67,10 @@ def getUserId(username):
 
 def getAdminId(username):
     result = adminsc.find_one({'name':username},{'_id':1})
+    return result['_id']
+
+def getCoachId(username):
+    result = coachesc.find_one({'name':username},{'_id':1})
     return result['_id']
 
 '''
@@ -93,8 +104,11 @@ def getAllUsers():
 def getAllAdmins():
     return list(adminsc.find())
 
+def getAllCoaches():
+    return list(coachesc.find())
+
 def getAll():
-	return getAllAdmins() + getAllUsers()
+	return getAllAdmins() + getAllUsers() + getAllCoaches()
 
 '''
 Registers a user into the database
@@ -136,11 +150,36 @@ def addAdmin(username,password,email):
         return True
     return False
 
+def addCoach(username, password, email):
+    if coachesc.find_one({'name':username}) == None:
+        us = getAllCoaches()
+        if len(us)==0:
+            idc = 1
+        else:
+            n = coachesc.find_one(sort=[('_id',-1)])
+            idc = int(n['_id'])+1    
+        password = encrypt(password)
+        r = {'_id':idc, 'name':username, 'password':password, 'email':email}
+        coachesc.insert(r)
+        return True
+    return False
+    
+
 def isNotAdmin(name):
     #print adminsc.find({'name':name},{'_id':0,'name':1})
     admins = adminsc.find({'name':name},{'_id':0,'name':1})
     redir = True
     for x in admins:
+        print x
+        if x['name'] == name:
+            redir = False
+    return redir
+
+def isNotCoach(name):
+    #print adminsc.find({'name':name},{'_id':0,'name':1})
+    coaches = coachesc.find({'name':name},{'_id':0,'name':1})
+    redir = True
+    for x in coaches:
         print x
         if x['name'] == name:
             redir = False

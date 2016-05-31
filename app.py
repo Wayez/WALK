@@ -30,6 +30,9 @@ def login():
             if user_type == "competitor" and mongoutils.authenticateU(user,password):
                 session['user'] = user
                 return redirect("/competitor")
+            if user_type == "coach" and mongoutils.authenticateC(user,password):
+                session['user'] = user
+                return redirect("/coach")
             else:
                 error = "Incorrect Username or Password. Try Again."
                 return render_template("index.html",error=error)            
@@ -59,6 +62,9 @@ def login():
                 if user_type == "admin":
                     mongoutils.addAdmin(user,password,email)
                     return redirect("/admin")
+                if user_type == "coach":
+                    mongoutils.addCoach(user, password, email)
+                    return redirect("/coach")
                 else:
                     mongoutils.addUser(user, password, email)
                     return redirect("/competitor")
@@ -71,10 +77,19 @@ def home_user():
         return redirect ("/login")
     return render_template("comp.html")
 
+@app.route("/coach", methods = ['GET', 'POST'])
+def create_team():
+    if 'user' not in session:
+        return redirect("/login")
+    user = session['user']
+    if mongoutils.isNotAdmin(user):
+    	return redirect("/competitor")
+    return render_template("newteam.html")
+
 @app.route("/admin", methods = ['GET','POST'])
 def create_tourn():
     if 'user' not in session:
-        return redirect ("/login")
+        return redirect("/login")
     user = session['user']
     print user
     if mongoutils.isNotAdmin(user):
