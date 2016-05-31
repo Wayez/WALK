@@ -136,12 +136,13 @@ def addAdmin(username,password,email):
         return True
     return False
 
-def isAdmin(name):
+def isNotAdmin(name):
     #print adminsc.find({'name':name},{'_id':0,'name':1})
     admins = adminsc.find({'name':name},{'_id':0,'name':1})
     redir = True
     for x in admins:
-        if x['name'] == user:
+        print x
+        if x['name'] == name:
             redir = False
     return redir
 
