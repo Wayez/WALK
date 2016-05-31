@@ -1,0 +1,12 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <form method="POST">
+      {% for tourn in tourns %}
+      <input type="submit" name="old" value="{{tourn}}"><br><br>
+      {% endfor %}
+      <input type="submit" name="new" value="create">
+    </form>
+  </body>
+</html>

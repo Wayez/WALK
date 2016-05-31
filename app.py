@@ -87,7 +87,25 @@ def create_team():
     return render_template("newteam.html")
 
 @app.route("/admin", methods = ['GET','POST'])
-def create_tourn():
+def admin():
+    if 'user' not in session:
+        return redirect("/login")
+    user = session['user']
+    print user
+    if mongoutils.isNotAdmin(user):
+    	return redirect("/competitor")
+    if request.method == 'POST':
+        print request.form
+        if request.form.has_key('new'):
+            return redirect("/newtourn")
+        if request.form.has_key('old'):
+            tid = mongoutils.getTournId(request.form['old'])
+            return redirect("/bracket/"+str(tid))
+    tornus = mongoutils.getAdminTourns(mongoutils.getAdminId(session['user'])) 
+    return render_template("admin.html",tourns=tornus)
+
+@app.route("/newtourn", methods = ['GET','POST'])
+def new_tourn():
     if 'user' not in session:
         return redirect("/login")
     user = session['user']
@@ -111,18 +129,19 @@ def create_tourn():
                 teams.append(req['name' + str(numTeam)])
                 numTeam += 1
             if mongoutils.createTourn(name, teams, results, ida):
-                return redirect("/bracket")
+                tid = mongoutils.getTournId(name)
+                return redirect("/bracket/"+str(tid))
             else:
                 return render_template("newtourn.html")
     return render_template("newtourn.html")
 
-@app.route("/bracket")
-def bracket():
+@app.route("/bracket/<int:tid>")
+def bracket(tid):
     if 'user' not in session:
         return redirect ("/login")
     if not mongoutils.isNotAdmin(session['user']):
-        aid = mongoutils.getAdminId(session['user'])
-        tid = mongoutils.getTourn(aid)
+        #aid = mongoutils.getAdminId(session['user'])
+        #tid = mongoutils.getTourn(aid)
         jason = {"teams":mongoutils.getTournTeams(tid)}
         nom = mongoutils.getTournName(tid)
         print "\n\n",jason,"\n\n"

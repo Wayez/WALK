@@ -5,10 +5,11 @@ import simplejson, urllib2
 
 connection = MongoClient()
 db = connection['database']
-usersc  = db.users
-adminsc = db.admins
-tournsc = db.tourns
-teamsc  = db.teams 
+usersc   = db.users
+adminsc  = db.admins
+tournsc  = db.tourns
+teamsc   = db.teams
+coachesc = db.coaches
 
 '''
 -------------------------------------------------------------------------------
@@ -219,6 +220,17 @@ def getTourn(ida):
     result = tournsc.find_one({'aid':ida},{'_id':1})
     return result['_id']
 
+def getTournId(name):
+    result = tournsc.find_one({'name':name},{'_id':1})
+    return result['_id']
+
+def getAdminTourns(ida):
+    result = tournsc.find({'aid':ida},{'name':1})
+    ret = []
+    for r in result:
+        ret.append(r['name'])
+    return ret
+    
 def getAllTourns():
     return list(tournsc.find())
 
