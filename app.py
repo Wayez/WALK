@@ -101,6 +101,8 @@ def admin():
         if request.form.has_key('old'):
             tid = mongoutils.getTournId(request.form['old'])
             return redirect("/bracket/"+str(tid))
+        if request.form.has_key('logout'):
+            return redirect('/logout')
     tornus = mongoutils.getAdminTourns(mongoutils.getAdminId(session['user'])) 
     return render_template("admin.html",tourns=tornus)
 
@@ -114,6 +116,8 @@ def new_tourn():
     	return redirect("/competitor")
     if request.method == 'POST':
         print request.form
+        if request.form.has_key('logout'):
+            return redirect('/logout')
         if request.form.has_key('create'):
             name = str(request.form['name'])
             teams = []
@@ -139,6 +143,9 @@ def new_tourn():
 def bracket(tid):
     if 'user' not in session:
         return redirect ("/login")
+    if request.method == 'POST':
+        if request.form.has_key('logout'):
+            return redirect('/logout')
     if not mongoutils.isNotAdmin(session['user']):
         #aid = mongoutils.getAdminId(session['user'])
         #tid = mongoutils.getTourn(aid)
