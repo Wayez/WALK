@@ -5,9 +5,10 @@ Softdev 2 Final Project
 Science Bowl tournament management system
 
 ####Installing / Running
-Do some stuff
-Flask
-Mongo
+- Have all the files in this github repository.
+- Have python installed.
+- Have flask, pymongo, urllib2 and simplejson installed via pip.
+- Run python app.py in the directory that you have all the files in.
 
 ####Collaborators
 |      **Member**     |               **Github**                    |
