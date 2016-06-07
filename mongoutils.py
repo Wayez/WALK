@@ -231,10 +231,22 @@ def getAdminTourns(ida):
         ret.append(r['name'])
     return ret
 
+def getTournLosers(tid):
+    result = tournsc.find_one({'_id':tid},{'losers':1})
+    return result['losers']
+
+def getTournWinners(tid):
+    result = tournsc.find_one({'_id':tid},{'winners':1})
+    return result['winners']
+
+def getTournFinals(tid):
+    result = tournsc.find_one({'_id':tid},{'finals':1})
+    return result['finals']
+
 def getAllTourns():
     return list(tournsc.find())
 
-def createTourn(name, teams, results, ida):
+def createTourn(name, teams, win, lose, final, ida):
     print tournsc.find_one({'name':name})
     if tournsc.find_one({'name':name}) == None:
         ts = getAllTourns()
@@ -244,7 +256,7 @@ def createTourn(name, teams, results, ida):
             n = tournsc.find_one(sort=[('_id',-1)])
             idt = int(n['_id'])+1
         r = {'_id':idt, 'name':name, 'teams':teams,
-             'aid':ida, 'results':results}
+             'aid':ida, 'winners':win, 'losers':lose, 'finals':final}
         tournsc.insert(r)
         return True
     return False

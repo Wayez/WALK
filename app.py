@@ -140,7 +140,18 @@ def new_tourn():
             name = str(request.form['name'])
             teams = []
             numTeam = 0
-            results = []
+            win =  [[[], [], [], [], [], [], [], []],
+                    [[], [], [], []],
+                    [[], []],
+                    [[]]]
+            lose = [[[], [], [], []],
+                    [[], [], [], []],
+                    [[], []],
+                    [[], []],
+                    [[]],
+                    [[]]]
+            finals=[[[], []],
+                    [[]]]
             ida = mongoutils.getAdminId(session['user'])
             req = {}
             # transfer it otherwise theres a bad request error
@@ -150,7 +161,7 @@ def new_tourn():
             while req.has_key('name' + str(numTeam)):
                 teams.append(req['name' + str(numTeam)])
                 numTeam += 1
-            if mongoutils.createTourn(name, teams, results, ida):
+            if mongoutils.createTourn(name, teams, win, lose, final, ida):
                 tid = mongoutils.getTournId(name)
                 return redirect("/bracket/"+str(tid))
             else:
@@ -201,19 +212,34 @@ def bracket(tid):
     if request.method == 'POST':
         if request.form.has_key('logout'):
             return redirect('/logout')
-    if not mongoutils.isNotAdmin(session['user']):
+    #if not mongoutils.isNotAdmin(session['user']):
         #aid = mongoutils.getAdminId(session['user'])
         #tid = mongoutils.getTourn(aid)
-        jason = {"teams":mongoutils.getTournTeams(tid)}
-        nom = mongoutils.getTournName(tid)
-        print "\n\n",jason,"\n\n"
-        return render_template("bracket.html",name=nom,teams=jason)
-    return render_template("bracket.html")
-
+    tjason = {"teams":mongoutils.getTournTeams(tid)}
+    wjason = {"results":mongoutils.getTournWinners(tid)}
+    ljason = {"results":mongoutils.getTournLosers(tid)}
+    fjason = {"results":mongoutils.getTournFinals(tid)}
+    nom = mongoutils.getTournName(tid)
+    print "\n\n",jason,"\n\n"
+    return render_template("bracket.html",name=nom,teams=tjason,
+                           losers=ljason,winners=wjason,finals=fjason)
+    
 @app.route("/logout")
 def logout():
     del session['user']
     return redirect("/login")
+
+@app.route("/update")
+def update():
+    if 'user' not in session:
+        return redirect("/login")
+    user = session['user']
+    print user
+    if mongoutils.isNotAdmin(user):
+    	return redirect("/competitor")
+    if request.method == 'POST':
+        pass
+    return render_template("update.html")
 
 
 if __name__ == '__main__':
