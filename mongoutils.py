@@ -271,11 +271,13 @@ def getTeamId(name):
     return result['_id']
 
 def getCoachTeams(coach):
-    result = tournsc.find({'coach':coach},{'name':1})
+    result = teamsc.find({'coach':coach},{'name':1})
     ret = []
     for r in result:
         ret.append(r['name'])
     return ret
+
+#print getCoachTeams("brown")
 
 def getAllTeams():
     return list(teamsc.find())

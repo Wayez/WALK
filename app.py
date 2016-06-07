@@ -118,6 +118,8 @@ def coach():
         if request.form.has_key('logout'):
             return redirect('/logout')
     teams = mongoutils.getCoachTeams(session['user'])
+    print teams
+    print  session['user']
     return render_template("coach.html",teams=teams)
 
 @app.route("/newtourn", methods = ['GET','POST'])
@@ -181,9 +183,9 @@ def new_team():
                 req[x]=request.form[x]
             # getting all the teams out
             while req.has_key('name' + str(numComps)):
-                competitors.append(getUserId(req['name' + str(numComps)]))
+                competitors.append(mongoutils.getUserId(req['name' + str(numComps)]))
                 numComps += 1
-            if mongoutils.createTeam(name, coach, teams):
+            if mongoutils.createTeam(name, coach, competitors):
                 tid = mongoutils.getTeamId(name)
                 #return redirect("/bracket/"+str(tid))
                 #return redirect("/team" + str(tid))
