@@ -1,0 +1,101 @@
+<html>
+
+  <head>
+  <img src="http://i.imgur.com/Hrv0mVF.png"></img>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/jquery-bracket/jquery.bracket.min.css" />
+    <script type="text/javascript" src="static/jquery-bracket/jquery.bracket.min.js"></script>
+  </head>
+  
+  <body style="font-family:Trebuchet MS">
+    <h1>{{name}}</h1>
+    <div id = "doubleElimination" class="demo">what</div>
+    <script type="text/javascript">
+var teamdict = {{teams|tojson|safe}};
+console.log(teamdict);
+var i = 0;
+teams = teamdict['teams']
+console.log(i);
+console.log(teams.length)
+var temz = [];
+while (i<teams.length-1) {
+    var temp = [];
+    temp.push(teams[i])
+    temp.push(teams[i+1])
+    i+=2;
+    console.log(temp)
+    temz.push(temp)
+    console.log(teams[i])
+}
+console.log(temz)
+var doubleEliminationData = {
+    "teams" : [
+      ["Team 1",  "Team 2"],
+      ["Team 3",  "Team 4"],
+      ["Team 5",  "Team 6"],
+      ["Team 7",  "Team 8"],
+      ["Team 9",  "Team 10"],
+      ["Team 11", "Team 12"],
+      ["Team 13", "Team 14"],
+      ["Team 15", "Team 16"],
+    ],
+    "results" : {{results|tojson|safe}}['results']
+
+			 /*[[    
+      [[3,5], [2,4], [6,3], [2,3], [1,5], [5,3], [7,2], [1,2]], 
+      [[1,2], [3,4], [5,6], [7,8]],
+      [[9,1], [8,2]],
+      [[1,3]]
+    ], [              
+      [[7,8], [1,2], [3,2], [6,9]],
+      [[8,2], [1,2], [6,2], [1,3]],
+      [[1,2], [3,1]],
+      [[3,0], [1,9]],
+      [[3,2]],
+      [[4,2]]
+    ], [              
+      [[3,8], [1,2]],
+      [[2,1]] 
+    ]]*/
+}
+ 
+function saveFn(data, userData) {
+  var json = jQuery.toJSON(data)
+  $('#saveOutput').text('POST '+userData+' '+json)
+  /* You probably want to do something like this
+  $.ajax({
+			 url: '/update',
+			 data: json,
+			 type: 'POST',
+			 success:,
+			 fail:,
+  */
+};
+ 
+$(function() {
+    $('div#doubleElimination.demo').bracket({
+	init: doubleEliminationData,
+	save: saveFn,
+	userData: "/update"});
+    //var data = $('div#doubleElimination.demo').bracket('data')
+    //$('#dataOutput').text(jQuery.toJSON(data))
+});
+
+/*$(function() {
+    var container = $('div#save .demo')
+    container.bracket({
+      init: saveData,
+      save: saveFn,
+      userData: "/update"})
+ 
+    You can also inquiry the current data
+    var data = container.bracket('data')
+    $('#dataOutput').text(jQuery.toJSON(data))
+  })*/
+    </script>
+    <form method="POST">
+    <input type="submit" name="logout" value="logout">
+    </form>
+  </body>
+
+</html>
