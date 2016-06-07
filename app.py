@@ -35,7 +35,7 @@ def login():
                 return redirect("/coach")
             else:
                 error = "Incorrect Username or Password. Try Again."
-                return render_template("index.html",error=error)            
+                return render_template("index.html",error=error)
         if req.has_key('register'):
             user = str(req['reguser'])
             password = str(req['regpass'])
@@ -69,7 +69,7 @@ def login():
                     mongoutils.addUser(user, password, email)
                     return redirect("/competitor")
     return render_template("index.html") #login failed
-    
+
 
 @app.route("/competitor", methods = ['GET', 'POST'])
 def home_user():
@@ -103,8 +103,31 @@ def admin():
             return redirect("/bracket/"+str(tid))
         if request.form.has_key('logout'):
             return redirect('/logout')
-    tornus = mongoutils.getAdminTourns(mongoutils.getAdminId(session['user'])) 
+    tornus = mongoutils.getAdminTourns(mongoutils.getAdminId(session['user']))
     return render_template("admin.html",tourns=tornus)
+
+@app.route("/coach", methods = ['GET','POST'])
+def coach():
+    if 'user' not in session:
+        return redirect("/login")
+    user = session['user']
+    print user
+    if mongoutils.isNotCoach(user):
+        if mongoutils.isNotAdmin(user):
+            return redirect("/competitor")
+        return rediect("/admin")
+    if request.method == 'POST':
+        print request.form
+        if request.form.has_key('new'):
+            return redirect("/newteam")
+        if request.form.has_key('old'):
+            tid = mongoutils.getTeamId(request.form['old'])
+            #return redirect("/bracket/"+str(tid))
+            return redirect("/coach")
+        if request.form.has_key('logout'):
+            return redirect('/logout')
+    teams = mongoutils.getCoachTeams(session['user'])
+    return render_template("coach.html",teams=teams)
 
 @app.route("/newtourn", methods = ['GET','POST'])
 def new_tourn():
@@ -113,7 +136,9 @@ def new_tourn():
     user = session['user']
     print user
     if mongoutils.isNotAdmin(user):
-    	return redirect("/competitor")
+        if mongoutils.isNotCoach(user):
+            return redirect("/competitor")
+        return redirect("/coach")
     if request.method == 'POST':
         print request.form
         if request.form.has_key('logout'):
@@ -139,6 +164,43 @@ def new_tourn():
                 return render_template("newtourn.html")
     return render_template("newtourn.html")
 
+@app.route("/newteam", methods = ['GET','POST'])
+def new_team():
+    if 'user' not in session:
+        return redirect("/login")
+    user = session['user']
+    print user
+    if mongoutils.isNotCoach(user):
+        if mongoutils.isNotAdmin(user):
+            return redirect("/competitor")
+        return redirect("/admin")
+    if request.method == 'POST':
+        print request.form
+        if request.form.has_key('logout'):
+            return redirect('/logout')
+        if request.form.has_key('create'):
+            name = str(request.form['name'])
+            competitors = []
+            numComps = 0
+            #results = []
+            coach = user
+            req = {}
+            # transfer it otherwise theres a bad request error
+            for x in request.form:
+                req[x]=request.form[x]
+            # getting all the teams out
+            while req.has_key('name' + str(numComps)):
+                competitors.append(getUserId(req['name' + str(numComps)]))
+                numComps += 1
+            if mongoutils.createTeam(name, coach, teams):
+                tid = mongoutils.getTeamId(name)
+                #return redirect("/bracket/"+str(tid))
+                #return redirect("/team" + str(tid))
+                return redirect("/coach")
+            else:
+                return render_template("newteam.html")
+    return render_template("newteam.html")
+
 @app.route("/bracket/<int:tid>")
 def bracket(tid):
     if 'user' not in session:
@@ -154,7 +216,7 @@ def bracket(tid):
         print "\n\n",jason,"\n\n"
         return render_template("bracket.html",name=nom,teams=jason)
     return render_template("bracket.html")
-    
+
 @app.route("/logout")
 def logout():
     del session['user']

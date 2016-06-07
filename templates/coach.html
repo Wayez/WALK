@@ -1,0 +1,13 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <form method="POST">
+      {% for team in teams %}
+      <input type="submit" name="old" value="{{team}}"><br><br>
+      {% endfor %}
+      <input type="submit" name="new" value="create">
+<input type="submit" name="logout" value="logout">
+    </form>
+  </body>
+</html>

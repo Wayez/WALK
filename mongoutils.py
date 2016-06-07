@@ -22,12 +22,12 @@ ________________________________Login__________________________________________
 '''
 
 '''
-Checks whether the username and password match a registered user 
- 
+Checks whether the username and password match a registered user
+
 Args:
     username: username to be checked
-    password: password to be checked    
-    
+    password: password to be checked
+
 Returns:
     True if both match
     False otherwise
@@ -52,13 +52,13 @@ def authenticateC(username,password):
         if(encrypt(password) == r['password']):
             return True
     return False
-    
+
 '''
 Gets the id that corresponds to a username
 
 Args:
     username: username
-    
+
 Returns:
     corresponding user id
 '''
@@ -78,8 +78,8 @@ def getCoachId(username):
 Gets the username that corresponds to a user id
 
 Args:
-    uid: user id 
-    
+    uid: user id
+
 Returns:
     corresponding username
 '''
@@ -95,10 +95,10 @@ Gets all users that are registered in the database
 
 Args:
     none
-    
+
 Returns:
     list of dictionaries containing each user's info
-''' 
+'''
 def getAllUsers():
     return list(usersc.find())
 
@@ -118,7 +118,7 @@ Args:
     username: string username
     password: string password
     email: string email
-    
+
 Returns:
     True if the registration was successful
     False otherwise
@@ -130,7 +130,7 @@ def addUser(username,password,email):
             idu = 1
         else:
             n = usersc.find_one(sort=[('_id',-1)])
-            idu = int(n['_id'])+1    
+            idu = int(n['_id'])+1
         password = encrypt(password)
         r = {'_id':idu, 'name':username, 'password':password, 'email':email}
         usersc.insert(r)
@@ -144,7 +144,7 @@ def addAdmin(username,password,email):
             ida = 1
         else:
             n = adminsc.find_one(sort=[('_id',-1)])
-            ida = int(n['_id'])+1    
+            ida = int(n['_id'])+1
         password = encrypt(password)
         r = {'_id':ida, 'name':username, 'password':password, 'email':email}
         adminsc.insert(r)
@@ -158,13 +158,13 @@ def addCoach(username, password, email):
             idc = 1
         else:
             n = coachesc.find_one(sort=[('_id',-1)])
-            idc = int(n['_id'])+1    
+            idc = int(n['_id'])+1
         password = encrypt(password)
         r = {'_id':idc, 'name':username, 'password':password, 'email':email}
         coachesc.insert(r)
         return True
     return False
-    
+
 
 def isNotAdmin(name):
     #print adminsc.find({'name':name},{'_id':0,'name':1})
@@ -188,7 +188,7 @@ def isNotCoach(name):
 
 
 
-                
+
 '''
 -------------------------------------------------------------------------------
 --------------------------------Miscellaneous----------------------------------
@@ -230,7 +230,7 @@ def getAdminTourns(ida):
     for r in result:
         ret.append(r['name'])
     return ret
-    
+
 def getAllTourns():
     return list(tournsc.find())
 
@@ -262,6 +262,20 @@ def getTournName(tid):
 -----------------------------------Teams---------------------------------------
 -------------------------------------------------------------------------------
 '''
+def getTeam(ida):
+    result = teamsc.find_one({'aid':ida},{'_id':1})
+    return result['_id']
+
+def getTeamId(name):
+    result = teamsc.find_one({'name':name},{'_id':1})
+    return result['_id']
+
+def getCoachTeams(coach):
+    result = tournsc.find({'coach':coach},{'name':1})
+    ret = []
+    for r in result:
+        ret.append(r['name'])
+    return ret
 
 def getAllTeams():
     return list(teamsc.find())
@@ -280,6 +294,3 @@ def createTeam(name, coach, idus):
         teamsc.insert(r)
         return True
     return False
-
-
-
