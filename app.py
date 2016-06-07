@@ -77,15 +77,6 @@ def home_user():
         return redirect ("/login")
     return render_template("comp.html")
 
-@app.route("/coach", methods = ['GET', 'POST'])
-def create_team():
-    if 'user' not in session:
-        return redirect("/login")
-    user = session['user']
-    if mongoutils.isNotAdmin(user):
-    	return redirect("/competitor")
-    return render_template("newteam.html")
-
 @app.route("/admin", methods = ['GET','POST'])
 def admin():
     if 'user' not in session:
