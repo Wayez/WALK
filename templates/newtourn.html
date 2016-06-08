@@ -3,11 +3,13 @@
       <script type="text/javascript">
 	var i = 2;
 	function addFields(){
-	    var newdiv = document.createElement("div");
-	    newdiv.innerHTML = "<input type='text' name='name"+i+"' placeholder='Team "+i+"'><br>";
-	    i++;
-	    document.getElementById("teams").appendChild(newdiv);
-          }
+	    for (var j=0; j<2; j++) {
+	        var newdiv = document.createElement("div");
+		newdiv.innerHTML = "<input type='text' name='name"+i+"' placeholder='Team "+i+"'><br>";
+		i++;
+	        document.getElementById("teams").appendChild(newdiv);
+	    }
+	}
 	</script>
     </head>
     <img src="http://i.imgur.com/Hrv0mVF.png"></img>

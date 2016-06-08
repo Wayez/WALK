@@ -82,19 +82,17 @@ def admin():
     if 'user' not in session:
         return redirect("/login")
     user = session['user']
-    print user
+    
     if mongoutils.isNotAdmin(user):
     	return redirect("/competitor")
+    
     if request.method == 'POST':
-        print request.form
-        if request.form.has_key('new'):
-            return redirect("/newtourn")
         if request.form.has_key('old'):
             tid = mongoutils.getTournId(request.form['old'])
             return redirect("/bracket/"+str(tid))
-        if request.form.has_key('logout'):
-            return redirect('/logout')
+        
     tornus = mongoutils.getAdminTourns(mongoutils.getAdminId(session['user']))
+    
     return render_template("admin.html",tourns=tornus)
 
 @app.route("/coach", methods = ['GET','POST'])
@@ -102,24 +100,23 @@ def coach():
     if 'user' not in session:
         return redirect("/login")
     user = session['user']
-    print user
+    
     if mongoutils.isNotCoach(user):
         if mongoutils.isNotAdmin(user):
             return redirect("/competitor")
         return rediect("/admin")
+    
     if request.method == 'POST':
         print request.form
         if request.form.has_key('new'):
             return redirect("/newteam")
         if request.form.has_key('old'):
             tid = mongoutils.getTeamId(request.form['old'])
-            #return redirect("/bracket/"+str(tid))
             return redirect("/coach")
         if request.form.has_key('logout'):
             return redirect('/logout')
     teams = mongoutils.getCoachTeams(session['user'])
-    print teams
-    print  session['user']
+    
     return render_template("coach.html",teams=teams)
 
 @app.route("/newtourn", methods = ['GET','POST'])
@@ -127,11 +124,12 @@ def new_tourn():
     if 'user' not in session:
         return redirect("/login")
     user = session['user']
-    print user
+        
     if mongoutils.isNotAdmin(user):
         if mongoutils.isNotCoach(user):
             return redirect("/competitor")
         return redirect("/coach")
+   
     if request.method == 'POST':
         print request.form
         if request.form.has_key('logout'):
@@ -140,18 +138,6 @@ def new_tourn():
             name = str(request.form['name'])
             teams = []
             numTeam = 0
-            '''win =  [[[], [], [], [], [], [], [], []],
-                    [[], [], [], []],
-                    [[], []],
-                    [[]]]
-            lose = [[[], [], [], []],
-                    [[], [], [], []],
-                    [[], []],
-                    [[], []],
-                    [[]],
-                    [[]]]
-            finals=[[[], []],
-                    [[]]]'''
             results = [ [[[]]], [], [] ]
             ida = mongoutils.getAdminId(session['user'])
             req = {}
@@ -167,6 +153,7 @@ def new_tourn():
                 return redirect("/bracket/"+str(tid))
             else:
                 return render_template("newtourn.html")
+    
     return render_template("newtourn.html")
 
 @app.route("/newteam", methods = ['GET','POST'])
@@ -210,19 +197,17 @@ def new_team():
 def bracket(tid):
     if 'user' not in session:
         return redirect ("/login")
+    
     if request.method == 'POST':
         if request.form.has_key('logout'):
             return redirect('/logout')
-    #if not mongoutils.isNotAdmin(session['user']):
-        #aid = mongoutils.getAdminId(session['user'])
-        #tid = mongoutils.getTourn(aid)
+    
     tjason = {"teams":mongoutils.getTournTeams(tid)}
     rjason = {"results":mongoutils.getTournResults(tid)}
-    #ljason = {"results":mongoutils.getTournLosers(tid)}
-    #fjason = {"results":mongoutils.getTournFinals(tid)}
     nom = mongoutils.getTournName(tid)
-    print "\n\n",rjason,"\n\n"
-    return render_template("bracket.html",name=nom,teams=tjason,results=rjason)
+    
+    return render_template("bracket.html",name=nom,teams=tjason,
+                           results=rjason,tid=tid)
     
 @app.route("/logout")
 def logout():

@@ -7,8 +7,14 @@
       {% for tourn in tourns %}
       <input type="submit" name="old" value="{{tourn}}"><br><br>
       {% endfor %}
-      <input type="submit" name="new" value="create">
-<input type="submit" name="logout" value="logout">
+
+      {% if tourns|length == 0 %}
+      <p>No tournaments found!</p>
+      {% endif %}
     </form>
+    
+    <a href="newtourn">New Tournament</a><br>
+    <a href="logout">Log Out</a><br>  
+
   </body>
 </html>

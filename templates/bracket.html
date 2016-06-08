@@ -9,27 +9,25 @@
   
   <body style="font-family:Trebuchet MS">
     <h1>{{name}}</h1>
-    <div id = "doubleElimination" class="demo">what</div>
+    <div id = "doubleElimination" class="demo"></div>
     <script type="text/javascript">
 var teamdict = {{teams|tojson|safe}};
 var resudict = {{results|tojson|safe}};
+
 results = resudict['results'];
-console.log(teamdict);
+
 var i = 0;
 teams = teamdict['teams'];
-console.log(i);
-console.log(teams.length);
 var temz = [];
+
 while (i<teams.length-1) {
     var temp = [];
     temp.push(teams[i])
     temp.push(teams[i+1])
     i+=2;
-    //console.log(temp)
     temz.push(temp)
-    //console.log(teams[i])
 }
-console.log(temz)
+
 var doubleEliminationData = {
     "teams" : temz,
     "results" : results
@@ -41,9 +39,12 @@ $(function() {
 })
 
     </script>
-    <form method="POST">
-    <input type="submit" name="logout" value="logout">
-    </form>
+
+    <a href="../update/{{tid}}">Update This Tournament</a><br>
+    <a href="../admin">View All Tournaments</a><br>
+    <a href="../newtourn">New Tournament</a><br>
+    <a href="../logout">Log Out</a><br>
+
   </body>
 
 </html>
