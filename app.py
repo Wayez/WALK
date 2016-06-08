@@ -206,7 +206,7 @@ def new_team():
                 return render_template("newteam.html")
     return render_template("newteam.html")
 
-@app.route("/bracket/<int:tid>")
+@app.route("/bracket/<int:tid>", methods = ['GET','POST'])
 def bracket(tid):
     if 'user' not in session:
         return redirect ("/login")
@@ -229,7 +229,29 @@ def logout():
     del session['user']
     return redirect("/login")
 
-@app.route("/update/<int:tid>")
+@app.route("/update", methods = ['GET','POST'])
+def updata():
+    if 'user' not in session:
+        return redirect("/login")
+    user = session['user']
+    print user
+    if mongoutils.isNotAdmin(user):
+    	return redirect("/competitor")
+    if request.method == 'POST':
+        print request.form
+        req = []
+        for x in request.form:
+            req.append(x)
+        print req
+        jason = json.loads(req[0])
+        results = jason['results']
+        tid = jason['tid']
+        print results
+        mongoutils.updateResults(tid, results)
+        return render_template("index.html")
+    return redirect("/admin")
+
+@app.route("/update/<int:tid>", methods = ['GET','POST'])
 def update(tid):
     if 'user' not in session:
         return redirect("/login")
@@ -238,12 +260,14 @@ def update(tid):
     if mongoutils.isNotAdmin(user):
     	return redirect("/competitor")
     if request.method == 'POST':
-        pass
+        if request.form.has_key('logout'):
+            return redirect('/logout')
     tjason = {"teams":mongoutils.getTournTeams(tid)}
     rjason = {"results":mongoutils.getTournResults(tid)}
     nom = mongoutils.getTournName(tid)
     print "\n\n",rjason,"\n\n"
-    return render_template("update.html",name=nom,teams=tjason,results=rjason)
+    return render_template("update.html",name=nom,teams=tjason,
+                           results=rjason,tid=tid)
     
 if __name__ == '__main__':
     app.secret_key = "hello"

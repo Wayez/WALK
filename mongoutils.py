@@ -268,11 +268,16 @@ def createTourn(name, teams, results, ida):
 
 def getTournTeams(tid):
     result = tournsc.find_one({'_id':tid},{'teams':1})
+    print result
     return result['teams']
 
 def getTournName(tid):
     result = tournsc.find_one({'_id':tid},{'name':1})
     return result['name']
+
+def updateResults(tid,results):
+    print tournsc.update({'_id':tid},{'$set':{'results':results}})
+
 
 '''
 -------------------------------------------------------------------------------
