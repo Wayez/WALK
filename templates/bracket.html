@@ -12,40 +12,27 @@
     <div id = "doubleElimination" class="demo">what</div>
     <script type="text/javascript">
 var teamdict = {{teams|tojson|safe}};
+var resudict = {{results|tojson|safe}};
+results = resudict['results'];
 console.log(teamdict);
 var i = 0;
-teams = teamdict['teams']
+teams = teamdict['teams'];
 console.log(i);
-console.log(teams.length)
+console.log(teams.length);
 var temz = [];
 while (i<teams.length-1) {
     var temp = [];
     temp.push(teams[i])
     temp.push(teams[i+1])
     i+=2;
-    console.log(temp)
+    //console.log(temp)
     temz.push(temp)
-    console.log(teams[i])
+    //console.log(teams[i])
 }
 console.log(temz)
 var doubleEliminationData = {
     "teams" : temz,
-    "results" : [[    /* WINNER BRACKET */
-      [[3,5], [2,4], [6,3], [2,3], [1,5], [5,3], [7,2], [1,2]], 
-      [[1,2], [3,4], [5,6], [7,8]],
-      [[9,1], [8,2]],
-      [[1,3]]
-    ], [              /* LOSER BRACKET */
-      [[7,8], [1,2], [3,2], [6,9]],
-      [[8,2], [1,2], [6,2], [1,3]],
-      [[1,2], [3,1]],
-      [[3,0], [1,9]],
-      [[3,2]],
-      [[4,2]]
-    ], [              /* FINALS */
-      [[3,8], [1,2]],
-      [[2,1]] 
-    ]]
+    "results" : results
 }
  
 $(function() {
