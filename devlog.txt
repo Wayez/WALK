@@ -36,3 +36,13 @@
 05-31-2016
     New route for admin, can view all tournaments and choose one or create new
     Coach db
+
+06-03-2016
+    Starting CSS
+
+06-06-2016
+    More CSS
+    Linking pages together
+
+06-07-2016
+    Updating brackets functionality

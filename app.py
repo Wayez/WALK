@@ -140,7 +140,7 @@ def new_tourn():
             name = str(request.form['name'])
             teams = []
             numTeam = 0
-            win =  [[[], [], [], [], [], [], [], []],
+            '''win =  [[[], [], [], [], [], [], [], []],
                     [[], [], [], []],
                     [[], []],
                     [[]]]
@@ -151,7 +151,8 @@ def new_tourn():
                     [[]],
                     [[]]]
             finals=[[[], []],
-                    [[]]]
+                    [[]]]'''
+            results = [ [[[]]], [], [] ]
             ida = mongoutils.getAdminId(session['user'])
             req = {}
             # transfer it otherwise theres a bad request error
@@ -161,7 +162,7 @@ def new_tourn():
             while req.has_key('name' + str(numTeam)):
                 teams.append(req['name' + str(numTeam)])
                 numTeam += 1
-            if mongoutils.createTourn(name, teams, win, lose, final, ida):
+            if mongoutils.createTourn(name, teams, results, ida):
                 tid = mongoutils.getTournId(name)
                 return redirect("/bracket/"+str(tid))
             else:
@@ -216,21 +217,20 @@ def bracket(tid):
         #aid = mongoutils.getAdminId(session['user'])
         #tid = mongoutils.getTourn(aid)
     tjason = {"teams":mongoutils.getTournTeams(tid)}
-    wjason = {"results":mongoutils.getTournWinners(tid)}
-    ljason = {"results":mongoutils.getTournLosers(tid)}
-    fjason = {"results":mongoutils.getTournFinals(tid)}
+    rjason = {"results":mongoutils.getTournResults(tid)}
+    #ljason = {"results":mongoutils.getTournLosers(tid)}
+    #fjason = {"results":mongoutils.getTournFinals(tid)}
     nom = mongoutils.getTournName(tid)
-    print "\n\n",jason,"\n\n"
-    return render_template("bracket.html",name=nom,teams=tjason,
-                           losers=ljason,winners=wjason,finals=fjason)
+    print "\n\n",rjason,"\n\n"
+    return render_template("bracket.html",name=nom,teams=tjason,results=rjason)
     
 @app.route("/logout")
 def logout():
     del session['user']
     return redirect("/login")
 
-@app.route("/update")
-def update():
+@app.route("/update/<int:tid>")
+def update(tid):
     if 'user' not in session:
         return redirect("/login")
     user = session['user']
@@ -239,9 +239,12 @@ def update():
     	return redirect("/competitor")
     if request.method == 'POST':
         pass
-    return render_template("update.html")
-
-
+    tjason = {"teams":mongoutils.getTournTeams(tid)}
+    rjason = {"results":mongoutils.getTournResults(tid)}
+    nom = mongoutils.getTournName(tid)
+    print "\n\n",rjason,"\n\n"
+    return render_template("update.html",name=nom,teams=tjason,results=rjason)
+    
 if __name__ == '__main__':
     app.secret_key = "hello"
     app.debug = True

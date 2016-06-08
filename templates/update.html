@@ -3,8 +3,8 @@
   <head>
   <img src="http://i.imgur.com/Hrv0mVF.png"></img>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="static/jquery-bracket/jquery.bracket.min.css" />
-    <script type="text/javascript" src="static/jquery-bracket/jquery.bracket.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='jquery-bracket/jquery.bracket.min.css')}}" />
+    <script type="text/javascript" src="{{url_for('static',filename='jquery-bracket/jquery.bracket.min.js')}}"></script>
   </head>
   
   <body style="font-family:Trebuchet MS">
@@ -28,8 +28,8 @@ while (i<teams.length-1) {
     console.log(teams[i])
 }
 console.log(temz)
-var doubleEliminationData = {
-    "teams" : [
+res = {{results|tojson|safe}}
+/*[
       ["Team 1",  "Team 2"],
       ["Team 3",  "Team 4"],
       ["Team 5",  "Team 6"],
@@ -38,10 +38,8 @@ var doubleEliminationData = {
       ["Team 11", "Team 12"],
       ["Team 13", "Team 14"],
       ["Team 15", "Team 16"],
-    ],
-    "results" : {{results|tojson|safe}}['results']
-
-			 /*[[    
+]*/
+/*[[    
       [[3,5], [2,4], [6,3], [2,3], [1,5], [5,3], [7,2], [1,2]], 
       [[1,2], [3,4], [5,6], [7,8]],
       [[9,1], [8,2]],
@@ -57,6 +55,10 @@ var doubleEliminationData = {
       [[3,8], [1,2]],
       [[2,1]] 
     ]]*/
+
+var doubleEliminationData = {
+    "teams"   : temz,
+    "results" : res['results']
 }
  
 function saveFn(data, userData) {
