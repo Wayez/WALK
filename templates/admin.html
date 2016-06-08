@@ -1,8 +1,16 @@
 <html>
   <head>
   <img src="http://i.imgur.com/Hrv0mVF.png"></img>
+<style>
+    #rcorners1 {
+    border-radius: 14px;
+    }
+</style>
   </head>
-  <body>
+  <body style="font-family:Trebuchet MS">
+<table id="rcorners1" bgcolor="#ADD8E6">
+<tr>
+<td>
     <form method="POST">
       {% for tourn in tourns %}
       <input type="submit" name="old" value="{{tourn}}"><br><br>
@@ -15,6 +23,8 @@
     
     <a href="newtourn">New Tournament</a><br>
     <a href="logout">Log Out</a><br>  
-
+</td>
+</tr>
+</table>
   </body>
 </html>
