@@ -185,12 +185,12 @@ def new_team():
                 req[x]=request.form[x]
             # getting all the teams out
             while req.has_key('name' + str(numComps)):
-                competitors.append(mongoutils.getUserId(req['name' + str(numComps)]))
+                competitors.append({'id': mongoutils.getUserId(req['name' + str(numComps)]), 'approved': True})
                 numComps += 1
             if mongoutils.createTeam(name, coach, competitors):
                 tid = mongoutils.getTeamId(name)
                 #return redirect("/bracket/"+str(tid))
-                return redirect("/team" + str(tid))
+                return redirect("/team/" + str(tid))
             else:
                 return render_template("newteam.html", comps = comps)
     return render_template("newteam.html", comps = comps)

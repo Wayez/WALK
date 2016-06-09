@@ -93,7 +93,7 @@ Returns:
 def getUserName(uid):
     result = usersc.find_one({'_id':uid},{'name':1})
     if result != None:
-        return result
+        return result['name']
     else:
         return {'error':'User Not Found'}
 
@@ -367,8 +367,11 @@ def updateResults(tid,results):
 -------------------------------------------------------------------------------
 '''
 def getTeam(ida):
-    result = teamsc.find_one({'aid':ida},{'_id':1})
-    return result['_id']
+    result = teamsc.find_one({'_id':ida})
+    #print result
+    return result['name']
+
+#print getTeam(1)
 
 def getTeamId(name):
     result = teamsc.find_one({'name':name},{'_id':1})
@@ -383,7 +386,16 @@ def getCoachTeams(coach):
 
 def getTeamMembers(name):
     result =  teamsc.find_one({'name':name}, {'idus':1})
-    return idus
+    ret = []
+    #print result
+    for r in result['idus']:
+        if r['approved']:
+            #print
+            #print getUserName(r['id'])
+            ret.append(getUserName(r['id']))
+    return ret
+
+#print getTeamMembers('WALK')
 
 def getAllTeams():
     return list(teamsc.find())
