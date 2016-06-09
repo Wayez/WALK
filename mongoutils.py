@@ -299,6 +299,9 @@ def getCoachTeams(coach):
         ret.append(r['name'])
     return ret
 
+def getTeamMembers(name):
+    result =  teamsc.find_one({'name':name}, {'idus':1})
+    return idus
 #print getCoachTeams("brown")
 
 def getAllTeams():

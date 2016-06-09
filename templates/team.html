@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>{{name}}</title>
+  </head>
+  <body style="font-family:Trebuchet MS">
+    <h1>{{name}}</h1>
+    <br><br>
+    Team Members:<br>
+    <ol>
+      {% for member in members %}
+      <li>{{member}}</li>
+      {% endfor %}
+    </ol>
+  </body>
+</html>

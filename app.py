@@ -112,7 +112,7 @@ def coach():
             return redirect("/newteam")
         if request.form.has_key('old'):
             tid = mongoutils.getTeamId(request.form['old'])
-            return redirect("/coach")
+            return redirect("/team/" + str(tid))
         if request.form.has_key('logout'):
             return redirect('/logout')
     teams = mongoutils.getCoachTeams(session['user'])
@@ -163,6 +163,8 @@ def new_team():
     user = session['user']
     print user
     comps = mongoutils.getAllUsers()
+    for c in range(len(comps)):
+        comps[c] = comps[c]['name']
     if mongoutils.isNotCoach(user):
         if mongoutils.isNotAdmin(user):
             return redirect("/competitor")
@@ -200,7 +202,9 @@ def team(tid):
     if request.method == 'POST':
         if request.form.has_key('logout'):
             return redirect('/logout')
-    return render_template("team.html")
+    name = mongoutils.getTeam(tid)
+    members = mongoutils.getTeamMembers(name)
+    return render_template("team.html", name = name, members = members)
 
 @app.route("/bracket/<int:tid>", methods = ['GET','POST'])
 def bracket(tid):
