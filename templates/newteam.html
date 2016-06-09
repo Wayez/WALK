@@ -1,9 +1,9 @@
 <html>
     <head>
     <img src="http://i.imgur.com/Hrv0mVF.png">
-        
+
     </img>
-    
+
       <script type="text/javascript">
 	var i = 2;
 	function addFields(){
@@ -25,15 +25,24 @@
 
 	    <div id = "competitors">
 	        <div id="entry">
-		  <input type="text" name="name0" placeholder="Competitor 0"><br>
-		</div>
-		<div id="entry">
-	          <input type="text" name="name1" placeholder="Competitor 1"><br>
+            <select name="name0">
+              {% for comp in comps %}
+              <option value="{{comp}}">{{comp}}</option>
+              {% endfor %}
+            </select>
+            <br>
+	        </div>
+	        <div id="entry">
+            <select name="name1">
+              {% for comp in comps %}
+              <option value="{{comp}}">{{comp}}</option>
+              {% endfor %}
+            </select><br>
 		</div>
 	    </div>
 	    <input type="submit" value="Submit" name="create">
 	    <input type="submit" name="logout" value="logout">
 	</form>
     </body>
- 
+
 </html>
