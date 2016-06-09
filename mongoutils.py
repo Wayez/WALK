@@ -32,6 +32,7 @@ Returns:
     True if both match
     False otherwise
 '''
+#competitor
 def authenticateU(username,password):
     result = list(usersc.find({'name':username}))
     for r in result:
@@ -39,6 +40,7 @@ def authenticateU(username,password):
             return True
     return False
 
+#admin
 def authenticateA(username,password):
     result = list(adminsc.find({'name':username}))
     for r in result:
@@ -46,6 +48,7 @@ def authenticateA(username,password):
             return True
     return False
 
+#coach
 def authenticateC(username,password):
     result = list(coachesc.find({'name':username}))
     for r in result:
@@ -62,14 +65,17 @@ Args:
 Returns:
     corresponding user id
 '''
+#competitor
 def getUserId(username):
     result = usersc.find_one({'name':username},{'_id':1})
     return result['_id']
 
+#admin
 def getAdminId(username):
     result = adminsc.find_one({'name':username},{'_id':1})
     return result['_id']
 
+#coach
 def getCoachId(username):
     result = coachesc.find_one({'name':username},{'_id':1})
     return result['_id']
@@ -83,6 +89,7 @@ Args:
 Returns:
     corresponding username
 '''
+#competitor
 def getUserName(uid):
     result = usersc.find_one({'_id':uid},{'name':1})
     if result != None:
@@ -99,15 +106,19 @@ Args:
 Returns:
     list of dictionaries containing each user's info
 '''
+#competitors
 def getAllUsers():
     return list(usersc.find())
 
+#admins
 def getAllAdmins():
     return list(adminsc.find())
 
+#coaches
 def getAllCoaches():
     return list(coachesc.find())
 
+#all
 def getAll():
 	return getAllAdmins() + getAllUsers() + getAllCoaches()
 
@@ -123,6 +134,7 @@ Returns:
     True if the registration was successful
     False otherwise
 '''
+#competitor
 def addUser(username,password,email):
     if usersc.find_one({'name':username}) == None:
         us = getAllUsers()
@@ -137,6 +149,7 @@ def addUser(username,password,email):
         return True
     return False
 
+#admin
 def addAdmin(username,password,email):
     if adminsc.find_one({'name':username}) == None:
         us = getAllAdmins()
@@ -151,6 +164,7 @@ def addAdmin(username,password,email):
         return True
     return False
 
+#coach
 def addCoach(username, password, email):
     if coachesc.find_one({'name':username}) == None:
         us = getAllCoaches()
@@ -165,9 +179,28 @@ def addCoach(username, password, email):
         return True
     return False
 
+'''
+Checks if a username is in the database
 
+Args:
+    user: string username
+
+Returns:
+    False if the user is in the database
+    True otherwise
+'''
+#competitor
+def isNotUser(name):
+    users = usersc.find({'name':name},{'_id':0,'name':1})
+    redir = True
+    for x in users:
+        print x
+        if x['name'] == name:
+            redir = False
+    return redir
+
+#admin
 def isNotAdmin(name):
-    #print adminsc.find({'name':name},{'_id':0,'name':1})
     admins = adminsc.find({'name':name},{'_id':0,'name':1})
     redir = True
     for x in admins:
@@ -176,8 +209,8 @@ def isNotAdmin(name):
             redir = False
     return redir
 
+#coach
 def isNotCoach(name):
-    #print adminsc.find({'name':name},{'_id':0,'name':1})
     coaches = coachesc.find({'name':name},{'_id':0,'name':1})
     redir = True
     for x in coaches:
@@ -186,71 +219,25 @@ def isNotCoach(name):
             redir = False
     return redir
 
-
-
-
-'''
--------------------------------------------------------------------------------
---------------------------------Miscellaneous----------------------------------
--------------------------------------------------------------------------------
-'''
-
-'''
-Encrypts a password using the hashlib library for python
-
-Args:
-    word: string to be encrypted
-
-Returns:
-    encrypted string
-'''
-def encrypt(word):
-    hashp = hashlib.md5()
-    hashp.update(word)
-    return hashp.hexdigest()
-
-
 '''
 -------------------------------------------------------------------------------
 --------------------------------Tournaments------------------------------------
 -------------------------------------------------------------------------------
 '''
 
-def getTourn(ida):
-    result = tournsc.find_one({'aid':ida},{'_id':1})
-    return result['_id']
-
-def getTournId(name):
-    result = tournsc.find_one({'name':name},{'_id':1})
-    return result['_id']
-
-def getAdminTourns(ida):
-    result = tournsc.find({'aid':ida},{'name':1})
-    ret = []
-    for r in result:
-        ret.append(r['name'])
-    return ret
-
-'''def getTournLosers(tid):
-    result = tournsc.find_one({'_id':tid},{'losers':1})
-    return result['losers']
-
-def getTournWinners(tid):
-    result = tournsc.find_one({'_id':tid},{'winners':1})
-    return result['winners']
-
-def getTournFinals(tid):
-    result = tournsc.find_one({'_id':tid},{'finals':1})
-    return result['finals']
 '''
+Creates a new tournament
 
-def getTournResults(tid):
-    result = tournsc.find_one({'_id':tid},{'results':1})
-    return result['results']
+Args:
+    name: string name
+    teams: list of team names
+    results: list of results
+    ida: id of admin owner
 
-def getAllTourns():
-    return list(tournsc.find())
-
+Returns:
+    True if it was created
+    False otherwise
+'''
 def createTourn(name, teams, results, ida):
     print tournsc.find_one({'name':name})
     if tournsc.find_one({'name':name}) == None:
@@ -266,15 +253,110 @@ def createTourn(name, teams, results, ida):
         return True
     return False
 
+'''
+Gets id of tournament by admin id
+
+Args:
+    ida: int admin id
+
+Returns:
+    list of tournaments
+'''
+def getTourn(ida):
+    result = tournsc.find_one({'aid':ida},{'_id':1})
+    return result['_id']
+
+'''
+Gets id of tournament by name
+
+Args:
+    name: string name
+
+Returns:
+    id of tournament
+'''
+def getTournId(name):
+    result = tournsc.find_one({'name':name},{'_id':1})
+    return result['_id']
+
+'''
+Gets list of tournaments associated with an admin
+
+Args:
+    ida: int admin id
+
+Returns:
+    list of tournaments
+'''
+def getAdminTourns(ida):
+    result = tournsc.find({'aid':ida},{'name':1})
+    ret = []
+    for r in result:
+        ret.append(r['name'])
+    return ret
+
+'''
+Gets results of tournaments
+
+Args:
+    tid: int tournament id
+
+Returns:
+    list of results
+'''
+def getTournResults(tid):
+    result = tournsc.find_one({'_id':tid},{'results':1})
+    return result['results']
+
+'''
+Gets list of tournaments
+
+Args:
+    none
+
+Returns:
+    list of tournaments
+'''
+def getAllTourns():
+    return list(tournsc.find())
+
+'''
+Gets list of teams participating in the tournament
+
+Args:
+    tid: int team id
+
+Returns:
+    list of teams
+'''
 def getTournTeams(tid):
     result = tournsc.find_one({'_id':tid},{'teams':1})
     print result
     return result['teams']
 
+'''
+Gets name of tournament
+
+Args:
+    tid: team id
+
+Returns:
+    string name
+'''
 def getTournName(tid):
     result = tournsc.find_one({'_id':tid},{'name':1})
     return result['name']
 
+'''
+Updates results of tournament
+
+Args:
+    tid: int team id
+    results: list of results
+
+Returns:
+    none
+'''
 def updateResults(tid,results):
     print tournsc.update({'_id':tid},{'$set':{'results':results}})
 
@@ -302,7 +384,6 @@ def getCoachTeams(coach):
 def getTeamMembers(name):
     result =  teamsc.find_one({'name':name}, {'idus':1})
     return idus
-#print getCoachTeams("brown")
 
 def getAllTeams():
     return list(teamsc.find())
@@ -321,3 +402,25 @@ def createTeam(name, coach, idus):
         teamsc.insert(r)
         return True
     return False
+
+'''
+-------------------------------------------------------------------------------
+--------------------------------Miscellaneous----------------------------------
+-------------------------------------------------------------------------------
+'''
+
+'''
+Encrypts a password using the hashlib library for python
+
+Args:
+    word: string to be encrypted
+
+Returns:
+    encrypted string
+'''
+def encrypt(word):
+    hashp = hashlib.md5()
+    hashp.update(word)
+    return hashp.hexdigest()
+
+

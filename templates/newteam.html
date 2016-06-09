@@ -4,15 +4,6 @@
 
     </img>
 
-      <script type="text/javascript">
-	var i = 2;
-	function addFields(){
-	    var newdiv = document.createElement("div");
-	    newdiv.innerHTML = "<input type='text' name='name"+i+"' placeholder='Competitor "+i+"'><br>";
-	    i++;
-	    document.getElementById("competitors").appendChild(newdiv);
-          }
-	</script>
     </head>
     <body style="font-family:Trebuchet MS">
         <form method="POST">
@@ -24,21 +15,48 @@
 	      Add</button><br>
 
 	    <div id = "competitors">
-	        <div id="entry">
-            <select name="name0">
-              {% for comp in comps %}
-              <option value="{{comp}}">{{comp}}</option>
-              {% endfor %}
-            </select>
-            <br>
-	        </div>
-	        <div id="entry">
-            <select name="name1">
-              {% for comp in comps %}
-              <option value="{{comp}}">{{comp}}</option>
-              {% endfor %}
-            </select><br>
-		</div>
+	      <div id="entry">
+		<select name="name0">
+		  {% for comp in comps %}
+		  <option value="{{comp}}">{{comp}}</option>
+		  {% endfor %}
+		</select><br>
+	      </div>
+	      <div id="entry">
+		<select name="name1">
+		  {% for comp in comps %}
+		  <option value="{{comp}}">{{comp}}</option>
+		  {% endfor %}
+		</select><br>
+	      </div>
+	      <div id="entry">
+		<select name="name2">
+		  {% for comp in comps %}
+		  <option value="{{comp}}">{{comp}}</option>
+		  {% endfor %}
+		</select><br>
+	      </div>
+	      <div id="entry">
+		<select name="name3">
+		  {% for comp in comps %}
+		  <option value="{{comp}}">{{comp}}</option>
+		  {% endfor %}
+		</select><br>
+	      </div>
+	      <div id="entry">
+		<select name="name4">
+		  {% for comp in comps %}
+		  <option value="{{comp}}">{{comp}}</option>
+		  {% endfor %}
+		</select><br>
+	      </div>
+	      <div id="entry">
+		<select name="name5">
+		  {% for comp in comps %}
+		  <option value="{{comp}}">{{comp}}</option>
+		  {% endfor %}
+		</select><br>
+	      </div>
 	    </div>
 	    <input type="submit" value="Submit" name="create">
 	    <input type="submit" name="logout" value="logout">
