@@ -19,9 +19,9 @@
       {% if requests|length == 0 %}
       No New Requests
       {% else %}
-      Requests:
+      Requests:<br>
       {% for request in requests %}
-      <input type="checkbox" name="comps" value="{{request}}">{{request}}
+      <input type="checkbox" name="comps" value="{{request}}">{{request}}<br>
       {% endfor %}<br>
       <input type="submit" name="accept" value="Add to Team">
       <input type="submit" name="reject" value="Decline">

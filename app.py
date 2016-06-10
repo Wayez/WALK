@@ -230,11 +230,16 @@ def team(tid):
             mongoutils.joinTeam(tid, mongoutils.getUserId(user))
             return redirect('/competitor')
         if request.form.has_key('accept'):
-            for competitor in request.form['comps']:
+            req = request.form.copy()
+            comps = req.getlist('comps')
+            #print "wwwwwwwwwwwwwwwwwwwwwwww"
+            for competitor in comps:
                 mongoutils.approve(tid, competitor)
             return redirect('/team/' + tid )
         if request.form.has_key('reject'):
-            for competitor in request.form['comps']:
+            req = request.form.copy()
+            comps = req.getlist('comps')
+            for competitor in comps:
                 mongoutils.reject(tid, competitor)
             return redirect('/competitor')
     rights = ""

@@ -483,14 +483,14 @@ def approve(tid, user):
         idus[i] = {'id': getUserId(idus[i]), 'approved': True}
     idus2 = getTeamRequests(team)
     for i in range(len(idus2)):
-        idus2[i] = {'id': getUserId(idus2[i], 'approved':False}
+        idus2[i] = {'id': getUserId(idus2[i]), 'approved':False}
     for x in idus2:
         if x["id"] == getUserId(user):
             idus.append({"id": x["id"], 'approved': True})
             idus2.remove(x)
         else:
             idus.append(x)
-   teamsc.update({'name':team}, {'_id':tid, 'name':team, 'coach': coach, 'idus': idus})
+    teamsc.update({'name':team}, {'$set': { 'idus': idus}})
 
 def reject(tid, user):
     team = getTeam(tid)
@@ -499,13 +499,13 @@ def reject(tid, user):
         idus[i] = {'id': getUserId(idus[i]), 'approved': True}
     idus2 = getTeamRequests(team)
     for i in range(len(idus2)):
-        idus2[i] = {'id': getUserId(idus2[i], 'approved':False}
+        idus2[i] = {'id': getUserId(idus2[i]), 'approved':False}
     for x in idus2:
-        if x["id"] == getUserId(user)
+        if x["id"] == getUserId(user):
             idus2.remove(x)
         else:
             idus.append(x)
-   teamsc.update({'name':team}, {'_id':tid, 'name':team, 'coach': coach, 'idus': idus})
+    teamsc.update({'name':team}, {'$set': {'idus': idus}})
 '''
 -------------------------------------------------------------------------------
 --------------------------------Miscellaneous----------------------------------
