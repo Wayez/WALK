@@ -1,31 +1,68 @@
 <html>
   <head>
+    
+    <script type="text/javascript" src="{{url_for('static',filename='jquery-2.1.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static',filename='materialize/js/materialize.min.js')}}"></script>
+        
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='materialize/css/materialize.min.css')}}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='nav.css')}}"  media="screen,projection"/>
+    
+    <!--Let browser know website is optimized for mobile-->
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
     <title>{{name}}</title>
   </head>
   <body style="font-family:Trebuchet MS">
-    <h1>{{name}}</h1>
-    <br><br>
-    Team Members:<br>
-    <ol>
-      {% for member in members %}
-      <li>{{member}}</li>
-      {% endfor %}
-    </ol>
-    <br>
-    <form method="POST">
-    {% if rights == "competitor" %}
-      <input type="submit" name="join" value="Join Team">
-    {% elif rights == "coach" %}
-      {% if requests|length == 0 %}
-      No New Requests
-      {% else %}
-      Requests:
-      {% for request in requests %}
-      <input type="checkbox" name="comps" value="{{request}}">{{request}}
-      {% endfor %}<br>
-      <input type="submit" name="accept" value="Add to Team">
-      <input type="submit" name="reject" value="Decline">
-      {% endif %}
-    {% endif %}
+    <header>
+      <div class="container">    
+	<a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
+	  <i class="material-icons">menu</i>
+	</a>
+      </div>
+      <ul  class="hide-on-med-and-down side-nav fixed">
+	<li class="logo"><a id="logo-container" href="" class="brand-logo">
+	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	</li><br><br>
+	<li><a href="../admin">View All Tournaments</a><li>
+	<li><a href="../logout">Log Out</a><li>
+      </ul>
+      <ul id="nav-mobile" class="side-nav">
+	<li class="logo"><a id="logo-container" href="" class="brand-logo">
+	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	</a></li><br><br>
+	<li><a href="../admin">View All Tournaments</a><li>
+	<li><a href="../logout">Log Out</a><li>
+      </ul>
+      
+    </header>
+    <main>
+      <h1>{{name}}</h1>
+      <br><br>
+      Team Members:<br>
+      <ol>
+	{% for member in members %}
+	<li>{{member}}</li>
+	{% endfor %}
+      </ol>
+      <br>
+      <form method="POST">
+	{% if rights == "competitor" %}
+	<input type="submit" name="join" value="Join Team">
+	{% elif rights == "coach" %}
+	{% if requests|length == 0 %}
+	No New Requests
+	{% else %}
+	Requests:
+	{% for request in requests %}
+	<input type="checkbox" name="comps" value="{{request}}">{{request}}
+	{% endfor %}<br>
+	<input type="submit" name="accept" value="Add to Team">
+	<input type="submit" name="reject" value="Decline">
+	{% endif %}
+	{% endif %}
+      </form>
+    </main>
   </body>
 </html>
