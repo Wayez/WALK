@@ -1,59 +1,110 @@
 <html>
     <head>
-    <img src="http://i.imgur.com/Hrv0mVF.png">
-
-    </img>
-
+    
+      <script type="text/javascript" src="{{url_for('static',filename='jquery-2.1.1.min.js')}}"></script>
+      <script type="text/javascript" src="{{url_for('static',filename='materialize/js/materialize.min.js')}}"></script>
+            
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='materialize/css/materialize.min.css')}}"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='nav.css')}}"  media="screen,projection"/>
+            
+      <!--Let browser know website is optimized for mobile-->
+      <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
+      <title>New Team</title>
     </head>
     <body style="font-family:Trebuchet MS">
-        <form method="POST">
-	    Team Name<br>
-	    <input type="text" name="name"><br><br>
-
-	    Competitors
-	    <button id="add" value="Add" onclick="addFields(); return false;">
-	      Add</button><br>
-
-	    <div id = "competitors">
-	      <div id="entry">
-		<select name="name0">
-		  {% for comp in comps %}
-		  <option value="{{comp}}">{{comp}}</option>
-		  {% endfor %}
-		</select><br>
-	      </div>
-	      <div id="entry">
-		<select name="name1">
-		  {% for comp in comps %}
-		  <option value="{{comp}}">{{comp}}</option>
-		  {% endfor %}
-		</select><br>
-	      </div>
-	      <div id="entry">
-		<select name="name2">
-		  {% for comp in comps %}
-		  <option value="{{comp}}">{{comp}}</option>
-		  {% endfor %}
-		</select><br>
-	      </div>
-	      <div id="entry">
-		<select name="name3">
-		  {% for comp in comps %}
-		  <option value="{{comp}}">{{comp}}</option>
-		  {% endfor %}
-		</select><br>
-	      </div>
-	      <div id="entry">
-		<select name="name4">
-		  {% for comp in comps %}
-		  <option value="{{comp}}">{{comp}}</option>
-		  {% endfor %}
-		</select><br>
-	      </div>
-	    </div>
-	    <input type="submit" value="Submit" name="create">
-	    <input type="submit" name="logout" value="logout">
-	</form>
+      <header>
+	<div class="container">    
+	<a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
+	  <i class="material-icons">menu</i>
+	</a>
+      </div>
+      <ul  class="hide-on-med-and-down side-nav fixed">
+	<li class="logo"><a id="logo-container" href="" class="brand-logo">
+	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	</li><br><br>
+	<li><a href="../coach">View All Teams</a><li>
+	<li><a href="../logout">Log Out</a><li>
+      </ul>
+      <ul id="nav-mobile" class="side-nav">
+	<li class="logo"><a id="logo-container" href="" class="brand-logo">
+	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	</a></li><br><br>
+	<li><a href="../coach">View All Teams</a><li>
+	<li><a href="../logout">Log Out</a><li>
+      </ul>
+      </header>
+      <main>
+	<table><tr><td>
+	      <h2>New Team</h2>
+	      <form method="POST" class="col s12">
+		<div class="row">
+		  <div class="input-field col s6">
+		    <label for="name">Name</label>
+		    <input type="text" id="name" name="name">
+		  </div>
+		</div>
+		
+		Competitors
+		<div id = "competitors">
+		  <div class="row">
+		    <div id="entry" class="input-field">
+		      <select name="name0">
+			{% for comp in comps %}
+			<option value="{{comp}}">{{comp}}</option>
+			{% endfor %}
+		      </select><br>
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div id="entry" class="input-field">
+		      <select name="name1">
+			{% for comp in comps %}
+			<option value="{{comp}}">{{comp}}</option>
+			{% endfor %}
+		      </select><br>
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div id="entry" class="input-field">
+		      <select name="name2">
+			{% for comp in comps %}
+			<option value="{{comp}}">{{comp}}</option>
+			{% endfor %}
+		      </select><br>
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div id="entry" class="input-field">
+		      <select name="name3">
+			{% for comp in comps %}
+			<option value="{{comp}}">{{comp}}</option>
+			{% endfor %}
+		      </select><br>
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div id="entry" class="input-field">
+		      <select name="name4">
+			{% for comp in comps %}
+			<option value="{{comp}}">{{comp}}</option>
+			{% endfor %}
+		      </select><br>
+		    </div>
+		  </div>
+		</div>
+		<button class="waves-effect waves-light btn" type="submit" name="create">Create</button><br><br>
+		
+	      </form>
+	</td></tr></table>
+      </main>
+      <script type="text/javascript">
+	$(document).ready(function() {
+	  $('select').material_select();
+	});
+      </script>
     </body>
-
+    
 </html>
