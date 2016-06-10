@@ -366,6 +366,9 @@ def updateResults(tid,results):
 -----------------------------------Teams---------------------------------------
 -------------------------------------------------------------------------------
 '''
+def getAllTeams():
+    return list(teamsc.find())
+
 def getTeam(ida):
     result = teamsc.find_one({'_id':ida})
     #print result
@@ -389,10 +392,14 @@ def getCompTeams(competitor):
     ret = []
     for team in result:
         for comp in team['idus']:
-            if comp['name'] == competitor:
-                ret.append(comp[name])
+            id = comp['id']
+            name = getUserName(id)
+            if name == competitor:
+                ret.append(team['name'])
     return ret
 
+#print 3
+#print getCompTeams('wayez')
 
 def getTeamMembers(name):
     result =  teamsc.find_one({'name':name}, {'idus':1})
@@ -406,9 +413,6 @@ def getTeamMembers(name):
     return ret
 
 #print getTeamMembers('WALK')
-
-def getAllTeams():
-    return list(teamsc.find())
 
 def createTeam(name, coach, idus):
     print teamsc.find_one({'name':name})

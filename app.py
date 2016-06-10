@@ -70,7 +70,7 @@ def login():
                     return redirect("/competitor")
     return render_template("index.html") #login failed
 
-
+#print mongoutils.getCompTeams('wayez')
 @app.route("/competitor", methods = ['GET', 'POST'])
 def home_user():
     if 'user' not in session:
@@ -85,12 +85,14 @@ def home_user():
             return redirect("/team/" + str(tid))
         if request.form.has_key('logout'):
             return redirect('/logout')
-    teams = mongoutils.getCoachTeams(session['user'])
-    allTeams = getAllTeams()
+    teams = mongoutils.getCompTeams(session['user'])
+    allTeams = mongoutils.getAllTeams()
+    for x in range(len(allTeams)):
+        allTeams[x] = allTeams[x]['name']
     for team in allTeams:
         if team in teams:
             allTeams.remove(team)
-    return render_template("comp.html", teams = allTeams, allTeams = allTeams)
+    return render_template("competitor.html", teams = teams, allTeams = allTeams)
 
 @app.route("/admin", methods = ['GET','POST'])
 def admin():

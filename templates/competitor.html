@@ -5,12 +5,12 @@
  <body style="font-family:Trebuchet MS">
     Teams you are a part of:<form method="POST">
       {% for team in teams %}
-      <input type="submit" name="old" value="{{team}}"><br><br>
-      {% endfor %}
+      <input type="submit" name="old" value="{{team}}">
+      {% endfor %}<br><br>
       Join Team:
       <select name="name0">
-  		  {% for team in allTeams %}
-  		  <option value="{{team}}">{{team}}</option>
+  		  {% for team2 in allTeams %}
+  		  <option value="{{team2}}">{{team2}}</option>
   		  {% endfor %}
   		</select>
       <input type="submit" name="new" value="join">
