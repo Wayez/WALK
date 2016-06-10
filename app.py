@@ -77,6 +77,12 @@ def login():
 def home_user():
     if 'user' not in session:
         return redirect ("/login")
+
+    if mongoutils.isNotUser(user):
+        if mongoutils.isNotCoach(user):
+            return redirect("/admin")
+        return redirect("/coach")
+
     user = session['user']
     if request.method == 'POST':
         print request.form
@@ -113,7 +119,9 @@ def admin():
     user = session['user']
 
     if mongoutils.isNotAdmin(user):
-    	return redirect("/competitor")
+        if mongoutils.isNotCoach(user):
+            return redirect("/competitor")
+        return redirect("/coach")
 
     if request.method == 'POST':
         if request.form.has_key('old'):
@@ -190,7 +198,14 @@ def new_tourn():
 def new_team():
     if 'user' not in session:
         return redirect("/login")
+    
     user = session['user']
+
+    if mongoutils.isNotCoach(user):
+        if mongoutils.isNotAdmin(user):
+            return redirect("/competitor")
+        return redirect("/admin")
+    
     print user
     comps = mongoutils.getAllUsers()
     for c in range(len(comps)):
@@ -230,7 +245,9 @@ def new_team():
 def team(tid):
     if 'user' not in session:
         return redirect ("/login")
+    
     user = session['user']
+
     if request.method == 'POST':
         if request.form.has_key('logout'):
             return redirect('/logout')
@@ -264,7 +281,7 @@ def team(tid):
 def bracket(tid):
     if 'user' not in session:
         return redirect ("/login")
-
+    
     if request.method == 'POST':
         if request.form.has_key('logout'):
             return redirect('/logout')
@@ -287,8 +304,10 @@ def updata():
         return redirect("/login")
     user = session['user']
     print user
-    if mongoutils.isNotAdmin(user):
-    	return redirect("/competitor")
+    
+    if mongoutils.isNotAdmin(user) && mongoutils.isNotCoach(user):
+        return redirect("/competitor")
+        
     if request.method == 'POST':
         print request.form
         req = []
@@ -309,8 +328,12 @@ def update(tid):
         return redirect("/login")
     user = session['user']
     print user
+
     if mongoutils.isNotAdmin(user):
-    	return redirect("/competitor")
+        if mongoutils.isNotCoach(user):
+            return redirect("/competitor")
+        return redirect("/coach")
+    
     if request.method == 'POST':
         if request.form.has_key('logout'):
             return redirect('/logout')
