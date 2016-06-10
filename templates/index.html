@@ -12,6 +12,9 @@
       #rcorners1 {
       border-radius: 14px;
       }
+      table {
+      width: 70%;
+      }
     </style>
   </head>
   <center>
@@ -22,13 +25,13 @@
       <img src="http://i.imgur.com/Hrv0mVF.png"></img>
       <table id="rcorners1">
 	<tr>
-	  <td>Login</td>
-	  <td>Register</td>
+	  <td><h3>Login</h3></td>
+	  <td><h3>Register</h3></td>
 	</tr>
         <tr>
 	  <td>
 	    {{error}}
-	    <form method = "POST" class="col s12">
+	    <form method = "POST" class="col s14">
 	      <input type="radio" id="ladmin" name="rights" value="admin" checked="checked">
 	      <label for="ladmin">Admin</label><br>
 	      
@@ -36,25 +39,31 @@
 	      <label for="lcoach">Coach</label><br>
 	      
 	      <input type="radio" id="lcomp" name="rights" value="competitor"> 
-	      <label for="lcomp">Competitor</label><br><br>
+	      <label for="lcomp">Competitor</label><br>
 	      
-	      <div class="input-field col s6">
-		<label for="lname">Username</label>
-		<input type="text" name="user" id="lname">
-              </div>
+	      <div class="row">
+		<div class="input-field col s10">
+		  <label for="lname">Username</label>
+		  <input type="text" name="user" id="lname">
+		</div>
+	      </div>
 	      
-	      <div class="input-field col s6">
-		<label for="lpass">Password</label>
-		<input type="password" name="pass" id="lpass"><br>
-              </div>
+	      <div class="row">
+		<div class="input-field col s10">
+		  <label for="lpass">Password</label>
+		  <input type="password" name="pass" id="lpass"><br>
+		</div>
+	      </div>
 	      
               <button class="btn waves-effect waves-light" type="submit" name="login" value="login">
-		<i class="material-icons right">Log in</i>
+		<i class="material-icons right">send</i>
+		Log In
 	      </button>
 	    </form>
-	  </td><td>
+	    </td><td>
 	    {{regerror}}
-	    <form method = "POST" class="col s12">
+	    <form method = "POST" class="col s10">
+	        <br><br><br><br><br>
 	        <input type="radio" id="radmin" name="rights" value="admin" checked="checked">
 		<label for="ladmin">Admin</label><br>
 	        
@@ -62,25 +71,32 @@
 		<label for="rcoach">Coach</label><br>
 		
 		<input type="radio" id="rcomp" name="rights" value="competitor">
-		<label for="rcomp">Competitor</label><br><br>
+		<label for="rcomp">Competitor</label><br>
 		
-		<div class="input-field col s6">
-		  <label for="rname">Username</label>
-		  <input type="text" name="user" id="rname">
+		<div class="row">
+		  <div class="input-field col s10">
+		    <label for="rname">Username</label>
+		    <input type="text" name="reguser" id="rname">
+		  </div>
 		</div>
 		
-		<div class="input-field col s6">
-		  <label for="rpass">Password</label>
-		  <input type="password" name="pass" id="rpass">
+		<div class="row">
+		  <div class="input-field col s10">
+		    <label for="rpass">Password</label>
+		    <input type="password" name="regpass" id="rpass">
+		  </div>
 		</div>
-		
-		<div class="input-field col s6">
-		  <label for="remail">Email</label>
-		  <input type="email" name="email" id="remail"><br>
+
+		<div class="row">
+		  <div class="input-field col s10">
+		    <label for="remail">Email</label>
+		    <input type="email" name="email" id="remail"><br>
+		  </div>
 		</div>
 		  
 		<button class="btn waves-effect waves-light" type="submit" name="register" value="register">
-		  <i class="material-icons right">Register</i>
+		  <i class="material-icons right">send</i>
+		  Register
 		</button>
 	    </form>
 	  </td>
