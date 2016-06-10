@@ -224,13 +224,24 @@ def team(tid):
     if request.method == 'POST':
         if request.form.has_key('logout'):
             return redirect('/logout')
+        if request.form.has_key('join'):
+            mongoutils.joinTeam(tid, mongoutils.getUserId(user))
+        if request.form.has_key('accept'):
+            for competitor in request.form['comps']:
+                mongoutils.approve(tid, competitor)
+        if request.form.has_key('reject'):
+            for competitor in request.form['comps']:
+                mongoutils.reject(tid, competitor)
     user = session['user']
     rights = ""
     if  mongoutils.isNotAdmin(user) and mongoutils.isNotCoach(user):
         rights = "competitor"
+    elif not mongoutils.isNotCoach(user) and mongoutils.getCoach(tid) == user:
+        rights = "coach"
     name = mongoutils.getTeam(tid)
     members = mongoutils.getTeamMembers(name)
-    return render_template("team.html", name = name, members = members)
+    requests = mongoutils.getTeamRequests(name)
+    return render_template("team.html", name = name, members = members, requests = requests, rights = rights)
 
 @app.route("/bracket/<int:tid>", methods = ['GET','POST'])
 def bracket(tid):
