@@ -221,18 +221,21 @@ def new_team():
 def team(tid):
     if 'user' not in session:
         return redirect ("/login")
+    user = session['user']
     if request.method == 'POST':
         if request.form.has_key('logout'):
             return redirect('/logout')
         if request.form.has_key('join'):
             mongoutils.joinTeam(tid, mongoutils.getUserId(user))
+            return redirect('/competitor')
         if request.form.has_key('accept'):
             for competitor in request.form['comps']:
                 mongoutils.approve(tid, competitor)
+            return redirect('/team/' + tid )
         if request.form.has_key('reject'):
             for competitor in request.form['comps']:
                 mongoutils.reject(tid, competitor)
-    user = session['user']
+            return redirect('/competitor')
     rights = ""
     if  mongoutils.isNotAdmin(user) and mongoutils.isNotCoach(user):
         rights = "competitor"
