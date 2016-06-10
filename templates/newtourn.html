@@ -17,11 +17,14 @@
     <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
     <title>New Tournament</title>
     <script type="text/javascript">
-	var i = 2;
+	var i = 4;
 	function addFields(){
-	  for (var j=0; j<2; j++) {
+	  var k = Math.log2(i);
+	  var m = Math.pow(2,k+1) - Math.pow(2,k);
+	  console.log(m);
+	  for (var j=0; j<m; j++) {
 	    var newdiv = document.createElement("div");
-	    newdiv.innerHTML = "<input type='text' name='name"+i+"' placeholder='Team "+i+"'><br>";
+	    newdiv.innerHTML = "<div id='entry' class='row'><div class='input-field col s6'><input type='text' name='name"+i+"' placeholder='Team "+i+"'></div></div><br>";
 	    i++;
 	    document.getElementById("teams").appendChild(newdiv);
 	  }
@@ -34,21 +37,6 @@
     }
   </style>
   <body style="font-family:Trebuchet MS">
-<!--    <header>
-      <div class="container">    
-	<a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
-	  <i class="medium mdi-navigation-menu indigo-text text-accent-2"></i>
-	</a>
-      </div>
-      <ul id="nav-mobile" class="side-nav fixed">
-	<li class="logo"><a id="logo-container" href="" class="brand-logo">
-	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
-	</a></li><br><br>
-	<li><a href="../admin">View All Tournaments</a><li>
-	<li><a href="../logout">Log Out</a><li>
-      </ul>
-    </header>
--->
     <header>
             <div class="container">    
 	      <a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
@@ -61,30 +49,33 @@
 	      </li><br><br>
 	      <li><a href="../admin">View All Tournaments</a><li>
 	      <li><a href="../logout">Log Out</a><li>
-						    </ul>
+	    </ul>
 	    <ul id="nav-mobile" class="side-nav">
-			        <li class="logo"><a id="logo-container" href="" class="brand-logo">
-				           <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
-					          </a></li><br><br>
-				       <li><a href="../admin">View All Tournaments</a><li>
-			    <li><a href="../logout">Log Out</a><li>
-			          </ul>
-		           
-		           </header>
+	      <li class="logo"><a id="logo-container" href="" class="brand-logo">
+		  <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	      </a></li><br><br>
+	      <li><a href="../admin">View All Tournaments</a><li>
+	      <li><a href="../logout">Log Out</a><li>
+	    </ul>
+	    
+    </header>
     <main>
-      <table id="rcorners1" bgcolor="#ADD8E6"><tr><td>
+      <table id="rcorners1"><tr><td>
       <h2>New Tournament</h2>
 
       <form method="POST" class="col s12">
-	<div id="entry" class="row">
-	  <div class="col s6">
-	    <label for="name">Name</label>
-	    <input type="text" id="name" name="name">
+	<div class="row">
+	  <div id="entry" class="row">
+	    <div class="input-field col s6">
+	      <label for="name">Name</label>
+	      <input type="text" id="name" name="name">
+	    </div>
 	  </div>
 	</div>
-	Teams 
-	<button id="add" value="Add" onclick="addFields(); return false;">
-	  Add</button><br>
+	Teams
+	<button class = "btn-floating btn-small waves-effect waves-light" id="add" onclick="addFields(); return false;">
+	  <i class="material-icons">add</i>
+	</button><br>
 	
 	<div id = "teams">
 	  <div id="entry" class="row">
@@ -97,8 +88,18 @@
 	      <input type="text" name="name1" placeholder="Team 1"><br>
 	    </div>
 	  </div>
+	  <div id="entry" class="row">
+	    <div class="input-field col s6">
+	      <input type="text" name="name2" placeholder="Team 2"><br>
+	    </div>
+	  </div>
+	  <div id="entry" class="row">
+	    <div class="input-field col s6">
+	      <input type="text" name="name3" placeholder="Team 3"><br>
+	    </div>
+	  </div>
 	</div>
-	<input type="submit" value="Submit" name="create">
+	<button class="waves-effect waves-light btn" type="submit" name="create">Create</button><br><br>
       </form>
 	</tr></td>
       </table>
