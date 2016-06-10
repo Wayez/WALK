@@ -1,20 +1,53 @@
 <html>
   <head>
+    <script type="text/javascript" src="{{url_for('static',filename='jquery-2.1.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static',filename='materialize/js/materialize.min.js')}}"></script>
+        
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='materialize/css/materialize.min.css')}}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='nav.css')}}"  media="screen,projection"/>
+    
+    <!--Let browser know website is optimized for mobile-->
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
+    <title>View</title>
   </head>
   <img src="http://i.imgur.com/Hrv0mVF.png"></img>
- <body style="font-family:Trebuchet MS">
-    Teams you are a part of:<form method="POST">
-      {% for team in teams %}
-      <input type="submit" name="old" value="{{team}}">
-      {% endfor %}<br><br>
-      Join Team:
-      <select name="joinTeam">
-  		  {% for team2 in allTeams %}
-  		  <option value="{{team2}}">{{team2}}</option>
-  		  {% endfor %}
-  		</select>
-      <input type="submit" name="new" value="join">
-<input type="submit" name="logout" value="logout">
-    </form>
+  <body style="font-family:Trebuchet MS">
+    <header>
+      <div class="container">    
+	<a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
+	  <i class="material-icons">menu</i>
+	</a>
+      </div>
+      <ul  class="hide-on-med-and-down side-nav fixed">
+	<li class="logo"><a id="logo-container" href="" class="brand-logo">
+	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	</li><br><br>
+	<li><a href="../logout">Log Out</a><li>
+      </ul>
+      <ul id="nav-mobile" class="side-nav">
+	<li class="logo"><a id="logo-container" href="" class="brand-logo">
+	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	</a></li><br><br>
+	<li><a href="../logout">Log Out</a><li>
+      </ul>
+
+    </header>
+    <main>
+      <h1>Teams you are a part of</h1><form method="POST">
+	{% for team in teams %}
+	<input type="submit" name="old" value="{{team}}">
+	{% endfor %}<br><br>
+	Join Team:
+	<select name="joinTeam">
+	  {% for team2 in allTeams %}
+	  <option value="{{team2}}">{{team2}}</option>
+	  {% endfor %}
+	</select>
+	<input type="submit" name="new" value="join">
+      </form>
+    </main>
   </body>
 </html>
