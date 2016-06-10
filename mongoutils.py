@@ -407,17 +407,18 @@ def getCoachTeams(coach):
 
 def getCompTeams(competitor):
     result = getAllTeams()
+    #print result
     ret = []
     for team in result:
         for comp in team['idus']:
-            id = comp['id']
-            name = getUserName(id)
+            cid = comp['id']
+            name = getUserName(cid)
             if name == competitor:
                 ret.append(team['name'])
     return ret
 
 #print 3
-#print getCompTeams('wayez')
+print getCompTeams('liam')
 
 def getTeamMembers(name):
     result =  teamsc.find_one({'name':name}, {'idus':1})
@@ -464,14 +465,47 @@ def getCoach(tid):
 
 def joinTeam(tid, uid):
     team = getTeam(tid)
-    coach = getCoach(tid)
     idus = getTeamMembers(team)
+    for i in range(len(idus)):
+        idus[i] = {'id': getUserId(idus[i]), 'approved': True}
     idus2 = getTeamRequests(team)
+    for i in range(len(idus2)):
+        idus2[i] = {'id': getUserId(idus2[i]), 'approved':False}
     for x in idus2:
         idus.append(x)
     idus.append({'id':uid, 'approved':False })
-    teamsc.update({'name':team}, {'_id':tid, 'name':team, 'coach': coach, 'idus': idus})
+    teamsc.update({'name':team}, {'$set': {'idus': idus}})
 
+def approve(tid, user):
+    team = getTeam(tid)
+    idus = getTeamMembers(team)
+    for i in range(len(idus)):
+        idus[i] = {'id': getUserId(idus[i]), 'approved': True}
+    idus2 = getTeamRequests(team)
+    for i in range(len(idus2)):
+        idus2[i] = {'id': getUserId(idus2[i], 'approved':False}
+    for x in idus2:
+        if x["id"] == getUserId(user):
+            idus.append({"id": x["id"], 'approved': True})
+            idus2.remove(x)
+        else:
+            idus.append(x)
+   teamsc.update({'name':team}, {'_id':tid, 'name':team, 'coach': coach, 'idus': idus})
+
+def reject(tid, user):
+    team = getTeam(tid)
+    idus = getTeamMembers(team)
+    for i in range(len(idus)):
+        idus[i] = {'id': getUserId(idus[i]), 'approved': True}
+    idus2 = getTeamRequests(team)
+    for i in range(len(idus2)):
+        idus2[i] = {'id': getUserId(idus2[i], 'approved':False}
+    for x in idus2:
+        if x["id"] == getUserId(user)
+            idus2.remove(x)
+        else:
+            idus.append(x)
+   teamsc.update({'name':team}, {'_id':tid, 'name':team, 'coach': coach, 'idus': idus})
 '''
 -------------------------------------------------------------------------------
 --------------------------------Miscellaneous----------------------------------
