@@ -276,7 +276,7 @@ Returns:
     id of tournament
 '''
 def getTournId(name):
-    result = tournsc.find_one({'name':name},{'_id':1})
+    result = tournsc.findOne({'name':name},{'_id':1})
     return result['_id']
 
 '''
@@ -377,8 +377,12 @@ def getTeam(ida):
 #print getTeam(1)
 
 def getTeamId(name):
-    result = teamsc.find_one({'name':name},{'_id':1})
+    print name
+    result = teamsc.find_one({'name':name})
+    print result
     return result['_id']
+
+print getTeamId('Walking')
 
 def getCoachTeams(coach):
     result = teamsc.find({'coach':coach},{'name':1})
