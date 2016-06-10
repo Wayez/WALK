@@ -423,7 +423,8 @@ print getCompTeams('liam')
 def getTeamMembers(name):
     result =  teamsc.find_one({'name':name}, {'idus':1})
     ret = []
-    #print result
+    print result
+    print result['idus']
     for r in result['idus']:
         if r['approved']:
             #print

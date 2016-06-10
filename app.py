@@ -93,11 +93,15 @@ def home_user():
             return redirect('/logout')
     teams = mongoutils.getAllTeams()
     allTeams = []
+    t = []
     print teams
     for x in teams:
-        if user not in mongoutils.getTeamMembers(x):
+        print x
+        if user not in mongoutils.getTeamMembers(x['name']):
             teams.remove(x)
-            allTeams.append(x)
+            allTeams.append(x['name'])
+        else:
+            t.append(x['name'])
     print allTeams
     print teams
     return render_template("competitor.html", teams = teams, allTeams = allTeams)
@@ -211,7 +215,8 @@ def new_team():
                 req[x]=request.form[x]
             # getting all the teams out
             while req.has_key('name' + str(numComps)):
-                competitors.append({'id': mongoutils.getUserId(req['name' + str(numComps)]), 'approved': True})
+                if not req['name' + str(numComps)] == 'N/A': 
+                    competitors.append({'id': mongoutils.getUserId(req['name' + str(numComps)]), 'approved': True})
                 numComps += 1
             if mongoutils.createTeam(name, coach, competitors):
                 tid = mongoutils.getTeamId(name)
