@@ -467,7 +467,7 @@ def joinTeam(tid, uid):
     team = getTeam(tid)
     idus = getTeamMembers(team)
     for i in range(len(idus)):
-        idus[i] = {'id': getUserId(idus[i]), 'approved': True} 
+        idus[i] = {'id': getUserId(idus[i]), 'approved': True}
     idus2 = getTeamRequests(team)
     for i in range(len(idus2)):
         idus2[i] = {'id': getUserId(idus2[i]), 'approved':False}
@@ -480,7 +480,7 @@ def approve(tid, user):
     team = getTeam(tid)
     idus = getTeamMembers(team)
     for i in range(len(idus)):
-        idus[i] = {'id': getUserId(idus[i]), approved: True}
+        idus[i] = {'id': getUserId(idus[i]), 'approved': True}
     idus2 = getTeamRequests(team)
     for i in range(len(idus2)):
         idus2[i] = {'id': getUserId(idus2[i], 'approved':False}
@@ -495,14 +495,17 @@ def approve(tid, user):
 def reject(tid, user):
     team = getTeam(tid)
     idus = getTeamMembers(team)
-    for i in range(30):
+    for i in range(len(idus)):
+        idus[i] = {'id': getUserId(idus[i]), 'approved': True}
     idus2 = getTeamRequests(team)
+    for i in range(len(idus2)):
+        idus2[i] = {'id': getUserId(idus2[i], 'approved':False}
     for x in idus2:
         if x["id"] == getUserId(user)
             idus2.remove(x)
         else:
             idus.append(x)
-   teamsc.update({'name':team}, {'_id':tid, 'name':team, 'coach': coach, 'idus': idus})    
+   teamsc.update({'name':team}, {'_id':tid, 'name':team, 'coach': coach, 'idus': idus})
 '''
 -------------------------------------------------------------------------------
 --------------------------------Miscellaneous----------------------------------
