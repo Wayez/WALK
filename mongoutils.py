@@ -276,7 +276,7 @@ Returns:
     id of tournament
 '''
 def getTournId(name):
-    result = tournsc.findOne({'name':name},{'_id':1})
+    result = tournsc.find_one({'name':name},{'_id':1})
     return result['_id']
 
 '''
