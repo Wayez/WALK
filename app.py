@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, session, request
 from flask import redirect, url_for
 from datetime import datetime
@@ -43,6 +44,7 @@ def login():
 
             print '6ducks'
             all_rows = mongoutils.getAll()
+            print all_rows
             for n in range(len(all_rows)):
                 all_rows[n] = all_rows[n]['name']
             print all_rows
