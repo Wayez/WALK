@@ -224,6 +224,10 @@ def team(tid):
     if request.method == 'POST':
         if request.form.has_key('logout'):
             return redirect('/logout')
+    user = session['user']
+    rights = ""
+    if  mongoutils.isNotAdmin(user) and mongoutils.isNotCoach(user):
+        rights = "competitor"
     name = mongoutils.getTeam(tid)
     members = mongoutils.getTeamMembers(name)
     return render_template("team.html", name = name, members = members)
