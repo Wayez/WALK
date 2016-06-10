@@ -235,13 +235,13 @@ def team(tid):
             #print "wwwwwwwwwwwwwwwwwwwwwwww"
             for competitor in comps:
                 mongoutils.approve(tid, competitor)
-            return redirect('/team/' + tid )
+            return redirect('/team/' + str(tid) )
         if request.form.has_key('reject'):
             req = request.form.copy()
             comps = req.getlist('comps')
             for competitor in comps:
                 mongoutils.reject(tid, competitor)
-            return redirect('/competitor')
+            return redirect('/team/'+ str(tid))
     rights = ""
     if  mongoutils.isNotAdmin(user) and mongoutils.isNotCoach(user):
         rights = "competitor"
