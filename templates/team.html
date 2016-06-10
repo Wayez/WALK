@@ -11,5 +11,20 @@
       <li>{{member}}</li>
       {% endfor %}
     </ol>
+    <br>
+    <form method="POST">
+    {% if rights == "competitor" %}
+      <input type="submit" name="join" value="Join Team">
+    {% elif rights == "coach" %}
+      {% if length(requests) == 0 %}
+      No New Requests
+      {% else %}
+      {% for request in requests %}
+      <input type="checkbox" name="comps" value="{{request}}">
+      {% endfor %}
+      <input type="submit" name="accept" value="Add to Team">
+      <input type="submit" name="reject" value="Decline">
+      {% endif %}
+    {% endif %}
   </body>
 </html>

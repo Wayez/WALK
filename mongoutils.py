@@ -98,6 +98,22 @@ def getUserName(uid):
     else:
         return {'error':'User Not Found'}
 
+#coach
+def getCoachName(cid):
+    result = coachesc.find_one({'_id':cid},{'name':1})
+    if result != None:
+        return result['name']
+    else:
+        return {'error':'User Not Found'}
+
+#admin
+def getAdminName(aid):
+    result = adminsc.find_one({'_id':aid},{'name':1})
+    if result != None:
+        return result['name']
+    else:
+        return {'error':'User Not Found'}
+
 '''
 Gets all users that are registered in the database
 
@@ -416,6 +432,17 @@ def getTeamMembers(name):
             ret.append(getUserName(r['id']))
     return ret
 
+def getTeamRequests(name):
+    result =  teamsc.find_one({'name':name}, {'idus':1})
+    ret = []
+    #print result
+    for r in result['idus']:
+        if not r['approved']:
+            #print
+            #print getUserName(r['id'])
+            ret.append(getUserName(r['id']))
+    return ret
+
 #print getTeamMembers('WALK')
 
 def createTeam(name, coach, idus):
@@ -432,6 +459,20 @@ def createTeam(name, coach, idus):
         teamsc.insert(r)
         return True
     return False
+
+def getCoach(tid):
+    result = teamsc.find_one({'_id':tid},{'coach':1})
+    return result['coach']
+
+def joinTeam(tid, uid):
+    team = getTeam(tid)
+    coach = getCoach(tid)
+    idus = getTeamMembers(team)
+    idus2 = getTeamRequests(team)
+    for x in idus2:
+        idus.append(x)
+    idus.append({'id':uid, 'approved':False })
+    teamsc.update({'name':team}, {'_id':tid, 'name':team, 'coach': coach, 'idus': idus})
 
 '''
 -------------------------------------------------------------------------------
