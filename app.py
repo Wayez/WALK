@@ -80,7 +80,10 @@ def home_user():
     if request.method == 'POST':
         #print request.form
         if request.form.has_key('new'):
-            tid = mongoutils.getTeamId(request.form['old'])
+            #print "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            #print request.form
+            #print "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            tid = mongoutils.getTeamId(request.form['joinTeam'])
             return redirect("/team/" + str(tid))
         if request.form.has_key('old'):
             tid = mongoutils.getTeamId(request.form['old'])
@@ -221,6 +224,10 @@ def team(tid):
     if request.method == 'POST':
         if request.form.has_key('logout'):
             return redirect('/logout')
+    user = session['user']
+    rights = ""
+    if  mongoutils.isNotAdmin(user) and mongoutils.isNotCoach(user):
+        rights = "competitor"
     name = mongoutils.getTeam(tid)
     members = mongoutils.getTeamMembers(name)
     return render_template("team.html", name = name, members = members)
