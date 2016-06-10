@@ -1,0 +1,26 @@
+header, main {
+    padding-left: 260px;
+}
+main {
+    flex: 1 0 auto;
+}
+#rcorners1 {
+    border-radius: 14px;
+}
+ul.side-nav.fixed li.logo {
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+#logo-container {
+    height: 57px;
+    margin-bottom: 32px;
+}
+#front-page-logo {
+    display: inline-block;
+    height: 200%;
+    pointer-events: none;
+}
+a.logo-container:hover {
+    background-color: white;
+}

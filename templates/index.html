@@ -1,25 +1,25 @@
 <html>
-    <head>
-          <!--Import Google Icon Font-->
-      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Sign up / Sign in</title>
-<style>
-    #rcorners1 {
-    border-radius: 14px;
-    }
-</style>
-    </head>
-    <center>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='materialize/css/materialize.min.css')}}"  media="screen,projection"/>
+    
+    <!--Let browser know website is optimized for mobile-->
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
+    <title>Sign up / Sign in</title>
+    <style>
+      #rcorners1 {
+      border-radius: 14px;
+      }
+    </style>
+  </head>
+  <center>
     <body style="font-family:Trebuchet MS">
-          <!--Import jQuery before materialize.js-->
+      <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
-    <img src="http://i.imgur.com/Hrv0mVF.png"></img>
+      <script type="text/javascript" src="{{url_for('static',filename='materialize/js/materialize.min.js')}}"></script>
+      <img src="http://i.imgur.com/Hrv0mVF.png"></img>
       <table id="rcorners1" bgcolor="#ADD8E6">
 	<tr>
 	  <td>Login</td>
@@ -27,12 +27,17 @@
 	</tr>
         <tr>
 	  <td>
-	    {{error}}<br>
+	    {{error}}
 	    <form method = "POST">
-	      <input type="radio" name="rights" value="admin" checked="checked"> Admin<br>
-	      <input type="radio" name="rights" value="coach"> Coach<br>
+	      <input type="radio" id="ladmin" name="rights" value="admin" checked="checked">
+	      <label for="ladmin">Admin</label><br>
+	      
+	      <input type="radio" id="lcoach" name="rights" value="coach">
+	      <label for="lcoach">Coach</label><br>
 
-		<input type="radio" name="rights" value="competitor"> Competitor<br><br>
+	      <input type="radio" id="lcomp" name="rights" value="competitor"> 
+	      <label for="lcomp">Competitor</label><br><br>
+		
                 Username: <input type = "text" name = "user">
                 <br /><br />
                 Password: <input type = "password" name = "pass">
@@ -42,14 +47,20 @@
 	  </td><td>
 	    {{regerror}}<br>
 	    <form method = "POST">
-	        <input type="radio" name="rights" value="admin" checked="checked"> Admin<br>
-	        <input type="radio" name="rights" value="coach"> Coach<br>
-		<input type="radio" name="rights" value="competitor"> Competitor<br><br>
+	        <input type="radio" id="radmin" name="rights" value="admin" checked="checked">
+		<label for="ladmin">Admin</label><br>
+	        
+		<input type="radio" id="rcoach" name="rights" value="coach">
+		<label for="rcoach">Coach</label><br>
+		
+		<input type="radio" id="rcomp" name="rights" value="competitor">
+		<label for="rcomp">Competitor</label><br><br>
+
                 Username: <input type = "text" name = "reguser">
 	        <br /><br />
                 Password: <input type = "password" name = "regpass">
 	        <br /><br />
-                Email: <input type= "text" name = "email">
+                Email: <input type= "email" name = "email">
 	        <br /><br />
 	        <input type = "submit" name = "register" value = "register">
 	    </form>
@@ -57,5 +68,5 @@
 	</tr>
       </table>
     </body>
-    </center>
+  </center>
 </html>
