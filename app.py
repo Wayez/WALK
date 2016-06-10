@@ -79,8 +79,8 @@ def home_user():
         return redirect ("/login")
     user = session['user']
     if request.method == 'POST':
-        #print request.form
-        if request.form.has_key('new'):
+        print request.form
+        if request.form.has_key('joinTeam'):
             #print "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             #print request.form
             #print "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -91,12 +91,15 @@ def home_user():
             return redirect("/team/" + str(tid))
         if request.form.has_key('logout'):
             return redirect('/logout')
-    teams = mongoutils.getCompTeams(user)
+    teams = mongoutils.getAllTeams()
     allTeams = []
+    print teams
     for x in teams:
         if user not in mongoutils.getTeamMembers(x):
             teams.remove(x)
             allTeams.append(x)
+    print allTeams
+    print teams
     return render_template("competitor.html", teams = teams, allTeams = allTeams)
 
 @app.route("/admin", methods = ['GET','POST'])
