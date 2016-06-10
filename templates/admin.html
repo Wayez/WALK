@@ -39,12 +39,13 @@
 
     <main>
       <div class="container">
-	<table id="rcorners1" bgcolor="#ADD8E6">
+	<h1>Tournaments</h1>
+	<table id="rcorners1">
 	  <tr>
 	    <td>
 	      <form method="POST">
 		{% for tourn in tourns %}
-		<input type="submit" name="old" value="{{tourn}}"><br><br>
+		<button class="waves-effect waves-light btn" type="submit" name="old">{{tourn}}</button><br><br>
 		{% endfor %}
 		
 		{% if tourns|length == 0 %}
