@@ -1,0 +1,20 @@
+<html>
+  <head>
+  </head>
+  <img src="http://i.imgur.com/Hrv0mVF.png"></img>
+ <body style="font-family:Trebuchet MS">
+    Teams you are a part of:<form method="POST">
+      {% for team in teams %}
+      <input type="submit" name="old" value="{{team}}"><br><br>
+      {% endfor %}
+      Join Team:
+      <select name="name0">
+  		  {% for team in allTeams %}
+  		  <option value="{{team}}">{{team}}</option>
+  		  {% endfor %}
+  		</select>
+      <input type="submit" name="new" value="join">
+<input type="submit" name="logout" value="logout">
+    </form>
+  </body>
+</html>

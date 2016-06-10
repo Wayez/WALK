@@ -10,6 +10,7 @@ adminsc  = db.admins
 tournsc  = db.tourns
 teamsc   = db.teams
 coachesc = db.coaches
+gamesc = db.games
 
 '''
 -------------------------------------------------------------------------------
@@ -110,7 +111,6 @@ Returns:
 def getAllUsers():
     return list(usersc.find())
 
-#admins
 def getAllAdmins():
     return list(adminsc.find())
 
@@ -384,6 +384,16 @@ def getCoachTeams(coach):
         ret.append(r['name'])
     return ret
 
+def getCompTeams(competitor):
+    result = getAllTeams()
+    ret = []
+    for team in result:
+        for comp in team['idus']:
+            if comp['name'] == competitor:
+                ret.append(comp[name])
+    return ret
+
+
 def getTeamMembers(name):
     result =  teamsc.find_one({'name':name}, {'idus':1})
     ret = []
@@ -434,5 +444,3 @@ def encrypt(word):
     hashp = hashlib.md5()
     hashp.update(word)
     return hashp.hexdigest()
-
-
