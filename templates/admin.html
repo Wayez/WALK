@@ -17,16 +17,24 @@
     <header>
       <div class="container">    
 	<a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
-	  <i class="medium mdi-navigation-menu indigo-text text-accent-2"></i>
+	  <i class="material-icons">menu</i>
 	</a>
-      </div>
-      <ul id="nav-mobile" class="side-nav fixed">
+	</div>
+      <ul  class="hide-on-med-and-down side-nav fixed">
 	<li class="logo"><a id="logo-container" href="" class="brand-logo">
 	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
-	</a></li><br><br>
+	</li><br><br>
 	<li><a href="newtourn">New Tournament</a><li>
 	<li><a href="logout">Log Out</a><li>
       </ul>
+     <ul id="nav-mobile" class="side-nav">
+       <li class="logo"><a id="logo-container" href="" class="brand-logo">
+	       <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	       </a></li><br><br>
+       <li><a href="newtourn">New Tournament</a><li>
+	 <li><a href="logout">Log Out</a><li>
+	       </ul>
+     
     </header>
 
     <main>
@@ -47,10 +55,11 @@
 	  </tr>
 	</table>
 	<!--Import jQuery before materialize.js-->
-	<script type="script/javascript">
-	  $(function(){$(".button-collapse").sideNav();};
-	  console.log("pls");
-	</script>
+	    <script>$(document).ready(function(){
+	              $(".button-collapse").sideNav();
+	              
+	          
+	          });</script>
       </div>
     </main>
   </body>
