@@ -1,17 +1,22 @@
 <html>
-    <head>
-      
-    </head>
-    <head>
-      <!--Import Google Icon Font-->
-      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='materialize/css/materialize.min.css')}}"  media="screen,projection"/>
-      
-      <!--Let browser know website is optimized for mobile-->
-      <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
-      <title>Sign up / Sign in</title>
-      <script type="text/javascript">
+  <head>
+    
+    
+    <script type="text/javascript" src="{{url_for('static',filename='jquery-2.1.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static',filename='materialize/js/materialize.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static',filename='jquery-bracket/jquery.bracket.min.js')}}"></script>
+    
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='materialize/css/materialize.min.css')}}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='nav.css')}}"  media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='jquery-bracket/jquery.bracket.min.css')}}" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
+    <title>New Tournament</title>
+    <script type="text/javascript">
 	var i = 2;
 	function addFields(){
 	  for (var j=0; j<2; j++) {
@@ -21,32 +26,51 @@
 	    document.getElementById("teams").appendChild(newdiv);
 	  }
 	}
-      </script>
-    </head>
-    <body style="font-family:Trebuchet MS">
-          <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="{{url_for('static',filename='materialize/js/materialize.min.js')}}"></script>
-    <img src="http://i.imgur.com/Hrv0mVF.png"></img>
-    <body style="font-family:Trebuchet MS">
-        <form method="POST">
-	    Tournament Name<br>
-	    <input type="text" name="name"><br><br>
+    </script>
+  </head>
+  <body style="font-family:Trebuchet MS">
+    <header>
+      <div class="container">    
+	<a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
+	  <i class="medium mdi-navigation-menu indigo-text text-accent-2"></i>
+	</a>
+      </div>
+      <ul id="nav-mobile" class="side-nav fixed">
+	<li class="logo"><a id="logo-container" href="" class="brand-logo">
+	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	</a></li><br><br>
+	<li><a href="../admin">View All Tournaments</a><li>
+	<li><a href="../logout">Log Out</a><li>
+      </ul>
+    </header>
 
-	    Teams 
-	    <button id="add" value="Add" onclick="addFields(); return false;">
-	      Add</button><br>
-	    
-	    <div id = "teams">
-	        <div id="entry">
-		  <input type="text" name="name0" placeholder="Team 0"><br>
-		</div>
-		<div id="entry">
-	          <input type="text" name="name1" placeholder="Team 1"><br>
-		</div>
+    <main>
+      <h1>New Tournament</h1>
+      <form method="POST" class="col s12">
+	<div id="entry" class="row">
+	  <div class="col s6">
+	    <label for="name">Name</label>
+	    <input type="text" id="name" name="name">
+	  </div>
+	</div>
+	Teams 
+	<button id="add" value="Add" onclick="addFields(); return false;">
+	  Add</button><br>
+	
+	<div id = "teams">
+	  <div id="entry" class="row">
+	    <div class="input-field col s6">
+	      <input type="text" name="name0" placeholder="Team 0"><br>
 	    </div>
-	    <input type="submit" value="Submit" name="create">
-	    <input type="submit" name="logout" value="logout">
-	</form>
-    </body>
+	  </div>
+	  <div id="entry" class="row">
+	    <div class="input-field col s6">
+	      <input type="text" name="name1" placeholder="Team 1"><br>
+	    </div>
+	  </div>
+	</div>
+	<input type="submit" value="Submit" name="create">
+      </form>
+    </main>
+  </body>
 </html>

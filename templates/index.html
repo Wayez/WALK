@@ -20,7 +20,7 @@
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="{{url_for('static',filename='materialize/js/materialize.min.js')}}"></script>
       <img src="http://i.imgur.com/Hrv0mVF.png"></img>
-      <table id="rcorners1" bgcolor="#ADD8E6">
+      <table id="rcorners1">
 	<tr>
 	  <td>Login</td>
 	  <td>Register</td>
@@ -37,15 +37,17 @@
 
 	      <input type="radio" id="lcomp" name="rights" value="competitor"> 
 	      <label for="lcomp">Competitor</label><br><br>
-		
-                Username: <input type = "text" name = "user">
-                <br /><br />
-                Password: <input type = "password" name = "pass">
-                <br /><br />
-                <input type = "submit" name = "login" value = "login">
+	      
+	      <label for="lname">Username</label>
+	      <input type="text" name="user" id="lname">
+              
+	      <label for="lpass">Password</label>
+              <input type="password" name="pass" id="lpass">
+              
+              <input type = "submit" name = "login" value = "login">
 	    </form>
 	  </td><td>
-	    {{regerror}}<br>
+	    {{regerror}}
 	    <form method = "POST">
 	        <input type="radio" id="radmin" name="rights" value="admin" checked="checked">
 		<label for="ladmin">Admin</label><br>
