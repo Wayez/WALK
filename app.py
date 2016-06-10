@@ -78,12 +78,13 @@ def home_user():
     if 'user' not in session:
         return redirect ("/login")
 
+    user = session['user']
+    
     if mongoutils.isNotUser(user):
         if mongoutils.isNotCoach(user):
             return redirect("/admin")
         return redirect("/coach")
 
-    user = session['user']
     if request.method == 'POST':
         print request.form
         if request.form.has_key('joinTeam'):
@@ -249,6 +250,7 @@ def team(tid):
     user = session['user']
 
     if request.method == 'POST':
+        print request.form
         if request.form.has_key('logout'):
             return redirect('/logout')
         if request.form.has_key('join'):
@@ -258,13 +260,16 @@ def team(tid):
             req = request.form.copy()
             comps = req.getlist('comps')
             #print "wwwwwwwwwwwwwwwwwwwwwwww"
-            for competitor in comps:
-                mongoutils.approve(tid, competitor)
+            for competitor in req:
+                if competitor=='comps':
+                    print "approve"
+                    mongoutils.approve(tid, competitor)
             return redirect('/team/' + str(tid) )
         if request.form.has_key('reject'):
             req = request.form.copy()
             comps = req.getlist('comps')
             for competitor in comps:
+                print "reject"
                 mongoutils.reject(tid, competitor)
             return redirect('/team/'+ str(tid))
     rights = ""
@@ -305,7 +310,7 @@ def updata():
     user = session['user']
     print user
     
-    if mongoutils.isNotAdmin(user) && mongoutils.isNotCoach(user):
+    if mongoutils.isNotAdmin(user) and mongoutils.isNotCoach(user):
         return redirect("/competitor")
         
     if request.method == 'POST':

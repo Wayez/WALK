@@ -25,7 +25,11 @@
 	<li class="logo"><a id="logo-container" href="" class="brand-logo">
 	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
 	</li><br><br>
-	<li><a href="../admin">View All Tournaments</a><li>
+	{% if rights == "competitor" %}
+	<li><a href="../competitor">View All Teams</a><li>
+	  {% elif rights == "coach" %}
+	<li><a href="../coach">View All Teams</a><li>
+	{% endif %}
 	<li><a href="../logout">Log Out</a><li>
       </ul>
       <ul id="nav-mobile" class="side-nav">
