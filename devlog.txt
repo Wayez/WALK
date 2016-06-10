@@ -49,3 +49,7 @@
 
 06-07-2016
     Updating brackets is functional so results is a real thing
+
+06-09-2016
+    Real CSS
+    Making competitors and coaches real

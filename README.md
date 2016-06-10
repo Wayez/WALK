@@ -25,5 +25,10 @@ Science Bowl tournament management system
 - Mobile or email notifications to users
 - Overall visual representation of the event, including a map of the area displaying where every game is being played
 
+####Bugs / Features
+- Plus/Minus and SE/DE should not appear in update bracket
+- Nav bar logo disappears sometimes
+- Probably a lot more
+
 ####Credits
 [JQuery Brackets](https://github.com/teijo/jquery-bracket)

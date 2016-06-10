@@ -110,6 +110,7 @@ def admin():
 
     if request.method == 'POST':
         if request.form.has_key('old'):
+            print request.form
             tid = mongoutils.getTournId(request.form['old'])
             return redirect("/bracket/"+str(tid))
 
