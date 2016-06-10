@@ -1,55 +1,83 @@
 <html>
 
   <head>
-  <img src="http://i.imgur.com/Hrv0mVF.png"></img>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='jquery-bracket/jquery.bracket.min.css')}}" />
+    <script type="text/javascript" src="{{url_for('static',filename='jquery-2.1.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static',filename='materialize/js/materialize.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static',filename='jquery-bracket/jquery.bracket.min.js')}}"></script>
+    
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='materialize/css/materialize.min.css')}}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='nav.css')}}"  media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='jquery-bracket/jquery.bracket.min.css')}}" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
+    <title>Update Bracket</title>
   </head>
   
   <body style="font-family:Trebuchet MS">
-    <h1>{{name}}</h1>
-    <div id = "doubleElimination" class="demo"></div>
-    <script type="text/javascript">
-var teamdict = {{teams|tojson|safe}};
-var res = {{results|tojson|safe}}
+    
+    <header>
+      <div class="container">    
+	<a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
+	  <i class="medium mdi-navigation-menu indigo-text text-accent-2"></i>
+	</a>
+      </div>
+      <ul id="nav-mobile" class="side-nav fixed">
+	<li class="logo"><a id="logo-container" href="" class="brand-logo">
+	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	</a></li><br><br>
+	<li><a href="../bracket/{{tid}}">View This Tournament</a><li>
+	<li><a href="../admin">View All Tournaments</a><li>
+	<li><a href="../newtourn">New Tournament</a><li>
+	<li><a href="../logout">Log Out</a><li>
+      </ul>
+    </header>
+    <main>
+      <h1>{{name}}</h1>
+      <div id = "doubleElimination" class="demo"></div>
+      <script type="text/javascript">
+	var teamdict = {{teams|tojson|safe}};
+	var res = {{results|tojson|safe}}
+	
+	var i = 0;
+	var teams = teamdict['teams']
+	var temz = [];
+	
+	while (i<teams.length-1) {
+		 var temp = [];
+		 temp.push(teams[i])
+		 temp.push(teams[i+1])
+		 i+=2;
+		 temz.push(temp)
+	}
 
-var i = 0;
-var teams = teamdict['teams']
-var temz = [];
-
-while (i<teams.length-1) {
-    var temp = [];
-    temp.push(teams[i])
-    temp.push(teams[i+1])
-    i+=2;
-    temz.push(temp)
-}
-
-var doubleEliminationData = {
-    "teams"   : temz,
-    "results" : res['results']
-}
+	var doubleEliminationData = {
+		 "teams"   : temz,
+		 "results" : res['results']
+	}
  
-function saveFn(data, userData) {
-  data["tid"]={{tid}}
-  var json = JSON.stringify(data)
-  $('#saveOutput').text('POST '+userData+' '+json)
-  
-  $.ajax({
-	 url: '/update',
-	 data: json,
-	 type: 'POST',
-	 success:function(){console.log("hI")}		 
-  })
-};
+	function saveFn(data, userData) {
+		 data["tid"]={{tid}}
+		 var json = JSON.stringify(data)
+		 $('#saveOutput').text('POST '+userData+' '+json)
+				 
+		 $.ajax({
+		 url: '/update',
+		 data: json,
+		 type: 'POST',
+		 success:function(){console.log("hI")}		 
+		 })
+	};
  
-$(function() {
-    $('div#doubleElimination.demo').bracket({
-	init: doubleEliminationData,
-	save: saveFn,
-	userData: "/update"});
-});
+	$(function() {
+		 $('div#doubleElimination.demo').bracket({
+		 init: doubleEliminationData,
+		 save: saveFn,
+		 userData: "/update"});
+	});
 
 //var tools = document.getElementsByClassName("increment");
 //console.log(tools);
@@ -63,13 +91,8 @@ $(function() {
 //$('.tools').remove();
 //console.log($('.tools'))
 
-    </script>
-
-    <a href="../bracket/{{tid}}">View This Tournament</a><br>
-    <a href="../admin">View All Tournaments</a><br>
-    <a href="../newtourn">New Tournament</a><br>
-    <a href="../logout">Log Out</a><br>
-
+      </script>
+    </main>
   </body>
 
 </html>
