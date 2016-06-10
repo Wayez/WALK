@@ -382,8 +382,6 @@ def getTeamId(name):
     print result
     return result['_id']
 
-print getTeamId('Walking')
-
 def getCoachTeams(coach):
     result = teamsc.find({'coach':coach},{'name':1})
     ret = []
