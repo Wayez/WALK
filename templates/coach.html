@@ -3,10 +3,11 @@
   </head>
   <img src="http://i.imgur.com/Hrv0mVF.png"></img>
  <body style="font-family:Trebuchet MS">
-    <form method="POST">
+    Teams you coach:<form method="POST">
       {% for team in teams %}
-      <input type="submit" name="old" value="{{team}}"><br><br>
+      <input type="submit" name="old" value="{{team}}"><br>
       {% endfor %}
+      <br><br>
       <input type="submit" name="new" value="create">
 <input type="submit" name="logout" value="logout">
     </form>

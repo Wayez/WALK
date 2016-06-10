@@ -10,6 +10,7 @@ adminsc  = db.admins
 tournsc  = db.tourns
 teamsc   = db.teams
 coachesc = db.coaches
+gamesc = db.games
 
 '''
 -------------------------------------------------------------------------------
@@ -110,7 +111,6 @@ Returns:
 def getAllUsers():
     return list(usersc.find())
 
-#admins
 def getAllAdmins():
     return list(adminsc.find())
 
@@ -366,6 +366,9 @@ def updateResults(tid,results):
 -----------------------------------Teams---------------------------------------
 -------------------------------------------------------------------------------
 '''
+def getAllTeams():
+    return list(teamsc.find())
+
 def getTeam(ida):
     result = teamsc.find_one({'_id':ida})
     #print result
@@ -384,6 +387,20 @@ def getCoachTeams(coach):
         ret.append(r['name'])
     return ret
 
+def getCompTeams(competitor):
+    result = getAllTeams()
+    ret = []
+    for team in result:
+        for comp in team['idus']:
+            id = comp['id']
+            name = getUserName(id)
+            if name == competitor:
+                ret.append(team['name'])
+    return ret
+
+#print 3
+#print getCompTeams('wayez')
+
 def getTeamMembers(name):
     result =  teamsc.find_one({'name':name}, {'idus':1})
     ret = []
@@ -396,9 +413,6 @@ def getTeamMembers(name):
     return ret
 
 #print getTeamMembers('WALK')
-
-def getAllTeams():
-    return list(teamsc.find())
 
 def createTeam(name, coach, idus):
     print teamsc.find_one({'name':name})
@@ -434,5 +448,3 @@ def encrypt(word):
     hashp = hashlib.md5()
     hashp.update(word)
     return hashp.hexdigest()
-
-
