@@ -37,8 +37,8 @@
     </header>
     <main>
       <h1>Teams you are a part of</h1><form method="POST">
-	{% for team in teams %}
-	<input type="submit" name="old" value="{{team}}">
+	{% for team in allTeams %}
+	<input type="submit" name="old" value="{{team}}"></input><br>
 	{% endfor %}<br><br>
 	Join Team:
   <div id="entry" class="input-field">
