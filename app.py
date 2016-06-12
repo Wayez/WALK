@@ -143,7 +143,7 @@ def coach():
     if mongoutils.isNotCoach(user):
         if mongoutils.isNotAdmin(user):
             return redirect("/competitor")
-        return rediect("/admin")
+        return redirect("/admin")
 
     if request.method == 'POST':
         print request.form
