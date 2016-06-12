@@ -36,11 +36,11 @@
 
     </header>
     <main>
-      <h1>Teams you are a part of</h1><form method="POST">
-	{% for team in allTeams %}
+      <h2>Teams you are a part of</h2><form method="POST">
+	{% for team in t %}
 	<input type="submit" name="old" value="{{team}}"></input><br>
 	{% endfor %}<br><br>
-	Join Team:
+	<h2>Join Team:</h2>
   <div id="entry" class="input-field">
 	<select name="joinTeam">
 	  {% for team2 in allTeams %}
