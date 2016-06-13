@@ -109,8 +109,8 @@ def home_user():
         return redirect("/coach")
 
     if request.method == 'POST':
-        #print request.form
-        if request.form.has_key('joinTeam'):
+        print request.form
+        if request.form.has_key('new'):
             #print "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             #print request.form
             #print "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -128,13 +128,10 @@ def home_user():
     for x in teams:
         #print x
         if user not in mongoutils.getTeamMembers(x['name']):
-            teams.remove(x)
             allTeams.append(x['name'])
         else:
             t.append(x['name'])
-    #print allTeams
-    #print teams
-    return render_template("competitor.html", teams = teams, allTeams = allTeams)
+    return render_template("competitor.html", t = t, allTeams = allTeams)
 
 @app.route("/admin", methods = ['GET','POST'])
 def admin():
