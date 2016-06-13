@@ -423,8 +423,8 @@ print getCompTeams('liam')
 def getTeamMembers(name):
     result =  teamsc.find_one({'name':name}, {'idus':1})
     ret = []
-    print result
-    print result['idus']
+    #print result
+    #print result['idus']
     for r in result['idus']:
         if r['approved']:
             #print
@@ -445,21 +445,6 @@ def getTeamRequests(name):
 
 #print getTeamMembers('WALK')
 
-def createTeam(name, coach, idus):
-    print teamsc.find_one({'name':name})
-    if teamsc.find_one({'name':name}) == None:
-        ts = getAllTeams()
-        if len(ts)==0:
-            idt = 1
-        else:
-            n = teamsc.find_one(sort=[('_id',-1)])
-            idt = int(n['_id'])+1
-        r = {'_id':idt, 'name':name, 'coach':coach,
-             'idus':idus}
-        teamsc.insert(r)
-        return True
-    return False
-
 def getCoach(tid):
     result = teamsc.find_one({'_id':tid},{'coach':1})
     return result['coach']
@@ -468,14 +453,19 @@ def joinTeam(tid, uid):
     team = getTeam(tid)
     idus = getTeamMembers(team)
     for i in range(len(idus)):
+        if getUserId(idus[i]) == uid:
+            return False
         idus[i] = {'id': getUserId(idus[i]), 'approved': True}
     idus2 = getTeamRequests(team)
     for i in range(len(idus2)):
+        if getUserId(idus2[i]) == uid:
+            return False
         idus2[i] = {'id': getUserId(idus2[i]), 'approved':False}
     for x in idus2:
         idus.append(x)
     idus.append({'id':uid, 'approved':False })
     teamsc.update({'name':team}, {'$set': {'idus': idus}})
+    return True
 
 def approve(tid, user):
     team = getTeam(tid)
@@ -507,6 +497,59 @@ def reject(tid, user):
         else:
             idus.append(x)
     teamsc.update({'name':team}, {'$set': {'idus': idus}})
+
+
+def createTeam(name, coach, idus):
+    #print teamsc.find_one({'name':name})
+    if teamsc.find_one({'name':name}) == None:
+        ts = getAllTeams()
+        if len(ts)==0:
+            idt = 1
+        else:
+            n = teamsc.find_one(sort=[('_id',-1)])
+            idt = int(n['_id'])+1
+        mongo_idus = []
+        r = {'_id':idt, 'name':name, 'coach':coach, 'idus':[]}
+        teamsc.insert(r)
+        for idu in idus:
+            if joinTeam(idt, idu):
+                approve(idt, getUserName(idu))
+        return True
+    return False
+
+#createTeam("Knife", "brown", [1, 2, 3, 4, 5])
+#createTeam("Bird", "brown", [1 , 3 , 5, 6, 3, 1])
+'''
+#approve(3, "wayez")
+print "Get Team Members:"
+print getTeamMembers("WALK")
+print
+print "Get Team Requests"
+print getTeamRequests("WALK")
+print
+joinTeam(1, 6)
+joinTeam(1, 7)
+joinTeam(1, 8)
+joinTeam(1, 9)
+joinTeam(1, 10)
+print "Get Team Members after Join:"
+print getTeamMembers("WALK")
+print
+print "Get Team Requests after Join:"
+print getTeamRequests("WALK")
+print
+approve(1, "bill")
+reject(1, "ted")
+approve(1, "mykolyk")
+reject(1, "ShaJha")
+approve(1, "h")
+print "Get Team Members after approve/deny:"
+print getTeamMembers("WALK")
+print
+print "Get Team Requests after approve/deny:"
+print getTeamRequests("WALK")
+print
+'''
 '''
 -------------------------------------------------------------------------------
 --------------------------------Miscellaneous----------------------------------

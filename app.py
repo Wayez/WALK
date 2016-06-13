@@ -19,7 +19,7 @@ def homepage():
 @app.route("/login", methods = ['GET','POST'])
 def login():
     if request.method == 'POST':
-        print 'a'
+        #print 'a'
         error = ""
         print request.form
         req = {}
@@ -27,7 +27,7 @@ def login():
         for x in request.form:
             req[x]=request.form[x]
         if req.has_key('login'):
-            print '5'
+            #print '5'
             user = str(req['user'])
             password = str(req['pass'])
             user_type = str(req['rights'])
@@ -49,25 +49,25 @@ def login():
             password = str(req['regpass'])
             user_type = str(req['rights'])
 
-            print '6ducks'
+            #print '6ducks'
             all_rows = mongoutils.getAll()
-            print all_rows
+            #print all_rows
             for n in range(len(all_rows)):
                 all_rows[n] = all_rows[n]['name']
-            print all_rows
-            print '1'
+            #print all_rows
+            #print '1'
             email = str(req['email'])
-            print '2'
+            #print '2'
             if user in all_rows:
-                print '3'
+                #print '3'
                 error = "Username already exists. Please try another"
                 return render_template("index.html",regerror=error)
             else:
-                print '4'
+                #print '4'
                 message = "Account Created!"
                 session['user'] = user
-                print user_type
-                print user_type == "admin"
+                #print user_type
+                #print user_type == "admin"
                 if user_type == "admin":
                     mongoutils.addAdmin(user,password,email)
                     return redirect("/admin")
@@ -94,7 +94,7 @@ def home_user():
         return redirect("/coach")
 
     if request.method == 'POST':
-        print request.form
+        #print request.form
         if request.form.has_key('joinTeam'):
             #print "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             #print request.form
@@ -109,16 +109,16 @@ def home_user():
     teams = mongoutils.getAllTeams()
     allTeams = []
     t = []
-    print teams
+    #print teams
     for x in teams:
-        print x
+        #print x
         if user not in mongoutils.getTeamMembers(x['name']):
             teams.remove(x)
             allTeams.append(x['name'])
         else:
             t.append(x['name'])
-    print allTeams
-    print teams
+    #print allTeams
+    #print teams
     return render_template("competitor.html", teams = teams, allTeams = allTeams)
 
 @app.route("/admin", methods = ['GET','POST'])
@@ -134,7 +134,7 @@ def admin():
 
     if request.method == 'POST':
         if request.form.has_key('old'):
-            print request.form
+            #print request.form
             tid = mongoutils.getTournId(request.form['old'])
             return redirect("/bracket/"+str(tid))
 
@@ -154,7 +154,7 @@ def coach():
         return redirect("/admin")
 
     if request.method == 'POST':
-        print request.form
+        #print request.form
         if request.form.has_key('new'):
             return redirect("/newteam")
         if request.form.has_key('old'):
@@ -178,7 +178,7 @@ def new_tourn():
         return redirect("/coach")
 
     if request.method == 'POST':
-        print request.form
+        #print request.form
         if request.form.has_key('logout'):
             return redirect('/logout')
         if request.form.has_key('create'):
@@ -215,7 +215,7 @@ def new_team():
             return redirect("/competitor")
         return redirect("/admin")
     
-    print user
+    #print user
     comps = mongoutils.getAllUsers()
     for c in range(len(comps)):
         comps[c] = comps[c]['name']
@@ -224,7 +224,7 @@ def new_team():
             return redirect("/competitor")
         return redirect("/admin")
     if request.method == 'POST':
-        print request.form
+        #print request.form
         if request.form.has_key('logout'):
             return redirect('/logout')
         if request.form.has_key('create'):
@@ -240,7 +240,7 @@ def new_team():
             # getting all the teams out
             while req.has_key('name' + str(numComps)):
                 if not req['name' + str(numComps)] == 'N/A': 
-                    competitors.append({'id': mongoutils.getUserId(req['name' + str(numComps)]), 'approved': True})
+                    competitors.append(mongoutils.getUserId(req['name' + str(numComps)]))
                 numComps += 1
             if mongoutils.createTeam(name, coach, competitors):
                 tid = mongoutils.getTeamId(name)
@@ -258,7 +258,7 @@ def team(tid):
     user = session['user']
 
     if request.method == 'POST':
-        print request.form
+        #print request.form
         if request.form.has_key('logout'):
             return redirect('/logout')
         if request.form.has_key('join'):
@@ -270,14 +270,14 @@ def team(tid):
             #print "wwwwwwwwwwwwwwwwwwwwwwww"
             for competitor in req:
                 if competitor=='comps':
-                    print "approve"
+                    #print "approve"
                     mongoutils.approve(tid, competitor)
             return redirect('/team/' + str(tid) )
         if request.form.has_key('reject'):
             req = request.form.copy()
             comps = req.getlist('comps')
             for competitor in comps:
-                print "reject"
+                #print "reject"
                 mongoutils.reject(tid, competitor)
             return redirect('/team/'+ str(tid))
     rights = ""
@@ -316,21 +316,21 @@ def updata():
     if 'user' not in session:
         return redirect("/login")
     user = session['user']
-    print user
+    #print user
     
     if mongoutils.isNotAdmin(user) and mongoutils.isNotCoach(user):
         return redirect("/competitor")
         
     if request.method == 'POST':
-        print request.form
+        #print request.form
         req = []
         for x in request.form:
             req.append(x)
-        print req
+        #print req
         jason = json.loads(req[0])
         results = jason['results']
         tid = jason['tid']
-        print results
+        #print results
         mongoutils.updateResults(tid, results)
         return render_template("index.html")
     return redirect("/admin")
@@ -340,7 +340,7 @@ def update(tid):
     if 'user' not in session:
         return redirect("/login")
     user = session['user']
-    print user
+    #print user
 
     if mongoutils.isNotAdmin(user):
         if mongoutils.isNotCoach(user):
@@ -353,7 +353,7 @@ def update(tid):
     tjason = {"teams":mongoutils.getTournTeams(tid)}
     rjason = {"results":mongoutils.getTournResults(tid)}
     nom = mongoutils.getTournName(tid)
-    print "\n\n",rjason,"\n\n"
+    #print "\n\n",rjason,"\n\n"
     return render_template("update.html",name=nom,teams=tjason,
                            results=rjason,tid=tid)
 
