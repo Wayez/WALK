@@ -60,7 +60,6 @@
       <form method="POST">
 	{% if rights == "competitor" %}
 	<button class="waves-effect waves-light btn" type="submit" name="join" value="Join Team">Join</button><br><br>
-	<input type="submit" name="join" value="Join Team">
 	{% elif rights == "coach" %}
 	{% if requests|length == 0 %}
 	No New Requests

@@ -283,12 +283,11 @@ def team(tid):
             req = request.form.copy()
             comps = req.getlist('comps')
             #print "wwwwwwwwwwwwwwwwwwwwwwww"
-            for competitor in req:
-                if competitor=='comps':
-                    #print "approve"
-                    mongoutils.approve(tid, competitor)
+            for competitor in comps:
+                print competitor
+                mongoutils.approve(tid, competitor)
             return redirect('/team/' + str(tid) )
-        if request.form.has_key('reject'):
+        if request.form.has_key('decline'):
             req = request.form.copy()
             comps = req.getlist('comps')
             for competitor in comps:

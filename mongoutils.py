@@ -470,32 +470,44 @@ def joinTeam(tid, uid):
 def approve(tid, user):
     team = getTeam(tid)
     idus = getTeamMembers(team)
+    #print idus
+    #print "xxxxxxxxxxxxxxxxxxxxxxxx"
     for i in range(len(idus)):
         idus[i] = {'id': getUserId(idus[i]), 'approved': True}
     idus2 = getTeamRequests(team)
+    #print idus2
+    #print "yyyyyyyyyyyyyyyyyyyyyyyy"
     for i in range(len(idus2)):
         idus2[i] = {'id': getUserId(idus2[i]), 'approved':False}
     for x in idus2:
         if x["id"] == getUserId(user):
             idus.append({"id": x["id"], 'approved': True})
-            idus2.remove(x)
         else:
             idus.append(x)
+    #print "approving " + user
+    #print idus 
     teamsc.update({'name':team}, {'$set': { 'idus': idus}})
 
 def reject(tid, user):
     team = getTeam(tid)
     idus = getTeamMembers(team)
+    print idus
+    print "xxxxxxxxxxxxxxxxxxx"
     for i in range(len(idus)):
         idus[i] = {'id': getUserId(idus[i]), 'approved': True}
     idus2 = getTeamRequests(team)
+    print idus2
+    print "yyyyyyyyyyyyyyyyyyyy"
     for i in range(len(idus2)):
         idus2[i] = {'id': getUserId(idus2[i]), 'approved':False}
     for x in idus2:
         if x["id"] == getUserId(user):
-            idus2.remove(x)
+            print "declining" + user
         else:
+            print x["id"]
+            print "zzzzzzzzzzzzzzzzzzzz"
             idus.append(x)
+    print idus
     teamsc.update({'name':team}, {'$set': {'idus': idus}})
 
 
