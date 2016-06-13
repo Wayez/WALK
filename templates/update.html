@@ -18,74 +18,51 @@
   </head>
   
   <body style="font-family:Trebuchet MS">
-<!--    
     <header>
+
       <div class="container">    
+	
 	<a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
-	  <i class="medium mdi-navigation-menu indigo-text text-accent-2"></i>
+	  
+	  <i class="material-icons">menu</i>
+	  
 	</a>
+	
       </div>
-      <ul id="nav-mobile" class="side-nav fixed">
+      
+      <ul  class="hide-on-med-and-down side-nav fixed">
+	
 	<li class="logo"><a id="logo-container" href="" class="brand-logo">
+	    
 	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
-	</a></li><br><br>
+	    
+	</li><br><br>
 	<li><a href="../bracket/{{tid}}">View This Tournament</a><li>
-	<li><a href="../admin">View All Tournaments</a><li>
-	<li><a href="../newtourn">New Tournament</a><li>
+	<li><a href="../admin">My Tournaments</a><li>         
+	<li><a href="../">All Tournaments</a><li>         
+	<li><a href="../newtourn">New Tournament</a><li>         
 	<li><a href="../logout">Log Out</a><li>
+	  
       </ul>
-    </header>-->
-    <header>
-
-            <div class="container">    
-
-	      <a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
-
-		  <i class="material-icons">menu</i>
-
-		  </a>
-
-	      </div>
-
-	          <ul  class="hide-on-med-and-down side-nav fixed">
-
-		    <li class="logo"><a id="logo-container" href="" class="brand-logo">
-
-			    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
-
-			    </li><br><br>
-
-		            <li><a href="../bracket/{{tid}}">View This Tournament</a><li>                                                                                     
-
-		              <li><a href="../admin">View All Tournaments</a><li>                                                                                               
-
-		              <li><a href="../newtourn">New Tournament</a><li>                                                                                                  
-
-		              <li><a href="../logout">Log Out</a><li> 
-
-		            </ul>
-
-		       <ul id="nav-mobile" class="side-nav">
-
-			        <li class="logo"><a id="logo-container" href="" class="brand-logo">
-
-				           <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
-
-					          </a></li><br><br>
-
-				        <li><a href="../bracket/{{tid}}">View This Tournament</a><li>                                                                                     
-
-			           <li><a href="../admin">View All Tournaments</a><li>                                                                                               
-
-			           <li><a href="../newtourn">New Tournament</a><li>                                                                                                  
-
-			           <li><a href="../logout">Log Out</a><li> 
-
-			          </ul>
-
-		            
-
-		           </header>
+      
+      <ul id="nav-mobile" class="side-nav">
+	
+	<li class="logo"><a id="logo-container" href="" class="brand-logo">
+	    
+	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	    
+	</a></li><br><br>
+	<li><a href="../bracket/{{tid}}">View This Tournament</a><li> 
+	<li><a href="../admin">My Tournaments</a><li>         
+	<li><a href="../">All Tournaments</a><li>         
+	<li><a href="../newtourn">New Tournament</a><li>         
+	<li><a href="../logout">Log Out</a><li>
+	  
+      </ul>
+      
+      
+      
+    </header>
     <main>
       <h1>{{name}}</h1>
       <div id = "doubleElimination" class="demo"></div>

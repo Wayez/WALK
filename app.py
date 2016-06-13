@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, session, request
 from flask import redirect, url_for
 from datetime import datetime
@@ -10,8 +9,11 @@ app = Flask(__name__)
 
 @app.route("/", methods = ['GET','POST'])
 def homepage():
-    allTourns = []
-    allTourns.append('<a href="/tlist">List of Tournaments</a>')
+    t = mongoutils.getAllTourns()
+    allTourns = {}
+    for tr in t:
+        print tr
+        allTourns[tr['name']] = tr['_id']
     return render_template("alltourns.html",allTourns=allTourns)
 
 @app.route("/login", methods = ['GET','POST'])
@@ -78,14 +80,6 @@ def login():
     return render_template("index.html") #login failed
 
 #print mongoutils.getCompTeams('wayez')
-
-@app.route("/tlist")
-def list_tournaments():
-    t = mongoutils.getAllTourns()
-    allTourns = []
-    for tr in t:
-        allTourns.append(tr['name'])
-    return render_template("alltourns.html",allTourns=allTourns)
 
 @app.route("/competitor", methods = ['GET', 'POST'])
 def home_user():

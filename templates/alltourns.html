@@ -1,125 +1,60 @@
 <html>
-
-  
-
     <head>
+      <script type="text/javascript" src="{{url_for('static',filename='jquery-2.1.1.min.js')}}"></script>
+      <script type="text/javascript" src="{{url_for('static',filename='materialize/js/materialize.min.js')}}"></script>
 
-          
-
-          <script type="text/javascript" src="{{url_for('static',filename='jquery-2.1.1.min.js')}}"></script>
-
-	      <script type="text/javascript" src="{{url_for('static',filename='materialize/js/materialize.min.js')}}"></script>
-
-	          <script type="text/javascript" src="{{url_for('static',filename='jquery-bracket/jquery.bracket.min.js')}}"></script>
-
-		      
-
-		      <!--Import Google Icon Font-->
-
-		          <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-			      <!--Import materialize.css-->
-
-			          <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='materialize/css/materialize.min.css')}}"  media="screen,projection"/>
-
-				      <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='nav.css')}}"  media="screen,projection"/>
-
-				          <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='jquery-bracket/jquery.bracket.min.css')}}" />
-
-					  
-
-					      <!--Let browser know website is optimized for mobile-->
-
-					          <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
-
-						      <title>All Tournaments</title>
-
-						        </head>
-
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       
-
-      <body style="font-family:Trebuchet MS">
-
-	    <header>
-
-	                  <div class="container">    
-
-			          <a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
-
-				      <i class="material-icons">menu</i>
-
-				        </a>
-
-				        </div>
-
-			            <ul  class="hide-on-med-and-down side-nav fixed">
-
-				          <li class="logo"><a id="logo-container" href="" class="brand-logo">
-
-					          <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
-
-						      </li><br><br>
-
-					              <li><a href="/login">Login / Register</a><li>                                                      
-
-					
-
-					            </ul>
-
-				           <ul id="nav-mobile" class="side-nav">
-
-					             <li class="logo"><a id="logo-container" href="" class="brand-logo">
-
-							            <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
-
-								    
-
-								              </a></li><br><br>
-
-						        <li><a href="/login">Login / Register</a><li>                                                                
-
-					       
-
-					                 </ul>
-
-					   
-
-					               
-
-					   
-
-					              </header>
-
-	    <body>
-
-	      <main>
-{% autoescape false %}
-		{% for t in allTourns %}
-
-		<h3>{{t}}</h3>
-
-		{% endfor %}
-{% endautoescape %}
-
-		
-    <script type="text/javascript">
-
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='materialize/css/materialize.min.css')}}"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="{{url_for('static',filename='nav.css')}}"  media="screen,projection"/>
+      <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='jquery-bracket/jquery.bracket.min.css')}}" />
       
-
-            $(document).ready(function() {
-
-	    
-
-	            $('select').material_select();
-
-	    
-
-	          });
-
-	    
-
-	        </script>
-</main>
-
-		</body>
-	    </html>
+      <!--Let browser know website is optimized for mobile-->
+      <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
+      
+      <title>All Tournaments</title>
+      
+    </head>
+    
+    
+    
+    <body style="font-family:Trebuchet MS">
+      
+      <header>
+	<div class="container">    
+	  <a href="#" data-activates="nav-mobile" class="button-collapse top-nav hide-on-large-only">
+	    <i class="material-icons">menu</i>
+	  </a>
+	</div>
+	<ul  class="hide-on-med-and-down side-nav fixed">
+	  <li class="logo"><a id="logo-container" href="" class="brand-logo">
+	      <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	  </li><br><br>
+	  <li><a href="/login">Login / Register</a><li>                         	</ul>
+	<ul id="nav-mobile" class="side-nav">
+	  <li class="logo"><a id="logo-container" href="" class="brand-logo">
+	      <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
+	  </a></li><br><br>
+	  <li><a href="/login">Login / Register</a><li>                         	</ul>
+      </header>
+      
+      <main>
+	<h1>All Tournaments</h1>
+	{% autoescape false %}
+	{% for t in allTourns %}
+	
+	<h4><a href="bracket/{{allTourns[t]}}">{{t}}</a></h4>
+	
+	{% endfor %}
+	{% endautoescape %}
+	
+	<script type="text/javascript">
+          $(document).ready(function() {
+	  $('select').material_select();
+	  });
+	</script>
+      </main>
+    </body>
+</html>
