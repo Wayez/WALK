@@ -25,19 +25,21 @@
 	<li class="logo"><a id="logo-container" href="" class="brand-logo">
 	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
 	</li><br><br>
-	<li><a href="../newteam">New Team</a><li>
-	<li><a href="../logout">Log Out</a><li>
+	<li><a href="/newteam">New Team</a><li>
+	<li><a href="/">All Tournaments</a><li>
+	<li><a href="/logout">Log Out</a><li>
       </ul>
       <ul id="nav-mobile" class="side-nav">
 	<li class="logo"><a id="logo-container" href="" class="brand-logo">
 	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
 	</a></li><br><br>
-	<li><a href="../newteam">New Team</a><li>
-	<li><a href="../logout">Log Out</a><li>
+	<li><a href="/newteam">New Team</a><li>
+	<li><a href="/">All Tournaments</a><li>
+	<li><a href="/logout">Log Out</a><li>
       </ul>
     </header>
     <main>
-      <h1>Teams you coach</h1>
+      <h1>My Teams</h1>
       <form method="POST">
 	{% for team in teams %}
 	<input type="submit" name="old" value="{{team}}"><br>

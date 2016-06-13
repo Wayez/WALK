@@ -14,7 +14,18 @@ def homepage():
     for tr in t:
         print tr
         allTourns[tr['name']] = tr['_id']
-    return render_template("alltourns.html",allTourns=allTourns)
+    rights = ""
+    if 'user' not in session:
+        rights = "public"
+    else:
+        user = session['user']
+        if  mongoutils.isNotAdmin(user) and mongoutils.isNotCoach(user):
+            rights = "competitor"
+        elif mongoutils.isNotAdmin(user):
+            rights = "coach"
+        else:
+            rights = "admin"
+    return render_template("alltourns.html",allTourns=allTourns,rights=rights)
 
 @app.route("/login", methods = ['GET','POST'])
 def login():
