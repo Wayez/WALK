@@ -53,3 +53,9 @@
 06-09-2016
     Real CSS
     Making competitors and coaches real
+
+06-11-2016
+    All tourns list
+
+06-12-2016
+    Bug Fixing
