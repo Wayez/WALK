@@ -25,29 +25,40 @@
 	<li class="logo"><a id="logo-container" href="" class="brand-logo">
 	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
 	</li><br><br>
+	<li><a href="/">All Tournaments</a><li>
 	<li><a href="../logout">Log Out</a><li>
       </ul>
       <ul id="nav-mobile" class="side-nav">
 	<li class="logo"><a id="logo-container" href="" class="brand-logo">
 	    <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
 	</a></li><br><br>
+	<li><a href="/">All Tournaments</a><li>
 	<li><a href="../logout">Log Out</a><li>
       </ul>
 
     </header>
     <main>
-      <h2>Teams you are a part of</h2><form method="POST">
+      <h1>My Teams</h1>
+      <form method="POST" class="col s12">
 	{% for team in t %}
-	<input type="submit" name="old" value="{{team}}"></input><br>
+	<div id="entry" class="row">
+	  <div class="input-field col s6">
+	    <input type="submit" name="old" value="{{team}}"></input><br>
+	  </div>
+	</div>
 	{% endfor %}<br><br>
-	<h2>Join Team:</h2>
-  <div id="entry" class="input-field">
-	<select name="joinTeam">
-	  {% for team2 in allTeams %}
-	  <option value="{{team2}}">{{team2}}</option>
-	  {% endfor %}</div>
-	</select>
-	<input type="submit" name="new" value="join">
+	<h4>Join Team:</h4>
+	<div id="entry" class="row">
+	  <div class="input-field col s6">
+	    <select name="joinTeam">
+	      {% for team2 in allTeams %}
+	      <option value="{{team2}}">{{team2}}</option>
+	      {% endfor %}</div>
+	  </select>
+	</div><br><br><br><br>
+	<div class="row">
+	  <button class="waves-effect waves-light btn" type="submit" name="new">Join</button>
+	</div>
       </form>
     </main>
     <script type="text/javascript">

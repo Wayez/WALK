@@ -59,6 +59,7 @@
       <br>
       <form method="POST">
 	{% if rights == "competitor" %}
+	<button class="waves-effect waves-light btn" type="submit" name="join" value="Join Team">Join</button><br><br>
 	<input type="submit" name="join" value="Join Team">
 	{% elif rights == "coach" %}
 	{% if requests|length == 0 %}
@@ -67,11 +68,12 @@
 	Requests:
 	<br>
 	{% for request in requests %}
-	<input type="checkbox" name="comps" value="{{request}}"></input>
-	{{request}}<br>
+	<input type="checkbox" name="comps" value="{{request}}" id="{{request}}"></input>
+	<label for="{{request}}">{{request}}</label>
+	<br>
 	{% endfor %}<br>
-	<input type="submit" name="accept" value="Add to Team"></input>
-	<input type="submit" name="reject" value="Decline"></input>
+	<button class="waves-effect waves-light btn" type="submit" name="accept" value="Add to Team">Add to Team</button>
+	<button class="waves-effect waves-light btn" type="submit" name="decline" value="Decline">Decline</button><br><br>
 	<br>
 	{% endif %}
 	{% endif %}

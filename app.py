@@ -19,6 +19,10 @@ def homepage():
         rights = "public"
     else:
         user = session['user']
+        print user
+        print mongoutils.isNotAdmin(user)
+        print mongoutils.isNotCoach(user)
+        print mongoutils.isNotUser(user)
         if  mongoutils.isNotAdmin(user) and mongoutils.isNotCoach(user):
             rights = "competitor"
         elif mongoutils.isNotAdmin(user):
@@ -303,8 +307,8 @@ def team(tid):
 
 @app.route("/bracket/<int:tid>", methods = ['GET','POST'])
 def bracket(tid):
-    if 'user' not in session:
-        return redirect ("/login")
+    #if 'user' not in session:
+    #    return redirect ("/login")
     
     if request.method == 'POST':
         if request.form.has_key('logout'):
@@ -313,9 +317,25 @@ def bracket(tid):
     tjason = {"teams":mongoutils.getTournTeams(tid)}
     rjason = {"results":mongoutils.getTournResults(tid)}
     nom = mongoutils.getTournName(tid)
+    
+    rights = ""
+    if 'user' not in session:
+        rights = "public"
+    else:
+        user = session['user']
+        print user
+        print mongoutils.isNotAdmin(user)
+        print mongoutils.isNotCoach(user)
+        print mongoutils.isNotUser(user)
+        if  mongoutils.isNotAdmin(user) and mongoutils.isNotCoach(user):
+            rights = "competitor"
+        elif mongoutils.isNotAdmin(user):
+            rights = "coach"
+        else:
+            rights = "admin"
 
     return render_template("bracket.html",name=nom,teams=tjason,
-                           results=rjason,tid=tid)
+                           results=rjason,tid=tid,rights=rights)
 
 @app.route("/logout")
 def logout():

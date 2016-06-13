@@ -41,8 +41,8 @@
     <main>
       <h1>My Teams</h1>
       <form method="POST">
-	{% for team in teams %}
-	<input type="submit" name="old" value="{{team}}"><br>
+	{% for team in teams %}	
+	<button class="waves-effect waves-light btn" type="submit" name="old" value="{{team}}">{{team}}</button><br><br>
 	{% endfor %}
 	<br><br>
       </form>

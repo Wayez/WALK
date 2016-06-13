@@ -31,11 +31,23 @@
 		    <li class="logo"><a id="logo-container" href="" class="brand-logo">
 			<object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
 		    </li><br><br>
+		    	  {% if rights == "public" %}
+		    <li><a href="../login">Login / Register</a><li>               
+		      {% elif rights == "admin" %}
 		    <li><a href="../update/{{tid}}">Update This Tournament</a><li>                                                                      
 		    <li><a href="../admin">My Tournaments</a><li>
 		    <li><a href="../">All Tournaments</a><li>         
 		    <li><a href="../newtourn">New Tournament</a><li>         
 		    <li><a href="../logout">Log Out</a><li>
+		      {% elif rights == "coach" %}
+		    <li><a href="../newteam">New Team</a><li>
+		    <li><a href="../coach">My Teams</a><li>
+		    <li><a href="../logout">Log Out</a><li>
+		      {% elif rights == "competitor" %}
+		    <li><a href="../competitor">My Teams</a><li>
+		    <li><a href="../logout">Log Out</a><li>
+		      {% endif %}
+		    
 		  </ul>
 		  
 		  <ul id="nav-mobile" class="side-nav">
@@ -45,13 +57,23 @@
 			<object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
 			
 		    </a></li><br><br>
-		    
+		    {% if rights == "public" %}
+		    <li><a href="../login">Login / Register</a><li>               
+		      {% elif rights == "admin" %}
 		    <li><a href="../update/{{tid}}">Update This Tournament</a><li>                                                                             
 		    <li><a href="../admin">My Tournaments</a><li>         
 		    <li><a href="../">All Tournaments</a><li>         
 		    <li><a href="../newtourn">New Tournament</a><li>         
 		    <li><a href="../logout">Log Out</a><li>
-		      
+		      {% elif rights == "coach" %}
+		    <li><a href="../newteam">New Team</a><li>
+		    <li><a href="../coach">My Teams</a><li>
+		    <li><a href="../logout">Log Out</a><li>
+		      {% elif rights == "competitor" %}
+		    <li><a href="../competitor">My Teams</a><li>
+		    <li><a href="../logout">Log Out</a><li>
+		      {% endif %}
+
 		  </ul>
 		  
 		  
