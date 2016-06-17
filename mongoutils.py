@@ -340,7 +340,7 @@ def getAllTourns():
 Gets list of teams participating in the tournament
 
 Args:
-    tid: int team id
+    tid: int tourn id
 
 Returns:
     list of teams
@@ -354,7 +354,7 @@ def getTournTeams(tid):
 Gets name of tournament
 
 Args:
-    tid: team id
+    tid: tourn id
 
 Returns:
     string name
@@ -367,15 +367,17 @@ def getTournName(tid):
 Updates results of tournament
 
 Args:
-    tid: int team id
+    tid: int tourn id
     results: list of results
+    teams: list of teams
 
 Returns:
     none
 '''
-def updateResults(tid,results):
+def update(tid,results,teams):
+    print "pls"
+    #print tournsc.update({'_id':tid},{'$set':{'teams':teams}})
     print tournsc.update({'_id':tid},{'$set':{'results':results}})
-
 
 '''
 -------------------------------------------------------------------------------
