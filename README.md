@@ -5,18 +5,47 @@ Softdev 2 Final Project
 Science Bowl tournament management system
 
 ####Installing / Running
-- Have all the files in this github repository.
-- Have python installed.
-- Have flask, pymongo, urllib2 and simplejson installed via pip.
-- Run python app.py in the directory that you have all the files in.
+
+
+First, clone the repository using the following command:
+
+```
+$ git clone https://github.com/Wayez/WALK.git
+```
+
+
+This project required Python 2.7 to run. If that isn't installed, use this helpful [tutorial](http://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/#) to download, install, and configure Python.
+
+
+This project requires mongoDB to run. if that isn't installed, use this helpful [tutorial](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) to download, install, and configure mongoDB. 
+
+
+This project requires several python libraries. To install them, run the following commands:
+
+```
+$ pip install flask
+$ pip install pymongo
+$ pip install simplejson
+```
+The first time you are installing this project, run the following command to set up databases:
+
+```
+$ python mongoutils.py
+```
+
+To run this site:
+```
+$ python app.py
+```
+
 
 ####Collaborators
 |      **Member**     |               **Github**                    |
 |---------------------|---------------------------------------------|
-|Wayez Chowdhury      | [`@wayez`](https://github.com/wayez)        |
-|Liam Daly            | [`@ldalynyc`](https://github.com/ldalynyc)  |
-|Katherine Gershfeld  | [`@kagers`](https://github.com/kagers)      |
-|Alexander Sosnovsky  | [`@atrp--`](https://github.com/atrp--)      |
+|Wayez Chowdhury      | [`Wayez`](https://github.com/wayez)        |
+|Liam Daly            | [`ldalynyc`](https://github.com/ldalynyc)  |
+|Katherine Gershfeld  | [`kagers`](https://github.com/kagers)      |
+|Alexander Sosnovsky  | [`atrp--`](https://github.com/atrp--)      |
 
 ####To Do List
 - Login system with multiple types of users that have different rights
