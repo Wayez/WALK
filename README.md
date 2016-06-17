@@ -20,13 +20,13 @@ First, clone the repository using the following command:
 ```
 $ git clone https://github.com/Wayez/WALK.git
 ```
-
+<br>
 
 This project required Python 2.7 to run. If that isn't installed, use this helpful [tutorial](http://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/#) to download, install, and configure Python.
-
+<br>
 
 This project requires mongoDB to run. if that isn't installed, use this helpful [tutorial](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) to download, install, and configure mongoDB. 
-
+<br>
 
 This project requires several python libraries. To install them, run the following commands:
 
@@ -35,11 +35,14 @@ $ pip install flask
 $ pip install pymongo
 $ pip install simplejson
 ```
+<br>
+
 The first time you are installing this project, run the following command to set up databases:
 
 ```
 $ python mongoutils.py
 ```
+<br>
 
 To run this site:
 ```
@@ -68,12 +71,29 @@ This is only a log of key goals, click this [link](https://github.com/Wayez/WALK
 
 
 ####Features
--  
+Three user types with varying privelages 
+Admins:
+- Create double-elimination tournaments of up to 16 teams that do not have to be registered.
+- Update the teams that are participating as well as the scores in each of their tournaments.
+- Remove flags on tournament (To be implemented).
 
+Coaches:
+- Create teams of registered competitors.
+- Approve or deny requests by competitors to join their teams.
+- Update scores of tournaments that their team is participating in.
+- Flag the scores of tournaments that their team is participating in (To be implemented).
+
+Competitor:
+- Request to join teams.
+- Get alerts on where a game they will be participating in is being held (To be implemented).
+
+Non-Users:
+- Spectate tournament brackets.
+- 
 ####Bugs
 - Plus/Minus and SE/DE should not appear in update bracket
 - Nav bar logo disappears sometimes
-- Probably a lot more
+- Admins cannot change team names on update bracket page.
 
 ####Credits
 [JQuery Brackets](https://github.com/teijo/jquery-bracket)
