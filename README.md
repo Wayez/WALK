@@ -27,9 +27,16 @@ $ pip install flask
 $ pip install pymongo
 $ pip install simplejson
 ```
-The first time you are in 
-To run this site:
+The first time you are installing this project, run the following command to set up databases:
 
+```
+$ python mongoutils.py
+```
+
+To run this site:
+```
+$ python app.py
+```
 
 
 ####Collaborators
