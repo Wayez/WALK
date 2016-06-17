@@ -89,7 +89,8 @@ Competitor:
 
 Non-Users:
 - Spectate tournament brackets.
-- 
+
+
 ####Bugs
 - Plus/Minus and SE/DE should not appear in update bracket
 - Nav bar logo disappears sometimes
