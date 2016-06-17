@@ -4,6 +4,14 @@ Softdev 2 Final Project
 ###About
 Science Bowl tournament management system
 
+####Collaborators
+|      **Member**     |               **Github**                    |
+|---------------------|---------------------------------------------|
+|Wayez Chowdhury      | [`Wayez`](https://github.com/wayez)         |
+|Liam Daly            | [`ldalynyc`](https://github.com/ldalynyc)   |
+|Katherine Gershfeld  | [`kagers`](https://github.com/kagers)       | 
+|Alexander Sosnovsky  | [`atrp--`](https://github.com/atrp--)       |
+
 ####Installing / Running
 
 
@@ -38,23 +46,31 @@ To run this site:
 $ python app.py
 ```
 
+####Development Log
+This is only a log of key goals, click this [link](https://github.com/Wayez/WALK/blob/master/devlog.txt) for a full development log.
 
-####Collaborators
-|      **Member**     |               **Github**                    |
-|---------------------|---------------------------------------------|
-|Wayez Chowdhury      | [`Wayez`](https://github.com/wayez)        |
-|Liam Daly            | [`ldalynyc`](https://github.com/ldalynyc)  |
-|Katherine Gershfeld  | [`kagers`](https://github.com/kagers)      |
-|Alexander Sosnovsky  | [`atrp--`](https://github.com/atrp--)      |
+05-17-2016
+  Implemented Bracket View of Tournaments
+  
+05-22-2016
+  Completed login system for administrators and competitors
+  
+05-25-2016
+  Admins able to create tournaments
+  
+05-31-2016
+  Implemented coaches
+  
+06-07-2016
+  Tournaments can now be updated.
+  
 
-####To Do List
-- Login system with multiple types of users that have different rights
-- Brackets visual that can represent double elimination and round robin tournaments
-- Efficient user interface that allows for up to date scoring during live events
-- Mobile or email notifications to users
-- Overall visual representation of the event, including a map of the area displaying where every game is being played
 
-####Bugs / Features
+
+####Features
+-  
+
+####Bugs
 - Plus/Minus and SE/DE should not appear in update bracket
 - Nav bar logo disappears sometimes
 - Probably a lot more
