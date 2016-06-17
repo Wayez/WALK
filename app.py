@@ -155,6 +155,13 @@ def admin():
 
     return render_template("admin.html",tourns=tornus)
 
+@app.route("/validate", methods = ['GET','POST'])
+def valid():
+    if 'user' not in session:
+        return redirect("/login")
+    user = session['user']
+    return render_template("validate.html")
+
 @app.route("/coach", methods = ['GET','POST'])
 def coach():
     if 'user' not in session:

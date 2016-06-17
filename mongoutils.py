@@ -2,6 +2,7 @@ from pymongo import MongoClient
 import pymongo
 import hashlib
 import simplejson
+import random
 
 connection = MongoClient()
 db = connection['WALK']
@@ -11,6 +12,7 @@ tournsc  = db.tourns
 teamsc   = db.teams
 coachesc = db.coaches
 gamesc = db.games
+
 
 '''
 -------------------------------------------------------------------------------
@@ -160,7 +162,7 @@ def addUser(username,password,email):
             n = usersc.find_one(sort=[('_id',-1)])
             idu = int(n['_id'])+1
         password = encrypt(password)
-        r = {'_id':idu, 'name':username, 'password':password, 'email':email}
+        r = {'_id':idu, 'name':username, 'password':password, 'email':email, 'valid':False}
         usersc.insert(r)
         return True
     return False
@@ -175,7 +177,7 @@ def addAdmin(username,password,email):
             n = adminsc.find_one(sort=[('_id',-1)])
             ida = int(n['_id'])+1
         password = encrypt(password)
-        r = {'_id':ida, 'name':username, 'password':password, 'email':email}
+        r = {'_id':ida, 'name':username, 'password':password, 'email':email, 'valid':False}
         adminsc.insert(r)
         return True
     return False
@@ -190,7 +192,7 @@ def addCoach(username, password, email):
             n = coachesc.find_one(sort=[('_id',-1)])
             idc = int(n['_id'])+1
         password = encrypt(password)
-        r = {'_id':idc, 'name':username, 'password':password, 'email':email}
+        r = {'_id':idc, 'name':username, 'password':password, 'email':email, 'valid':False}
         coachesc.insert(r)
         return True
     return False
@@ -235,6 +237,30 @@ def isNotCoach(name):
             redir = False
     return redir
 
+def isValidCoach(name):
+    coaches = coachesc.find({'name':name},{'_id':0,'name':1,'valid':1})
+    print coaches
+    return coaches['valid']
+
+def isValidAdmin(name):
+    coaches = adminsc.find({'name':name},{'_id':0,'name':1,'valid':1})
+    print admins
+    return admins['valid']
+
+def isValidUser(name):
+    coaches = usersc.find({'name':name},{'_id':0,'name':1,'valid':1})
+    print users
+    return users['valid']
+
+def validateCoach(name):
+    print coachesc.update({'name':name},{'$set':{'valid':True}})
+
+def validateAdmin(name):
+    print adminsc.update({'name':name},{'$set':{'valid':True}})
+
+def validateUser(name):
+    print usersc.update({'name':name},{'$set':{'valid':True}})
+    
 '''
 -------------------------------------------------------------------------------
 --------------------------------Tournaments------------------------------------

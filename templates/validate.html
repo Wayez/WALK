@@ -29,50 +29,26 @@
 	  <li class="logo"><a id="logo-container" href="" class="brand-logo">
 	      <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
 	  </li><br><br>
-	  {% if rights == "public" %}
-	  <li><a href="/login">Login / Register</a><li>                
-	    {% elif rights == "admin" %}
-	  <li><a href="newtourn">New Tournament</a><li>
-	  <li><a href="admin">My Tournaments</a><li>
-	  <li><a href="logout">Log Out</a><li>
-	    {% elif rights == "coach" %}
-	  <li><a href="newteam">New Team</a><li>
-	  <li><a href="coach">My Teams</a><li>
-	  <li><a href="logout">Log Out</a><li>
-	    {% elif rights == "competitor" %}
-	  <li><a href="competitor">My Teams</a><li>
-	  <li><a href="logout">Log Out</a><li>
-	    {% endif %}
-         	</ul>
+	  <li><a href="logout">Log Out</a><li></ul>
 	<ul id="nav-mobile" class="side-nav">
 	  <li class="logo"><a id="logo-container" href="" class="brand-logo">
 	      <object id="front-page-logo" type="image/png" data="http://i.imgur.com/Hrv0mVF.png"></object>
 	  </a></li><br><br>
-	  {% if rights == "public" %}
-	  <li><a href="/login">Login / Register</a><li>                
-	    {% elif rights == "admin" %}
-	  <li><a href="newtourn">New Tournament</a><li>
-	  <li><a href="admin">My Tournaments</a><li>
-	  <li><a href="logout">Log Out</a><li>
-	    {% elif rights == "coach" %}
-	  <li><a href="newteam">New Team</a><li>
-	  <li><a href="coach">My Teams</a><li>
-	  <li><a href="logout">Log Out</a><li>
-	    {% elif rights == "competitor" %}
-	  <li><a href="competitor">My Teams</a><li>
-	  <li><a href="logout">Log Out</a><li>
-	    {% endif %}</ul>
+	  <li><a href="logout">Log Out</a><li></ul>
       </header>
       
       <main>
-	<h1>All Tournaments</h1><br>
-	{% autoescape false %}
-	{% for t in allTourns %}
+	<h1>Validate</h1><br>
 	
-	<h4><a href="bracket/{{allTourns[t]}}">{{t}}</a></h4>
-	
-	{% endfor %}
-	{% endautoescape %}
+	<form class="col s12">
+	  <div class="row">
+            <div class="input-field col s12">
+	      <textarea id="textarea1" class="materialize-textarea"></textarea>
+	      <label for="textarea1">Validation Code</label>
+            </div>
+	  </div>
+	  <button class="waves-effect waves-light btn" type="submit" name="validate">Validate</button><br><br>
+	</form>
 	
 	<script type="text/javascript">
           $(document).ready(function() {
