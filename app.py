@@ -4,6 +4,7 @@ from datetime import datetime
 import mongoutils
 import json
 import random
+import os
 
 app = Flask(__name__)
 
@@ -386,9 +387,8 @@ def update(tid):
 
 if __name__ == '__main__':
     app.secret_key = "hello"
-    app.debug = True
     app.threaded = True
     app.run(host='0.0.0.0', port=8000)
 else:
     app.secret_key = "hello"
-    app.debug = True
+    
