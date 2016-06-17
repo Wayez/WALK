@@ -5,10 +5,23 @@ Softdev 2 Final Project
 Science Bowl tournament management system
 
 ####Installing / Running
-- Have all the files in this github repository.
-- Have python installed.
-- Have flask, pymongo, urllib2 and simplejson installed via pip.
-- Run python app.py in the directory that you have all the files in.
+
+
+First, clone the repository using the following command:
+```
+$ git clone https://github.com/Wayez/WALK.git
+```
+
+This project required Python 2.7 to run. If that isn't installed, use this [`link`](http://tecadmin.net/install-python-2-7-on-ubuntu-and-linuxmint/#) to download, install, and configure Python.
+
+This project requires the following python libraries. To install them, run the following commands:
+```
+$ pip install flask
+$ pip install pymongo
+$ pip install simplejson
+```
+
+
 
 ####Collaborators
 |      **Member**     |               **Github**                    |
