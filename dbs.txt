@@ -1,15 +1,15 @@
-database database
+database WALK
 
     collections
     
         users  (users)
-            id, name, password, tournament ids
+            id, name, password, email
             
         admins (administrators)
-            id, name, password
+            id, name, password, email
 
 	coaches (coaches)
-	    id, name, password, school
+	    id, name, password, email
             
         tourns (tournaments)
             id, name, teams, results, admin id 

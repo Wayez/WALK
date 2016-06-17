@@ -1,10 +1,10 @@
 from pymongo import MongoClient
 import pymongo
 import hashlib
-import simplejson, urllib2
+import simplejson
 
 connection = MongoClient()
-db = connection['database']
+db = connection['WALK']
 usersc   = db.users
 adminsc  = db.admins
 tournsc  = db.tourns
@@ -529,39 +529,6 @@ def createTeam(name, coach, idus):
         return True
     return False
 
-#createTeam("Knife", "brown", [1, 2, 3, 4, 5])
-#createTeam("Bird", "brown", [1 , 3 , 5, 6, 3, 1])
-'''
-#approve(3, "wayez")
-print "Get Team Members:"
-print getTeamMembers("WALK")
-print
-print "Get Team Requests"
-print getTeamRequests("WALK")
-print
-joinTeam(1, 6)
-joinTeam(1, 7)
-joinTeam(1, 8)
-joinTeam(1, 9)
-joinTeam(1, 10)
-print "Get Team Members after Join:"
-print getTeamMembers("WALK")
-print
-print "Get Team Requests after Join:"
-print getTeamRequests("WALK")
-print
-approve(1, "bill")
-reject(1, "ted")
-approve(1, "mykolyk")
-reject(1, "ShaJha")
-approve(1, "h")
-print "Get Team Members after approve/deny:"
-print getTeamMembers("WALK")
-print
-print "Get Team Requests after approve/deny:"
-print getTeamRequests("WALK")
-print
-'''
 '''
 -------------------------------------------------------------------------------
 --------------------------------Miscellaneous----------------------------------
@@ -581,3 +548,11 @@ def encrypt(word):
     hashp = hashlib.md5()
     hashp.update(word)
     return hashp.hexdigest()
+
+
+if __name__ == "__main__":
+    db.drop_collection("tourns")
+    db.drop_collection("coaches")
+    db.drop_collection("users")
+    db.drop_collection("admins")
+    db.drop_collection("teams")
