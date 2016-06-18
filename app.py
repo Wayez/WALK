@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, request
 from flask import redirect, url_for
 from datetime import datetime
 import mongoutils
+import emailutils
 import json
 import random
 import os
@@ -47,16 +48,22 @@ def login():
             user = str(req['user'])
             password = str(req['pass'])
             user_type = str(req['rights'])
-
+            
             if user_type == "admin" and mongoutils.authenticateA(user,password):
                 session['user'] = user
-                return redirect("/admin")
+                if mongoutils.isValidAdmin(user):
+                    return redirect("/admin")
+                return redirect("/validate")
             if user_type == "competitor" and mongoutils.authenticateU(user,password):
                 session['user'] = user
-                return redirect("/competitor")
+                if mongoutils.isValidUser(user):
+                    return redirect("/competitor")
+                return redirect("/validate")
             if user_type == "coach" and mongoutils.authenticateC(user,password):
                 session['user'] = user
-                return redirect("/coach")
+                if mongoutils.isValidCoach(user):
+                    return redirect("/coach")
+                return redirect("/validate")
             else:
                 error = "Incorrect Username or Password. Try Again."
                 return render_template("index.html",error=error)
@@ -84,15 +91,16 @@ def login():
                 session['user'] = user
                 #print user_type
                 #print user_type == "admin"
+                emailutils.send_confirmation(user, email)
                 if user_type == "admin":
                     mongoutils.addAdmin(user,password,email)
-                    return redirect("/admin")
+                    return redirect("/validate")
                 if user_type == "coach":
                     mongoutils.addCoach(user, password, email)
-                    return redirect("/coach")
+                    return redirect("/validate")
                 else:
                     mongoutils.addUser(user, password, email)
-                    return redirect("/competitor")
+                    return redirect("/validate")
     return render_template("index.html") #login failed
 
 #print mongoutils.getCompTeams('wayez')
@@ -160,6 +168,17 @@ def valid():
     if 'user' not in session:
         return redirect("/login")
     user = session['user']
+    if request.method == "POST":
+        if request.form.has_key("validate"):
+            code = str(request.form['validate'])
+            if mongoutils.is_valid(user, code):
+                if not mongoutils.isNotAdmin(user):
+                    return redirect("/admin")
+                if not mongoutils.isNotCoach(user):
+                    return redirect("/coach")
+                return redirect("/user")
+            else:
+                return render_template('validate.html')
     return render_template("validate.html")
 
 @app.route("/coach", methods = ['GET','POST'])

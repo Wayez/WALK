@@ -12,6 +12,7 @@ tournsc  = db.tourns
 teamsc   = db.teams
 coachesc = db.coaches
 gamesc = db.games
+codesc = db.codes
 
 
 '''
@@ -243,12 +244,12 @@ def isValidCoach(name):
     return coaches['valid']
 
 def isValidAdmin(name):
-    coaches = adminsc.find({'name':name},{'_id':0,'name':1,'valid':1})
+    admins = adminsc.find({'name':name},{'_id':0,'name':1,'valid':1})
     print admins
     return admins['valid']
 
 def isValidUser(name):
-    coaches = usersc.find({'name':name},{'_id':0,'name':1,'valid':1})
+    users = usersc.find({'name':name},{'_id':0,'name':1,'valid':1})
     print users
     return users['valid']
 
@@ -446,7 +447,7 @@ def getCompTeams(competitor):
     return ret
 
 #print 3
-print getCompTeams('liam')
+#print getCompTeams('liam')
 
 def getTeamMembers(name):
     result =  teamsc.find_one({'name':name}, {'idus':1})
@@ -519,23 +520,23 @@ def approve(tid, user):
 def reject(tid, user):
     team = getTeam(tid)
     idus = getTeamMembers(team)
-    print idus
-    print "xxxxxxxxxxxxxxxxxxx"
+    #print idus
+    #print "xxxxxxxxxxxxxxxxxxx"
     for i in range(len(idus)):
         idus[i] = {'id': getUserId(idus[i]), 'approved': True}
     idus2 = getTeamRequests(team)
-    print idus2
-    print "yyyyyyyyyyyyyyyyyyyy"
+    #print idus2
+    #print "yyyyyyyyyyyyyyyyyyyy"
     for i in range(len(idus2)):
         idus2[i] = {'id': getUserId(idus2[i]), 'approved':False}
     for x in idus2:
         if x["id"] == getUserId(user):
-            print "declining" + user
+     #       print "declining" + user
         else:
-            print x["id"]
-            print "zzzzzzzzzzzzzzzzzzzz"
+            #print x["id"]
+            #print "zzzzzzzzzzzzzzzzzzzz"
             idus.append(x)
-    print idus
+    #print idus
     teamsc.update({'name':team}, {'$set': {'idus': idus}})
 
 
@@ -576,7 +577,28 @@ def encrypt(word):
     hashp = hashlib.md5()
     hashp.update(word)
     return hashp.hexdigest()
-
+    
+def addCode(user, code):
+    if codesc.find_one({'name':username}) == None:
+        r = {'name':username, 'code':code}
+        codesc.insert(r)
+        return True
+    else:
+        codes.update({'name':user}, {"$set" : {"code":code}})
+        return True
+    return False
+    
+def is_valid(user, code):
+    real_code = codesc.find_one({"user":user}, {"code":1})
+    if real_code == code:
+        if not isNotAdmin(user):
+            validateAdmin(user)
+        elif not isNotCoach(user):
+            validateCoach(user)
+        else:
+            validateUser(user)
+        return True
+    return False
 
 if __name__ == "__main__":
     db.drop_collection("tourns")
@@ -584,3 +606,4 @@ if __name__ == "__main__":
     db.drop_collection("users")
     db.drop_collection("admins")
     db.drop_collection("teams")
+    db.drop_collection("codes")

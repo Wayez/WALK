@@ -7,21 +7,21 @@ from email.mime.text import MIMEText
 
 #creates a log in the users log file with a message and a timestamp
 #returns True upon successful completion
-def log(user, message):
-    try:
+#def log(user, message):
+ #   try:
         #open file at logs/user"
-        logFile = open("logs/"+user+".txt","a")
+ #       logFile = open("logs/"+user+".txt","a")
 
         #generate timestamp
-        currentTime = time.strftime("%c")
+#        currentTime = time.strftime("%c")
 
         #write message to file
-        logFile.write(currentTime+": "+message+"\n")
-        logFile.close()
-        return True
-    except:
+#        logFile.write(currentTime+": "+message+"\n")
+#        logFile.close()
+#        return True
+#    except:
         #you're actuall pretty screwed... you can't exactly read the log file if the log function is broken...
-        return False
+#        return False
 
 #sends an email from the addres: walksciencebowl@gmail.com to user
 #returns True upon successful completion, otherwise returns false and makes a log in the user's logs file
@@ -50,5 +50,12 @@ def email(user, subject, message):
         s.quit()
         return True
     except:
-        log(user,"unable to send message: "+message)
+        #log(user,"unable to send message: "+message)
         return False
+
+def send_confirmation(user, email_address):
+    code = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
+    mongoutils.addCode(user, code)
+    subject = "Science Bowl Email Confirmation"
+    message = "Thank you for registering for the National Science Bowl, please use the following code to confirm your email: " + code
+    email(email_address, subject, message)
